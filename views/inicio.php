@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbería Estilo | Inicio</title>
+    <!-- Vinculamos el CSS -->
+    <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>💈 Barbería Estilo</h1>
+        <nav>
+            <a href="index.php?ver=inicio">Inicio</a>
+            <a href="index.php?ver=reservar">Reservar Cita</a>
+            <a href="index.php?ver=login">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Nuestros Servicios</h2>
+        <p>Calidad y estilo en cada corte.</p>
+
+        <div class="grid-servicios">
+            <?php if (empty($servicios)): ?>
+                <p>No hay servicios disponibles en este momento.</p>
+            <?php else: ?>
+                <!-- Bucle para mostrar cada servicio de la Base de Datos -->
+                <?php foreach ($servicios as $servicio): ?>
+                    <div class="tarjeta">
+                        <h3><?php echo htmlspecialchars($servicio['nombre']); ?></h3>
+                        <p class="precio">$<?php echo number_format($servicio['precio'], 2); ?></p>
+                        <p class="desc"><?php echo htmlspecialchars($servicio['descripcion']); ?></p>
+                        <small>⏱ <?php echo $servicio['duracion_minutos']; ?> mins</small>
+                        <br>
+                        <button>Reservar</button>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Barbería Estilo - Sistema MVC</p>
+    </footer>
+
+</body>
+</html>

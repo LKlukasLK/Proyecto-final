@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Barbería Estilo</title>
+    <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>🔐 Iniciar Sesión</h1>
+        <nav>
+            <a href="index.php?ver=inicio">Volver al Inicio</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Caja del Formulario -->
+        <div class="formulario-caja">
+            <h2>Acceso Clientes</h2>
+            
+            <form action="index.php?ver=autenticar" method="POST">
+                
+                <label>Correo Electrónico:</label>
+                <input type="email" name="email" placeholder="ejemplo@correo.com" required>
+                
+                <label>Contraseña:</label>
+                <input type="password" name="password" placeholder="******" required>
+
+                <button type="submit">Entrar</button>
+            
+            </form>
+
+            <br>
+            <p>¿No tienes cuenta? (Pídeme el código para registrarte)</p>
+            
+            <!-- Datos de prueba para que no se te olviden -->
+            <div style="background: #444; padding: 10px; margin-top: 20px; font-size: 0.9em;">
+                <strong>Datos de prueba:</strong><br>
+                User: test@correo.com<br>
+                Pass: 12345
+            </div>
+        </div>
+    </main>
+</body>
+</html>
