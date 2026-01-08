@@ -9,7 +9,7 @@
     <header>
         <h1>🔐 Iniciar Sesión</h1>
         <nav>
-            <a href="index.php?ver=inicio">Volver al Inicio</a>
+            <a href="index.php?ver=inicio">Volver al Inicio me cago en dios</a>
         </nav>
     </header>
 
