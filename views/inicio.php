@@ -14,7 +14,7 @@
         <nav>
             <a href="index.php?ver=inicio">Inicio</a>
             <a href="index.php?ver=reservar">Reservar Cita</a>
-            <a href="index.php?ver=login">Login</a>
+            <a href="index.php?ver=login">Logirern</a>
         </nav>
     </header>
 
