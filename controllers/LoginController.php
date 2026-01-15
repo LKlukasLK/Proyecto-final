@@ -20,9 +20,9 @@ class LoginController {
                 // Guardamos datos en sesión
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_nombre'] = $usuario['nombre'];
-                header("Location: index.php?ver=reservar"); // Lo mandamos a reservar
+                header("Location: index.html?ver=reservar"); // Lo mandamos a reservar
             } else {
-                echo "<script>alert('Usuario o contraseña incorrectos'); window.location.href='index.php?ver=login';</script>";
+                echo "<script>alert('Usuario o contraseña incorrectos'); window.location.href='index.html?ver=login';</script>";
             }
         }
     }
