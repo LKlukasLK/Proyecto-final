@@ -4,7 +4,7 @@ require_once 'models/UsuarioModel.php';
 class LoginController {
     // Muestra el formulario
     public function index() {
-        require_once 'views/login.php';
+        require_once 'views/login.html';
     }
 
     // Procesa el formulario

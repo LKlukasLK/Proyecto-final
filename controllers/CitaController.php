@@ -18,7 +18,7 @@ class CitaController {
         $serviciosModel = new ServicioModel();
         $servicios = $serviciosModel->obtenerTodos();
 
-        require_once 'views/reservar.php';
+        require_once 'views/reservar.html';
     }
 
     public function guardar() {
