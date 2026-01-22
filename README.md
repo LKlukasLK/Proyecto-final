@@ -41,3 +41,22 @@ El proyecto sigue una estructura organizada para mantener la escalabilidad del c
 ├── 📂 views/         # Interfaz de usuario (Plantillas)
 ├── 📂 assets/        # Recursos estáticos (CSS, Imágenes, JS)
 └── index.php         # Punto de entrada y Catálogo principal
+
+## 📋 Planificación y Responsabilidades
+
+### 🛠️ Backend & Base de Datos
+- [ ] 🗄️ **Base de Datos:** Diseño de tablas, relaciones y scripts SQL. (**Aaron**)
+- [ ] ⚙️ **Módulo Admin:** Desarrollo del panel para gestión de stock, disponibilidad y carga de nuevos productos.
+
+### 🎨 Frontend & Vistas
+- [ ] 👕 **Página de Productos:** Diseño y maquetación del catálogo principal. (**Lucas**)
+- [ ] 🔍 **Vista de Producto:** Interfaz detallada para la visualización individual de prendas. (**Ancor**)
+- [ ] 🔑 **Login / Registro:** Sistema de acceso, validación de formularios y seguridad. (**Abi**)
+- [ ] 🛒 **Carrito de Compras:** Desarrollo de la lógica de compra y el menú desplegable (mini-cart). (**Cristian**)
+
+---
+
+## ❓ Pendientes de Preguntar
+> [!IMPORTANT]
+> **Estructura del Panel Administrativo:**  
+> ¿Se implementará como una sección protegida dentro de la carpeta `/views` o como un directorio independiente (`/admin`) para separar totalmente la lógica de mensajería y gestión de productos?
