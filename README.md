@@ -41,6 +41,7 @@ El proyecto sigue una estructura organizada para mantener la escalabilidad del c
 ├── 📂 views/         # Interfaz de usuario (Plantillas)
 ├── 📂 assets/        # Recursos estáticos (CSS, Imágenes, JS)
 └── index.php         # Punto de entrada y Catálogo principal
+```
 
 ## 📋 Planificación y Responsabilidades
 
