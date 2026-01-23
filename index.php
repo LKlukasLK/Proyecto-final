@@ -21,8 +21,8 @@ switch ($pagina) {
         break;
     
     case 'catalogo':
-        require_once 'controllers/HomeController.php';
-        $controller = new HomeController();
+        require_once 'controllers/CatalogoController.php';
+        $controller = new CatalogoController();
         $controller->catalogo();
         break;
 

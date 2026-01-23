@@ -5,7 +5,7 @@ class ServicioModel {
     public function obtenerTodos() {
         $pdo = Database::conectar();
         // Seleccionamos todo de la tabla servicios
-        $stmt = $pdo->query("SELECT * FROM servicios");
+        $stmt = $pdo->query("SELECT * FROM productos");
         return $stmt->fetchAll();
     }
 }
