@@ -1,8 +1,8 @@
 <?php
 class Database {
     public static function conectar() {
-        $host = 'localhost:3309';
-        $db   = 'barberia_db'; // <--- Confirma que este es el nombre en phpMyAdmin
+        $host = 'localhost';//! <--- Confirma que este es el host correcto y puertro es correcto 
+        $db   = 'mercado_ropa_db'; // <--- Confirma que este es el nombre en phpMyAdmin
         $user = 'root';
         $pass = '';
         $charset = 'utf8mb4';
@@ -16,7 +16,7 @@ class Database {
             ];
             return new PDO($dsn, $user, $pass, $options);
         } catch (PDOException $e) {
-            die("¡Error de conexión!: " . $e->getMessage());
+            die("¡Error de conexión!: " . $e->getMessage() . " " . $e->getCode() . " " . $e->getLine());
         }
     }
 }

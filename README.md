@@ -1,4 +1,4 @@
-# 👕 ClothStyle - Tienda de Ropa (PHP Puro)
+# 👕 Tienda de Ropa 
 
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000f?style=for-the-badge&logo=mysql&logoColor=white)
@@ -61,3 +61,8 @@ El proyecto sigue una estructura organizada para mantener la escalabilidad del c
 > [!IMPORTANT]
 > **Estructura del Panel Administrativo:**  
 > ¿Se implementará como una sección protegida dentro de la carpeta `/views` o como un directorio independiente (`/admin`) para separar totalmente la lógica de mensajería y gestión de productos?
+
+---
+---
+
+# ‼️Herramientas necesarias
