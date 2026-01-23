@@ -1,5 +1,5 @@
 <?php
-require_once 'config/db.php';
+require_once __DIR__.'/../config/db.php';
 
 class CitaModel {
     public function crearCita($usuario_id, $barbero_id, $servicio_id, $fecha_hora) {

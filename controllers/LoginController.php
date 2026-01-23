@@ -1,10 +1,10 @@
 <?php
-require_once 'models/UsuarioModel.php';
+require_once __DIR__.'/../models/UsuarioModel.php';
 
 class LoginController {
     // Muestra el formulario
     public function index() {
-        require_once 'views/login.html';
+        require_once __DIR__.'/../views/login.html';
     }
 
     // Procesa el formulario
@@ -20,9 +20,9 @@ class LoginController {
                 // Guardamos datos en sesión
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_nombre'] = $usuario['nombre'];
-                header("Location: index.html?ver=reservar"); // Lo mandamos a reservar
+                header("Location: index.php?ver=reservar"); // Lo mandamos a reservar
             } else {
-                echo "<script>alert('Usuario o contraseña incorrectos'); window.location.href='index.html?ver=login';</script>";
+                echo "<script>alert('Usuario o contraseña incorrectos'); window.location.href='index.php?ver=login';</script>";
             }
         }
     }

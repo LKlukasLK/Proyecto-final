@@ -1,5 +1,5 @@
 <?php
-require_once 'models/ServicioModel.htm';
+require_once __DIR__ . '/../models/ServicioModel.php';
 
 class HomeController {
     public function index() {
@@ -8,7 +8,7 @@ class HomeController {
         $servicios = $servicioModel->obtenerTodos();
 
         // 2. Cargar la vista y enviarle los datos
-        require_once 'views/inicio.html';
+        require_once __DIR__ . '/../views/inicio.html';
     }
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
-require_once 'models/BarberoModel.php';
-require_once 'models/ServicioModel.php';
-require_once 'models/CitaModel.php';
+require_once __DIR__.'/../models/BarberoModel.php';
+require_once __DIR__.'/../models/ServicioModel.php';
+require_once __DIR__.'/../models/CitaModel.php';
 
 class CitaController {
     public function index() {
@@ -18,7 +18,7 @@ class CitaController {
         $serviciosModel = new ServicioModel();
         $servicios = $serviciosModel->obtenerTodos();
 
-        require_once 'views/reservar.html';
+        require_once __DIR__.'/../views/reservar.php';
     }
 
     public function guardar() {
