@@ -66,3 +66,5 @@ El proyecto sigue una estructura organizada para mantener la escalabilidad del c
 ---
 
 # ‼️Herramientas necesarias
+*  **Better Comments** (https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
+*  **Image preview** (https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-gutter-preview)
