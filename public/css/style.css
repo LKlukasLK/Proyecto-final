@@ -7,13 +7,17 @@ body {
 }
 
 header {
-    background-color: #ffffff;
+    background-color: #000000;
     padding: 20px;
     border-bottom: 3px solid #d4af37; /* Color dorado */
 }
+header > h1 {
+    color: #d4c937;
+    margin: 0;
+}
 
 nav a {
-    color: white;
+    color: rgb(255, 255, 255);
     margin: 0 15px;
     text-decoration: none;
     font-weight: bold;
@@ -85,7 +89,37 @@ header {
     align-items: center;
     padding: 15px 30px;
     position: relative;
+    flex-direction: column;
 }
+
+/*//////////////////////////////////////////////////////////////*/
+/*TODO: ajustar el logo y el menu de inicio de sesión en una sola linea*/
+.box_reg {
+    display: flex;
+    justify-content: center; /* Centra el contenido principal (Mercado Ropa) */
+    align-items: center;
+    padding: 15px 30px;
+    position: relative; /* Necesario para que el hijo absoluto se guíe por este contenedor */
+    width: 100%;
+}
+
+.box_reg h1 {
+    color: #d4c937;
+    margin: 0;
+}
+.box_reg a {
+    color: #e4dc70af;
+    margin: 0;
+}
+
+/* Seleccionamos específicamente el segundo h1 (el de usuario-menu) */
+.box_reg a:last-of-type {
+    position: absolute;
+    right: 30px; /* Lo empuja a la derecha respetando el padding */
+    font-size: 1.2rem; /* Opcional: ajustar tamaño si es un menú */
+}
+
+
 
 /* El contenedor del nombre del usuario */
 .usuario-menu {

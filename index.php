@@ -19,6 +19,12 @@ switch ($pagina) {
         $controller = new HomeController();
         $controller->index();
         break;
+    
+    case 'catalogo':
+        require_once 'controllers/HomeController.php';
+        $controller = new HomeController();
+        $controller->catalogo();
+        break;
 
     case 'login':
         require_once 'controllers/LoginController.php';
