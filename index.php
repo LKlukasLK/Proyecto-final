@@ -1,18 +1,15 @@
 <?php
+// 1. Siempre lo primero: iniciar sesión
+session_start(); 
 
-// echo "<h2>¿Qué hay en la carpeta models?</h2>";
-// echo "<pre>";
-// $archivos = scandir('models'); // Escanea la carpeta models
-// print_r($archivos);
-// echo "</pre>";
-// echo "<hr>";
+// 2. Opcional: Configurar reporte de errores (útil mientras programas)
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-session_start(); // Iniciamos sesiones para saber si el usuario está logueado
-
-// Obtenemos la página que quiere ver el usuario (si no hay, va a 'inicio')
+// 3. Obtener la página
 $pagina = $_GET['ver'] ?? 'inicio';
 
-// ENRUTADOR SIMPLE
+// 4. ENRUTADOR
 switch ($pagina) {
     case 'inicio':
         require_once 'controllers/HomeController.php';
@@ -32,10 +29,22 @@ switch ($pagina) {
         $controller->index();
         break;
 
-    case 'autenticar': // Procesa el formulario de login
+    case 'autenticar':
         require_once 'controllers/LoginController.php';
         $controller = new LoginController();
         $controller->login();
+        break;
+
+    case 'registro':
+        require_once 'controllers/RegistroController.php';
+        $controller = new RegistroController();
+        $controller->index();
+        break;
+
+    case 'procesar_registro':
+        require_once 'controllers/RegistroController.php';
+        $controller = new RegistroController();
+        $controller->registrar();
         break;
 
     case 'reservar':
@@ -44,19 +53,22 @@ switch ($pagina) {
         $controller->index();
         break;
 
-    case 'guardar_cita': // Procesa el formulario de reserva
+    case 'guardar_cita':
         require_once 'controllers/CitaController.php';
         $controller = new CitaController();
         $controller->guardar();
         break;
 
     case 'logout':
-        session_destroy();
-        header("Location: index.php");
+        // Limpieza total de sesión
+        $_SESSION = array(); // Vacía el array
+        session_destroy();   // Destruye la sesión en el servidor
+        header("Location: index.php?ver=inicio");
+        exit();
         break;
 
     default:
-        echo "Página no encontrada";
+        // En lugar de un simple echo, podrías cargar una vista de error 404
+        echo "<h1>404 - Página no encontrada</h1><a href='index.php'>Volver al inicio</a>";
         break;
 }
-?>

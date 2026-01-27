@@ -1,30 +1,38 @@
 <?php
-require_once __DIR__.'/../models/UsuarioModel.php';
+require_once 'models/UsuarioModel.php';
 
 class LoginController {
-    // Muestra el formulario
     public function index() {
-        require_once __DIR__.'/../views/login.html';
+        require_once 'views/login.html';
     }
 
-    // Procesa el formulario
     public function login() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+        // 1. Iniciar sesión al principio si no está iniciada
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-            $modelo = new UsuarioModel();
-            $usuario = $modelo->verificarUsuario($email, $password);
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-            if ($usuario) {
-                // Guardamos datos en sesión
-                $_SESSION['id'] = $usuario['id'];
-                $_SESSION['nombre'] = $usuario['nombre'];
-                header("Location: index.php?ver=inicio"); 
-            } else {
-                echo "<script>alert('Usuario o contraseña incorrectos'); window.location.href='index.php?ver=login';</script>";
+        $modelo = new UsuarioModel();
+        $usuario = $modelo->verificarUsuario($email, $password);
+
+        if ($usuario) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
             }
+            $_SESSION['id'] = $usuario['id'];
+            $_SESSION['nombre'] = $usuario['nombre'];
+            $_SESSION['rol'] = $usuario['rol'];
+
+            // Usamos JavaScript para redirigir (es más fiable si hay problemas de headers)
+            if ($usuario['rol'] === 'admin') {
+                echo "<script>window.location.href = 'admin/index.html';</script>";
+            } else {
+                echo "<script>window.location.href = 'index.php?ver=inicio';</script>";
+            }
+            exit(); 
         }
     }
 }
-?>
