@@ -45,7 +45,8 @@ header {
 
 .box_reg h1 {
     color: #d4c937;
-    margin: 0;
+    margin: 0 auto; 
+    text-align: center;
 }
 
 .box_reg a {
@@ -124,6 +125,15 @@ nav a {
     font-weight: bold;
 }
 
+.box_reg .logo-header {
+    position: absolute;
+    left: 30px; /* Misma distancia que el menú pero al otro lado */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50px; /* Ajusta el tamaño que quieras para tu logo */
+    width: auto;
+}
+
 
 /** /////////////////////////////////////////////////////*/
 /** /////////////////////////////////////////////////////*/
@@ -135,19 +145,34 @@ nav a {
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
+    
 }
 .grid-servicios .tarjeta img {
     width: 100%;
     height: auto;
     border-radius: 5px;
+   
 }
 .tarjeta {
-    background-color: #e7f6ff;
+    background-color: rgb(231, 246, 255);
     border: 1px solid #444;
     padding: 20px;
     width: 250px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.tarjeta:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+    transform: translateY(-5px);
+    scale: 1.02;
+     /* transform: matrix(1,-0.05,0,1,0,-14); */
+    transition: all 0.5s ease;
+}
+.tarjeta img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0px 10px rgb(137, 172, 194);
+     transform: matrix(1,-0.02,0,1,0,-5);
+    transition: all 0.3s ease;
 }
 
 .precio {
@@ -191,4 +216,50 @@ label {
     font-weight: bold;
 }
 
+/** ///////////////////////////////////////////////////////////////// */
+/*  Carrusel de imagenes */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    height: 450px;
+    margin: 40px auto;
+    overflow: hidden; /* Corta lo que sobre de la pantalla */
+    display: flex;
+    align-items: center;
+    background-color: #000;
+}
 
+.carousel-track {
+    display: flex;
+    transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95); /* Movimiento suave */
+    will-change: transform;
+}
+
+.carousel-slide {
+    min-width: 60%; /* Cada imagen ocupa el 60% para que se vean las de los lados */
+    margin: 0 10px;
+    transition: transform 0.8s, opacity 0.8s, filter 0.8s;
+    transform: scale(0.8); /* Las de los lados son más pequeñas (Efecto pez) */
+    opacity: 0.4;         /* Más oscuras las laterales */
+    filter: blur(2px);    /* Un poco de desenfoque lateral */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid #d4af37; /* Borde dorado */
+}
+
+/* LA CLASE ACTIVA (La que está en el medio) */
+.carousel-slide.active {
+    transform: scale(1.15); /* Resalta hacia adelante (Efecto Lupa/Pez) */
+    opacity: 1;
+    filter: blur(0);
+    z-index: 10;
+}

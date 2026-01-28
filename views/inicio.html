@@ -6,19 +6,30 @@
     <title>Tienda</title>
     <!-- Vinculamos el CSS -->
     <link rel="stylesheet" href="public/css/style.css">
+    <?php include 'views/layout/head.html'; ?>
 </head>
 <body>
 
     <?php include 'views/layout/header.html'; ?>
 
     <main>
+        <div class="carousel-container">
+            <!-- Contenedor de las fotos -->
+            <div class="carousel-track" id="carousel-track">
+                <div class="carousel-slide"><img src="public/img/imagen1.jpg" alt="Oferta 1"></div>
+                <div class="carousel-slide"><img src="public/img/imagen2.jpg" alt="Oferta 2"></div>
+                <div class="carousel-slide"><img src="public/img/imagen3.jpg" alt="Oferta 3"></div>
+                <div class="carousel-slide"><img src="public/img/imagen4.jpg" alt="Oferta 4"></div>
+                <div class="carousel-slide"><img src="public/img/imagen5.jpg" alt="Oferta 5"></div>
+            </div>
+        </div>
         <h2>Nuestros Productos</h2>
         <div class="grid-servicios">
             <?php if (empty($servicios)): ?>
                 <p>No hay productos disponibles en este momento.</p>
             <?php else: ?>
-                <!-- Bucle para mostrar cada producto de la Base de Datos -->
-                <?php foreach ($servicios as $servicio): ?>
+                <!-- Bucle para mostrar cada producto de la Base de Datos (máximo 6) -->
+                <?php foreach (array_slice($servicios, 0, 6) as $servicio): ?>
                     <div class="tarjeta">
                         <h3><?php echo htmlspecialchars($servicio['nombre']); ?></h3>
                         <p class="desc"><?php echo htmlspecialchars($servicio['descripcion']); ?></p>
@@ -35,6 +46,6 @@
     <footer>
         <p>&copy; 2026 Tienda - Sistema MVC &race;</p>
     </footer>
-
+ <script src="public/js/scrips.js"></script>
 </body>
 </html>
