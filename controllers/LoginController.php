@@ -3,7 +3,7 @@ require_once 'models/UsuarioModel.php';
 
 class LoginController {
     public function index() {
-        require_once 'views/login.html';
+        require_once 'views/login.php';
     }
 
     public function login() {

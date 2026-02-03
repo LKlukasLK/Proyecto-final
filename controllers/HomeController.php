@@ -8,7 +8,7 @@ class HomeController {
         $servicios = $servicioModel->obtenerTodos();
 
         // 2. Cargar la vista y enviarle los datos
-        require_once __DIR__ . '/../views/inicio.html';
+        require_once __DIR__ . '/../views/inicio.php';
     }
 }
 ?>

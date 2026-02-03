@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Registro | Mercado Ropa</title>
     <link rel="stylesheet" href="public/css/style.css">
-        <?php include 'views/layout/head.html'; ?>
+        <?php include 'views/layout/head.php'; ?>
 
 </head>
 <body>

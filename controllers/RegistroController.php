@@ -5,7 +5,7 @@ class RegistroController {
 
     // 1. Muestra el formulario
     public function index() {
-    require_once 'views/registro.html'; // <--- Verifica que el nombre sea exacto
+    require_once 'views/registro.php'; // <--- Verifica que el nombre sea exacto
 }
 
     // 2. Procesa los datos del formulario
