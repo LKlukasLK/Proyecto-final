@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea tu cuenta | Boutique</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <?php include '../layout/head.html'; ?>
+</head>
+<body class="auth-page">
+
+    <main class="auth-container">
+        <div class="auth-card">
+            <div class="brand-logo">
+                <span>☺</span>
+            </div>
+
+            <header>
+                <h1>Crea tu cuenta</h1>
+                <p>Únete a nuestra comunidad</p>
+            </header>
+
+            <form action="../../index.php?ver=procesar_registro" method="POST" class="auth-form">
+                
+                <div class="input-field">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" name="username" placeholder="Tu nombre o alias" required>
+                </div>
+
+                <div class="input-field">
+                    <label>Correo Electrónico</label>
+                    <input type="email" name="email" placeholder="nombre@ejemplo.com" required>
+                </div>
+
+                <div class="input-field">
+                    <label>Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" name="password" id="password" placeholder="zN41vQ9p" required>
+                        <button type="button" id="togglePassword" class="btn-eye">👁</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-black">Registrarse</button>
+            </form>
+
+            <footer class="auth-footer">
+                <p>¿Ya tienes cuenta? <a href="../../index.php?ver=login">Inicia sesión</a></p>
+                <div class="divider"></div>
+                <a href="../../index.php?ver=inicio" class="btn-back">← Volver al inicio</a>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        // Script para mostrar/ocultar contraseña en registro
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? '👁' : '🔒';
+        });
+    </script>
+
+</body>
+</html>

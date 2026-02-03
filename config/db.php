@@ -1,7 +1,7 @@
 <?php
 class Database {
     public static function conectar() {
-        $host = '127.0.0.1'; // Usa la IP para evitar problemas de resolución
+        $host = '192.168.0.106'; // Usa la IP para evitar problemas de resolución
         $port = '3309';
         $db   = 'mercado_ropa_db'; 
         $user = 'root';

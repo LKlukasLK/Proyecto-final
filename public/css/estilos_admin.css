@@ -1,0 +1,234 @@
+/* Configuraciones generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    color: #333;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1.5rem 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.box_reg {
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative; /* Necesario para posicionar el avatar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-center {
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin: 0 0 1rem 0;
+    font-weight: 300;
+}
+
+h1 span {
+    font-weight: 800;
+    color: #1abc9c;
+}
+
+/* --- ESTILO DEL AVATAR / CERRAR SESIÓN (DERECHA) --- */
+
+.user-menu {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-name-text {
+    font-weight: 400;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.profile-circle {
+    width: 45px;
+    height: 45px;
+    background-color: #1abc9c;
+    color: white;
+    text-decoration: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: 2px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.profile-circle:hover {
+    background-color: #e74c3c; /* Cambia a rojo al querer salir */
+    transform: scale(1.1);
+    border-color: white;
+}
+
+/* Tooltip (pequeño cartel al pasar el ratón) */
+.logout-tooltip {
+    visibility: hidden;
+    width: 100px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.profile-circle:hover .logout-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* --- MENÚ DESPLEGABLE CENTRADO --- */
+
+.Desplegable {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.dropbtn {
+    background-color: #34495e;
+    color: white;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.Desplegable:hover .dropbtn {
+    background-color: #16a085;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 10;
+    list-style: none;
+    padding: 0;
+    margin: 0px 0 0 0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.dropdown-content li a {
+    color: #2c3e50;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background 0.2s;
+}
+
+.dropdown-content li a:hover {
+    background-color: #f1f1f1;
+    color: #1abc9c;
+    padding-left: 20px; /* Pequeño efecto de movimiento */
+}
+
+.Desplegable:hover .dropdown-content {
+    display: block;
+}
+
+/* Contenedor principal */
+.contenedor-admin {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.247);
+}
+
+.bienvenida {
+    text-align: center;
+    padding: 50px;
+    color: #7f8c8d;
+}
+
+/* Tabla Estilizada */
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-admin th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    text-align: left;
+    padding: 15px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.tabla-admin td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.tabla-admin tr:hover {
+    background-color: #fcfcfc;
+}
+
+/* Botones de acción */
+.tabla-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-nuevo {
+    background-color: #1abc9c;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn-edit {
+    color: #3498db;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.btn-delete {
+    color: #e74c3c;
+    font-size: 1.1rem;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+    opacity: 0.7;
+}

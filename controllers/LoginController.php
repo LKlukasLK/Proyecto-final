@@ -28,7 +28,7 @@ class LoginController {
 
             // Usamos JavaScript para redirigir (es más fiable si hay problemas de headers)
             if ($usuario['rol'] === 'admin') {
-                echo "<script>window.location.href = 'admin/index.html';</script>";
+                echo "<script>window.location.href = 'admin/admin.php';</script>";
             } else {
                 echo "<script>window.location.href = 'index.php?ver=inicio';</script>";
             }
