@@ -135,6 +135,189 @@ nav a {
 }
 
 
+
+/* --- ESTILO BOUTIQUE PREMIUM --- */
+
+/* Fondo general con degradado suave */
+body.auth-page {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle, #fdfdfd 0%, #e8e8e6 100%); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #1a1a1a;
+}
+
+/* Contenedor principal */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Tarjeta con sombreado exterior profesional */
+.auth-card {
+    background: #faf9f6; 
+    padding: 50px 40px;
+    border-radius: 24px;
+    text-align: center;
+    /* Sombra suave que rodea el login */
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.08), 0 20px 50px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Icono y cabecera */
+.brand-logo {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #000;
+    opacity: 0.8;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+header p {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 35px;
+}
+
+/* Estructura de campos de entrada */
+.input-field {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.input-field label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+/* Estilo para los inputs normales (Email) */
+.input-field input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #e0ddd5;
+    font-size: 15px;
+    background: transparent;
+    transition: 0.3s;
+}
+
+.input-field input:focus {
+    outline: none;
+    border-bottom-color: #000;
+}
+
+/* --- GRUPO DE CONTRASEÑA (Input + Ojo a la derecha) --- */
+
+.input-group {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e0ddd5; /* La línea decorativa es común aquí */
+    transition: 0.3s;
+}
+
+/* Eliminamos el borde individual para que el grupo mande */
+.input-group input {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    flex-grow: 1; /* El texto empuja al ojo al final */
+}
+
+/* Botón del ojo minimalista */
+.btn-eye {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 10px;
+    font-size: 16px;
+    opacity: 0.4;
+    transition: 0.3s;
+}
+
+.btn-eye:hover {
+    opacity: 1;
+}
+
+/* Cambio de color de línea al enfocar la contraseña */
+.input-group:focus-within {
+    border-bottom-color: #000;
+}
+
+/* --- BOTONES Y FOOTER --- */
+
+.btn-black {
+    width: 100%;
+    padding: 16px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn-black:hover {
+    background: #000;
+}
+
+.auth-footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #888;
+}
+
+.auth-footer a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.divider {
+    height: 1px;
+    background: #eeebe3;
+    margin: 25px 0;
+}
+
+.btn-back {
+    font-size: 12px;
+    color: #aaa !important;
+}
+
+/* Datos de prueba discretos */
+.debug-box {
+    margin-top: 30px;
+    font-size: 11px;
+    color: #b5b3ad;
+    text-align: left;
+}
+
+.debug-box summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 5px 0;
+}
+
+
+
+
+
 /** /////////////////////////////////////////////////////*/
 /** /////////////////////////////////////////////////////*/
 
