@@ -13,7 +13,7 @@ class LoginController {
         }
 
         $email = $_POST['email'];
-        $password = $_POST['password'];
+        $password = $_POST['contrasena'];
 
         $modelo = new UsuarioModel();
         $usuario = $modelo->verificarUsuario($email, $password);
@@ -22,7 +22,7 @@ class LoginController {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
-            $_SESSION['id'] = $usuario['id'];
+            $_SESSION['id_usuario'] = $usuario['id_usuario'];
             $_SESSION['nombre'] = $usuario['nombre'];
             $_SESSION['rol'] = $usuario['rol'];
 

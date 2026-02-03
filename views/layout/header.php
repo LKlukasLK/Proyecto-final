@@ -1,6 +1,6 @@
 <header>
     <div class="box_reg">
-        <?php if (isset($_SESSION['id'])): ?>
+        <?php if (isset($_SESSION['id_usuario'])): ?>
         <!-- SI ESTÁ LOGUEADO: Muestra Nombre + Desplegable -->
         <div class="usuario-menu">
             <span>👤

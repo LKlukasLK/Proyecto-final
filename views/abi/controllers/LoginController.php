@@ -1,33 +1,44 @@
 <?php
+require_once 'models/UsuarioModel.php';
 
 class LoginController {
-
-    // Muestra el login con el diseño de Abi
+    
+    // Muestro la nueva vista de Abi
     public function index() {
-        // Cargo la vista pro con el sombreado exterior
         include 'views/abi/login.html';
     }
 
-    // Valida las credenciales del usuario
+    // Proceso la autenticación
     public function login() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Recojo el email y la pass del formulario
-            $email = $_POST['email'] ?? '';
-            $password = $_POST['password'] ?? '';
+        // Inicio sesión si no existe
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-            // Lógica simple de prueba (ajusta con tu base de datos)
-            if ($email === 'admin@tienda.com' && $password === '123') {
-                // Guardamos la sesión del usuario
-                $_SESSION['user_email'] = $email;
-                
-                // Redirigimos al catálogo o inicio tras loguear
-                header("Location: index.php?ver=catalogo");
-                exit();
+        // Recojo datos del formulario pro
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+
+        $modelo = new UsuarioModel();
+        $usuario = $modelo->verificarUsuario($email, $password);
+
+        if ($usuario) {
+            // Guardamos info importante en la sesión
+            $_SESSION['id'] = $usuario['id'];
+            $_SESSION['nombre'] = $usuario['nombre'];
+            $_SESSION['rol'] = $usuario['rol'];
+
+            // Redirección profesional según rol
+            if ($usuario['rol'] === 'admin') {
+                echo "<script>window.location.href = 'admin/index.php';</script>";
             } else {
-                // Si falla, vuelve al login
-                header("Location: index.php?ver=login");
-                exit();
+                echo "<script>window.location.href = 'index.php?ver=inicio';</script>";
             }
+            exit(); 
+        } else {
+            // Si falla, volvemos al login de Abi
+            header("Location: index.php?ver=login&error=1");
+            exit();
         }
     }
 }

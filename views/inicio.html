@@ -6,11 +6,11 @@
     <title>Tienda</title>
     <!-- Vinculamos el CSS -->
     <link rel="stylesheet" href="public/css/style.css">
-    <?php include 'views/layout/head.html'; ?>
+    <?php include 'views/layout/head.php'; ?>
 </head>
 <body>
 
-    <?php include 'views/layout/header.html'; ?>
+    <?php include 'views/layout/header.php'; ?>
 
     <main>
         <div class="carousel-container">
@@ -33,7 +33,7 @@
                     <div class="tarjeta">
                         <h3><?php echo htmlspecialchars($servicio['nombre']); ?></h3>
                         <p class="desc"><?php echo htmlspecialchars($servicio['descripcion']); ?></p>
-                        <img src="public/img/<?php echo htmlspecialchars($servicio['imagen']); ?>" alt="<?php echo htmlspecialchars($servicio['nombre']); ?>">
+                        <img src="public/img/<?php echo htmlspecialchars($servicio['imagen_url']); ?>" alt="<?php echo htmlspecialchars($servicio['nombre']); ?>">
                         <br>
                         <p class="precio">$<?php echo number_format($servicio['precio'], 2); ?></p>
                         <button>Comprar</button>
