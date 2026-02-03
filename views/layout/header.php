@@ -8,7 +8,6 @@
             </span>
 
             <div class="contenido-desplegable">
-                <a href="index.php?ver=reservar">📅 Reservar Cita</a>
                 <a href="index.php?ver=carrito">🛒 Carrito</a>
                 <!-- Aquí podrías poner 'Mis Citas' en el futuro -->
                 <a href="index.php?ver=logout" class="btn-salir">🚪 Cerrar Sesión</a>

@@ -13,7 +13,7 @@ class RegistroController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nombre = $_POST['nombre'];
             $email = $_POST['email'];
-            $password = $_POST['password'];
+            $password = $_POST['contrasena'];
 
             $modelo = new UsuarioModel();
             $resultado = $modelo->registrarUsuario($nombre, $email, $password);

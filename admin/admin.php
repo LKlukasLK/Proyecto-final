@@ -1,11 +1,16 @@
 <?php
 session_start();
-// 1. Incluir la conexión (Ruta correcta: subir un nivel y entrar en config)
+
+require_once __DIR__ . '/../config/db.php';
+$conexion = Database::conectar(); 
+
 require_once '../config/db.php'; 
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     header("Location: ../index.php?ver=login");
     exit();
 }
+
+
 
 $seccion = isset($_GET['p']) ? $_GET['p'] : 'inicio';
 $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));

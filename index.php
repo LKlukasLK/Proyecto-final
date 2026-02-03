@@ -61,6 +61,12 @@ switch ($pagina) {
         $controller->index();
         break;
 
+    case 'carrito':
+        require_once 'controllers/CarritoController.php';
+        $controller = new CarritoController();
+        $controller->verCarrito();
+        break;
+
     default:
         // En lugar de un simple echo, podrías cargar una vista de error 404
         echo "<h1>404 - Página no encontrada</h1><a href='index.php'>Volver al inicio</a>";

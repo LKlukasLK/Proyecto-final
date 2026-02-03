@@ -29,6 +29,35 @@ header {
     position: relative;
     flex-direction: column;
 }
+/** ////////////////////////////////////// */
+/* Estilos para las Alertas */
+.alerta {
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alerta-error {
+    background-color: #fce4e4;
+    color: #cc0033;
+    border: 1px solid #f5c6cb;
+}
+
+.alerta-exito {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Iconos (si usas FontAwesome) */
+.alerta i {
+    font-size: 1.1rem;
+}
+/** ///////////////////////////////////// */
 /* --- ESTILOS DEL MENÚ DESPLEGABLE --- */
 
 /*TODO: ajustar el logo y el menu de inicio de sesión en una sola linea*/

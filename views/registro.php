@@ -29,7 +29,7 @@
                 <input type="email" name="email" placeholder="ejemplo@correo.com" required>
                 
                 <label>Contraseña:</label>
-                <input type="password" name="password" placeholder="******" required>
+                <input type="password" name="contrasena" placeholder="******" required>
 
                 <button type="submit">Crear Cuenta</button>
             

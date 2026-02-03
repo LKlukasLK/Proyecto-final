@@ -20,16 +20,31 @@
         <div class="formulario-caja">
             <h2>Acceso Clientes</h2>
             
-            <form action="index.php?ver=autenticar" method="POST">
-                
-                <label>Correo Electrónico:</label>
-                <input type="email" name="email" placeholder="ejemplo@correo.com" required>
-                
-                <label>Contraseña:</label>
-                <input type="password" name="password" placeholder="******" required>
+             <!-- BLOQUE DE MENSAJES -->
+        <?php if (isset($_GET['error'])): ?>
+            <div class="alerta alerta-error">
+                <i class="fa-solid fa-circle-exclamation"></i> 
+                El correo electrónico o la contraseña no son correctos.
+            </div>
+        <?php endif; ?>
 
-                <button type="submit">Entrar</button>
+        <?php if (isset($_GET['registro']) && $_GET['registro'] === 'ok'): ?>
+            <div class="alerta alerta-exito">
+                <i class="fa-solid fa-circle-check"></i> 
+                ¡Registro completado! Ya puedes iniciar sesión.
+            </div>
+        <?php endif; ?>
+        <!-- FIN BLOQUE DE MENSAJES -->
+
+        <form action="index.php?ver=autenticar" method="POST">
+            <label>Correo Electrónico:</label>
+            <input type="email" name="email" placeholder="ejemplo@correo.com" required>
             
+            <label>Contraseña:</label>
+            <input type="password" name="contrasena" placeholder="Contraseña" required>
+
+            <button type="submit">Entrar</button>
+        </form>
             </form>
 
             <br>

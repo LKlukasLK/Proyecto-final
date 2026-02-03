@@ -23,7 +23,7 @@
                 <div class="carousel-slide"><img src="public/img/imagen5.jpg" alt="Oferta 5"></div>
             </div>
         </div>
-        <h2>Nuestros Productos</h2>
+        <h2>Productos Recomendados</h2>
         <div class="grid-servicios">
             <?php if (empty($servicios)): ?>
                 <p>No hay productos disponibles en este momento.</p>
