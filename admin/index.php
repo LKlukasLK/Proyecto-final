@@ -59,11 +59,11 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
             case 'pedidos':    include 'views/gestion_pedidos.php'; break;
             case 'stock':      include 'views/gestion_stock.php'; break;
             default:
-                echo "<div class='bienvenida'>
-                        <i class='fa-solid fa-screwdriver-wrench' style='font-size:4rem; color:#bdc3c7'></i>
-                        <h2>Bienvenido, administrador</h2>
-                        <p>Selecciona una categoría en el menú superior para gestionar la base de datos.</p>
-                      </div>";
+                echo "  <div class='bienvenida'>
+                            <i class='fa-solid fa-screwdriver-wrench' style='font-size:4rem; color:#bdc3c7'></i>
+                            <h2>Bienvenido, administrador</h2>
+                            <p>Selecciona una categoría en el menú superior para gestionar la base de datos.</p>
+                        </div>";
                 break;
         }
         ?>
