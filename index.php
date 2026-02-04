@@ -20,7 +20,7 @@ switch ($pagina) {
     case 'catalogo':
         require_once 'controllers/CatalogoController.php';
         $controller = new CatalogoController();
-        $controller->catalogo();
+        $controller->verCatalogo();
         break;
 
     case 'login':

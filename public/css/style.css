@@ -1,230 +1,160 @@
-/* --- ESTILO GENERAL --- */
-body {
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fcfcfc;
-    color: #333;
+/* Contenedor principal del catálogo */
+.catalogo-container {
+    padding: 120px 50px 50px;
+    font-family: 'Helvetica', sans-serif;
+    background: #fafafa;
+}
+
+/* Cabecera del catálogo */
+.catalogo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 20px;
+}
+
+.catalogo-header h2 {
     margin: 0;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+/* Buscador */
+.search-form {
+    display: flex;
+    background: #fff;
+    border: 1px solid #000;
+    padding: 5px;
+}
+
+.search-input {
+    border: none;
+    padding: 10px;
+    outline: none;
+    width: 250px;
+    font-weight: 600;
+}
+
+.search-button {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/* Cuadrícula de productos */
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+/* Tarjeta de producto */
+.card-producto {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #eee;
+    transition: 0.3s ease;
     text-align: center;
 }
 
-/* --- CABECERA (Header) --- */
-header {
-    background-color: #ffffff;
-    padding: 10px 0;
-    border-bottom: 2px solid #e5e5e5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.card-producto:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transform: translateY(-5px);
 }
 
-/* Contenedor relativo para posicionar los extremos */
-.box_reg {
+.card-imagen-wrapper {
+    height: 300px;
+    background: #f4f4f4;
+    margin-bottom: 20px;
     display: flex;
-    justify-content: center; /* Centra el H1 */
     align-items: center;
-    position: relative;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-imagen-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.card-titulo {
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 10px 0;
+    letter-spacing: 1px;
+    height: 35px;
+    overflow: hidden;
+}
+
+.card-precio {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 10px 0;
+}
+
+.card-descripcion {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 20px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.btn-add-cart {
     width: 100%;
-    max-width: 1400px;
-    min-height: 80px; /* Asegura espacio para logo y login */
-}
-
-.box_reg h1 {
-    color: #d4af37; /* Dorado */
-    margin: 0;
-    font-size: 1.8rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 15px;
     font-weight: 700;
-}
-
-/* LOGO A LA IZQUIERDA */
-.logo-header {
-    position: absolute;
-    left: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 50px;
-    width: auto;
-}
-
-/* LOGIN / USUARIO A LA DERECHA (Pegado) */
-.box_reg > a, 
-.usuario-menu {
-    position: absolute;
-    right: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-/* Estilo del botón "Iniciar Sesión" cuando no hay sesión */
-.box_reg > a {
-    background-color: #d4af37;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     transition: background 0.3s;
 }
 
-.box_reg > a:hover {
-    background-color: #b8952e;
+.btn-add-cart:hover {
+    background: #333;
 }
 
-/* --- MENÚ DESPLEGABLE DEL USUARIO --- */
-.usuario-menu {
-    cursor: pointer;
-    color: #d4af37;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
 
-.contenido-desplegable {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: #ffffff;
-    min-width: 180px;
-    box-shadow: 0px 8px 25px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    z-index: 1000;
-    border: 1px solid #eee;
-    overflow: hidden;
-}
+    /* Estructura Flexbox para estirar el contenido */
+    .main-header {
+        position: fixed; top: 0; left: 0; width: 100%;
+        background: #fff; border-bottom: 1px solid #eee; z-index: 1000;
+    }
+    .nav-container {
+        display: flex; justify-content: space-between; align-items: center;
+        height: 80px; padding: 0 40px;
+    }
+    .nav-group { display: flex; align-items: center; flex: 1; gap: 20px; }
+    .nav-group.center { justify-content: center; }
+    .nav-group.right { justify-content: flex-end; }
 
-.usuario-menu:hover .contenido-desplegable {
-    display: block;
-}
+    /* Estilo de botones y emojis */
+    .nav-btn {
+        text-decoration: none; color: #000; font-weight: 700; font-size: 13px;
+        background: none; border: none; cursor: pointer;
+        display: flex; align-items: center; gap: 8px; text-transform: uppercase;
+    }
 
-.contenido-desplegable a {
-    color: #444;
-    padding: 12px 15px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #f5f5f5;
-}
+    /* Buscador integrado para la tienda */
+    .search-tienda-wrap {
+        display: flex; align-items: center; background: #f5f5f5;
+        padding: 5px 12px; border-radius: 4px; border: 1px solid #ddd;
+    }
+    .search-tienda-wrap input {
+        border: none; background: none; outline: none; font-size: 12px; width: 180px;
+    }
 
-.contenido-desplegable a:hover {
-    background-color: #fcf8e8;
-    color: #d4af37;
-}
-
-.btn-salir {
-    color: #e74c3c !important; /* Rojo para cerrar sesión */
-}
-
-/* --- NAVEGACIÓN (Debajo de la barra principal) --- */
-nav {
-    padding: 15px 0;
-}
-
-nav a {
-    color: #555;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 5px 15px;
-    transition: color 0.3s;
-}
-
-nav a:hover {
-    color: #d4af37;
-}
-
-/* --- CARRUSEL (Efecto Lupa / Pez) --- */
-.carousel-container {
-    position: relative;
-    width: 100%;
-    height: 520px;
-    margin: 30px auto;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-}
-
-.carousel-track {
-    display: flex;
-    align-items: center;
-    transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
-    will-change: transform;
-}
-
-.carousel-slide {
-    min-width: 60%;
-    margin: 0 10px;
-    transition: transform 0.8s, opacity 0.8s, filter 0.8s;
-    transform: scale(0.8);
-    opacity: 0.4;
-    filter: blur(3px);
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: 450px; /* Tu medida de foto */
-    object-fit: cover;
-    border-radius: 20px;
-    border: 2px solid #d4af37;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-/* Clase activa para tu Script */
-.carousel-slide.active {
-    transform: scale(1.15); /* Efecto lupa */
-    opacity: 1;
-    filter: blur(0);
-    z-index: 10;
-}
-
-/* --- TARJETAS DE PRODUCTOS --- */
-.grid-servicios {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 25px;
-    padding: 40px 20px;
-}
-
-.tarjeta {
-    background-color: #ffffff;
-    border: 1px solid #eee;
-    padding: 15px;
-    width: 260px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: 0.3s;
-}
-
-.tarjeta:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-}
-
-.tarjeta img {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.precio {
-    display: block;
-    font-size: 1.5em;
-    color: #d4af37;
-    font-weight: 700;
-    margin: 12px 0;
-}
-
-button {
-    background-color: #d4af37;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 100%;
-}
+    /* Logo */
+    .brand-link { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #000; }
+    .brand-link img { height: 40px; }
+    .brand-link h1 { font-size: 18px; font-weight: 900; margin: 0; }

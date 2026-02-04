@@ -5,7 +5,7 @@ class Database {
         $port = '3309';
         $db   = 'tiendaonline'; 
         $user = 'root';
-        $pass = '';
+        $pass = 'Lukas123';
         $charset = 'utf8mb4';
 
         try {

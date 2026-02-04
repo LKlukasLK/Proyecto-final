@@ -1,27 +1,42 @@
-<header>
-    <div class="box_reg">
-        <?php if (isset($_SESSION['id_usuario'])): ?>
-        <!-- SI ESTÁ LOGUEADO: Muestra Nombre + Desplegable -->
-        <div class="usuario-menu">
-            <span>👤
-                <?php echo $_SESSION['nombre']; ?> ▼
-            </span>
+<?php
+// PHP: Lógica de sesión y detección de página
+$nombre_user = $_SESSION['nombre'] ?? '';
+$carrito_total = isset($_SESSION['carrito']) ? count($_SESSION['carrito']) : 0;
+?>
 
-            <div class="contenido-desplegable">
-                <a href="index.php?ver=carrito">🛒 Carrito</a>
-                <!-- Aquí podrías poner 'Mis Citas' en el futuro -->
-                <a href="index.php?ver=logout" class="btn-salir">🚪 Cerrar Sesión</a>
-            </div>
+<header class="main-header">
+    <div class="nav-container">
+        <div class="nav-group left">
+            <a href="index.php?ver=catalogo" class="nav-btn">TIENDA</a>
+            <button class="nav-btn" onclick="scrollearInfo()">COLECCIÓN</button>
         </div>
-        <?php else: ?>
-        <!-- SI NO ESTÁ LOGUEADO: Muestra botones normales -->
-        <a href="index.php?ver=login">Iniciar Sesión</a>
-        <?php endif; ?>
 
-        <img src="public/img/icono.png" alt="Logo" class="logo-header">
-        <h1>👕 Mercado Ropa</h1>
+        <div class="nav-group center">
+            <a href="index.php?ver=inicio" class="brand-link">
+                <img src="public/img/icono.png" alt="Logo">
+                <h1>👕 Mercado Ropa</h1>
+            </a>
+        </div>
+
+        <div class="nav-group right">
+            <?php if (isset($_SESSION['id_usuario'])): ?>
+                <span class="nav-btn">👤 <?php echo htmlspecialchars($nombre_user); ?></span>
+                <a href="index.php?ver=logout" class="nav-btn">🚪 SALIR</a>
+            <?php else: ?>
+                <a href="index.php?ver=login" class="nav-btn">ACCESO</a>
+            <?php endif; ?>
+            
+            <a href="index.php?ver=carrito" class="nav-btn">
+                🛒 CESTA (<?php echo $carrito_total; ?>)
+            </a>
+        </div>
     </div>
-    <nav>
-        <a href="index.php?ver=catalogo"> Catalogo</a>
-    </nav>
 </header>
+
+<script>
+    function scrollearInfo() {
+        const h2 = document.querySelector('h2');
+        if (h2) window.scrollTo({ top: h2.offsetTop - 100, behavior: 'smooth' });
+    }
+</script>
+<div style="height: 80px;"></div>

@@ -40,7 +40,7 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
                     <button class="dropbtn">Gestionar Tablas ▾</button>
                     <ul class="dropdown-content">
                         <li><a href="index.php?p=productos">Productos</a></li>
-                        <li><a href="index.php?p=categorias">Categorías</a></li>
+                        <li><a href="index.php?p=mensajería">Mensajería</a></li>
                         <li><a href="index.php?p=usuarios">Usuarios</a></li>
                         <li><a href="index.php?p=pedidos">Pedidos</a></li>
                         <li><a href="index.php?p=stock">Stock y Tallas</a></li>
@@ -54,7 +54,7 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
         <?php
         switch ($seccion) {
             case 'productos':  include 'views/gestion_productos.php'; break;
-            case 'categorias': include 'views/gestion_categorias.php'; break;
+            case 'categorias': include 'views/gestion_mensajería.php'; break;
             case 'usuarios':   include 'views/gestion_usuarios.php'; break;
             case 'pedidos':    include 'views/gestion_pedidos.php'; break;
             case 'stock':      include 'views/gestion_stock.php'; break;

@@ -26,7 +26,7 @@
                 <input type="text" name="nombre" placeholder="Tu nombre" required>
 
                 <label>Correo Electrónico:</label>
-                <input type="email" name="email" placeholder="ejemplo@correo.com" required>
+                <input type="email" name="email" placeholder="jose@correo.com" required>
                 
                 <label>Contraseña:</label>
                 <input type="password" name="contrasena" placeholder="******" required>
