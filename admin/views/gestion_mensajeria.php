@@ -11,7 +11,7 @@ function notifyCustomers($productId, $productName, $productUrl, $productImage) {
         $pdo = Database::conectar();
         
         
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../.env');
         $dotenv->load();
 
        
