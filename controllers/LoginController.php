@@ -27,7 +27,7 @@ class LoginController
             $_SESSION['rol'] = trim($usuario['rol']);
 
             if ($_SESSION['rol'] === 'admin') {
-                header("Location: admin/admin.php");
+                header("Location: admin/index.php");
             } else {
                 header("Location: index.php?ver=inicio");
             }

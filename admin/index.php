@@ -39,11 +39,11 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
                 <nav class="Desplegable">
                     <button class="dropbtn">Gestionar Tablas ▾</button>
                     <ul class="dropdown-content">
-                        <li><a href="admin.php?p=productos">Productos</a></li>
-                        <li><a href="admin.php?p=categorias">Categorías</a></li>
-                        <li><a href="admin.php?p=usuarios">Usuarios</a></li>
-                        <li><a href="admin.php?p=pedidos">Pedidos</a></li>
-                        <li><a href="admin.php?p=stock">Stock y Tallas</a></li>
+                        <li><a href="index.php?p=productos">Productos</a></li>
+                        <li><a href="index.php?p=categorias">Categorías</a></li>
+                        <li><a href="index.php?p=usuarios">Usuarios</a></li>
+                        <li><a href="index.php?p=pedidos">Pedidos</a></li>
+                        <li><a href="index.php?p=stock">Stock y Tallas</a></li>
                     </ul>
                 </nav>
             </div>
