@@ -6,10 +6,9 @@ use Dotenv\Dotenv;
 
 class Database {
     public static function conectar() {
-      
         try {
             // 2. Cargamos las variables del archivo .env que está en la raíz
-            $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+            $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
             $dotenv->load();
 
             // 3. Extraemos los datos del .env usando la superglobal $_ENV

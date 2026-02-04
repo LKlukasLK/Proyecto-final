@@ -42,9 +42,9 @@
                     Ahora todo es mucho más grande y legible para captar la atención de inmediato.
                 </p>
                 
-                <button style="margin-top: 20px; padding: 20px 60px; font-size: 1.8rem; font-weight: bold; cursor: pointer; border-radius: 15px;">
+                <a href="index.php?ver=catalogo" style="display: inline-block; background: #000; color: #fff; padding: 20px 60px; font-size: 1.8rem; font-weight: bold; border-radius: 15px; text-decoration: none;">
                     Comprar
-                </button>
+                </a>
             </div>
 
             <div style="grid-column: 3; grid-row: 1 / 4; height: 100%;">

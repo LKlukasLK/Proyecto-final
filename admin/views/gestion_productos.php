@@ -1,12 +1,9 @@
 <?php
-// 1. NO incluyas la conexión aquí. Ya viene de admin.php
-// 2. Usamos PDO (query y fetch) en lugar de mysqli
-
+// Usamos PDO para la consulta de productos
 try {
-    // Consulta para obtener los productos (Asegúrate que los nombres de columnas id_categoria etc sean correctos)
     $query = "SELECT p.*, c.nombre as categoria_nombre 
               FROM productos p 
-              LEFT JOIN categorias c ON p.id_categoria = c.id_categoria"; // Revisa si tu tabla categorias tiene 'id' o 'id_categoria'
+              LEFT JOIN categorias c ON p.id_categoria = c.id_categoria";
 
     $stmt = $conexion->query($query);
 } catch (PDOException $e) {
@@ -17,7 +14,7 @@ try {
 <section class="seccion-tabla">
     <div class="tabla-header">
         <h2>Listado de Productos</h2>
-        <a href="nuevo_producto.php" class="btn-nuevo">+ Añadir Producto</a>
+        <a href="nuevo_producto.php" class="btn-nuevo">+ Añadir Producto </a>
     </div>
 
     <table class="tabla-admin">
@@ -32,19 +29,22 @@ try {
             </tr>
         </thead>
         <tbody>
-            <?php
-            // En PDO usamos fetch()
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
-                ?>
+            <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                 <tr>
-                    <!-- OJO: Si en tu DB no es 'id', cambia a 'id_producto' -->
                     <td>#<?php echo $row['id_producto'] ?? $row['id']; ?></td>
 
                     <td>
-                        <?php if (!empty($row['imagen'])): ?>
-                            <img src="../public/img/<?php echo $row['imagen']; ?>" width="50" alt="prod">
-                        <?php else: ?>
+                        <?php 
+                        $img = $row['imagen'];
+                        // Sacamos la extensión del archivo para comprobarla
+                        $extension = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+
+                        if (empty($img)): ?>
                             <span>Sin foto</span>
+                        <?php elseif ($extension !== 'png'): ?>
+                            <span style="color: #d32f2f; font-weight: bold; font-size: 11px;">⚠️ ERROR: el archivo no es compatible (solo formato en png)</span>
+                        <?php else: ?>
+                            <img src="../public/img/<?php echo $img; ?>" width="50" alt="prod">
                         <?php endif; ?>
                     </td>
 
