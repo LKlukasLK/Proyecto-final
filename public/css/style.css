@@ -1,479 +1,230 @@
+/* --- ESTILO GENERAL --- */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #ffffff;
-    color: #000000;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fcfcfc;
+    color: #333;
     margin: 0;
     text-align: center;
 }
 
-/* Cabecera  */
-
+/* --- CABECERA (Header) --- */
 header {
-    background-color: #000000;
-    padding: 20px;
-    border-bottom: 3px solid #d4af37;
-    /* Color dorado */
-}
-
-header>h1 {
-    color: #d4c937;
-    margin: 0;
-}
-
-/* Hacemos que el header distribuya el espacio: Logo a la izq, Menú a la der */
-header {
+    background-color: #ffffff;
+    padding: 10px 0;
+    border-bottom: 2px solid #e5e5e5;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    position: relative;
     flex-direction: column;
-}
-/** ////////////////////////////////////// */
-/* Estilos para las Alertas */
-.alerta {
-    padding: 12px 15px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
-    display: flex;
     align-items: center;
-    gap: 10px;
 }
 
-.alerta-error {
-    background-color: #fce4e4;
-    color: #cc0033;
-    border: 1px solid #f5c6cb;
-}
-
-.alerta-exito {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-/* Iconos (si usas FontAwesome) */
-.alerta i {
-    font-size: 1.1rem;
-}
-/** ///////////////////////////////////// */
-/* --- ESTILOS DEL MENÚ DESPLEGABLE --- */
-
-/*TODO: ajustar el logo y el menu de inicio de sesión en una sola linea*/
+/* Contenedor relativo para posicionar los extremos */
 .box_reg {
     display: flex;
-    justify-content: center;
-    /* Centra el contenido principal (Mercado Ropa) */
+    justify-content: center; /* Centra el H1 */
     align-items: center;
-    padding: 15px 30px;
     position: relative;
-    /* Necesario para que el hijo absoluto se guíe por este contenedor */
     width: 100%;
+    max-width: 1400px;
+    min-height: 80px; /* Asegura espacio para logo y login */
 }
 
 .box_reg h1 {
-    color: #d4c937;
-    margin: 0 auto; 
-    text-align: center;
-}
-
-.box_reg a {
-    text-decoration: none;
-    padding: 5px 15px;
-    border-radius: 5px;
-    background-color: #d4af37;
-    color: #000000af;
-    font-weight: bold;
+    color: #d4af37; /* Dorado */
     margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
 }
 
-/* Seleccionamos específicamente el segundo h1 (el de usuario-menu) */
-.box_reg > a, 
-.box_reg .usuario-menu {
+/* LOGO A LA IZQUIERDA */
+.logo-header {
     position: absolute;
-    right: 30px; /* Lo empuja a la derecha */
+    left: 30px;
     top: 50%;
-    transform: translateY(-50%); /* Lo centra verticalmente */
-    margin: 0;
+    transform: translateY(-50%);
+    height: 50px;
+    width: auto;
 }
 
-/* El contenedor del nombre del usuario */
+/* LOGIN / USUARIO A LA DERECHA (Pegado) */
+.box_reg > a, 
 .usuario-menu {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    text-decoration: none;
     font-weight: bold;
-    color: #d4af37;
-    /* Dorado */
-    padding: 10px;
 }
 
-/* ¡LA MAGIA! Mostrar el menú cuando pasas el mouse por encima */
+/* Estilo del botón "Iniciar Sesión" cuando no hay sesión */
+.box_reg > a {
+    background-color: #d4af37;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.box_reg > a:hover {
+    background-color: #b8952e;
+}
+
+/* --- MENÚ DESPLEGABLE DEL USUARIO --- */
+.usuario-menu {
+    cursor: pointer;
+    color: #d4af37;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.contenido-desplegable {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    border: 1px solid #eee;
+    overflow: hidden;
+}
+
 .usuario-menu:hover .contenido-desplegable {
     display: block;
 }
 
-/* El menú oculto (La cajita que cae) */
-.contenido-desplegable {
-    display: none;
-    /* Oculto por defecto */
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: #333;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    z-index: 1000;
-}
-
-/* Los enlaces dentro del menú */
 .contenido-desplegable a {
-    color: white;
-    padding: 12px 16px;
+    color: #444;
+    padding: 12px 15px;
     text-decoration: none;
     display: block;
     text-align: left;
-    margin: 0;
-    border-bottom: 1px solid #444;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f5f5f5;
 }
 
 .contenido-desplegable a:hover {
-    background-color: #444;
+    background-color: #fcf8e8;
+    color: #d4af37;
 }
 
-/* Botón de cerrar sesión en rojo */
-.contenido-desplegable a.btn-salir {
-    color: #ff6b6b;
+.btn-salir {
+    color: #e74c3c !important; /* Rojo para cerrar sesión */
 }
+
+/* --- NAVEGACIÓN (Debajo de la barra principal) --- */
+nav {
+    padding: 15px 0;
+}
+
 nav a {
-    color: rgb(255, 255, 255);
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.box_reg .logo-header {
-    position: absolute;
-    left: 30px; /* Misma distancia que el menú pero al otro lado */
-    top: 50%;
-    transform: translateY(-50%);
-    height: 50px; /* Ajusta el tamaño que quieras para tu logo */
-    width: auto;
-}
-
-
-
-/* --- ESTILO BOUTIQUE PREMIUM --- */
-
-/* Fondo general con degradado suave */
-body.auth-page {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: radial-gradient(circle, #fdfdfd 0%, #e8e8e6 100%); 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: #1a1a1a;
-}
-
-/* Contenedor principal */
-.auth-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-}
-
-/* Tarjeta con sombreado exterior profesional */
-.auth-card {
-    background: #faf9f6; 
-    padding: 50px 40px;
-    border-radius: 24px;
-    text-align: center;
-    /* Sombra suave que rodea el login */
-    box-shadow: 0 0 80px rgba(0, 0, 0, 0.08), 0 20px 50px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-}
-
-/* Icono y cabecera */
-.brand-logo {
-    font-size: 40px;
-    margin-bottom: 15px;
-    color: #000;
-    opacity: 0.8;
-}
-
-h1 {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0 0 8px 0;
-    letter-spacing: -0.5px;
-}
-
-header p {
-    color: #888;
-    font-size: 14px;
-    margin-bottom: 35px;
-}
-
-/* Estructura de campos de entrada */
-.input-field {
-    text-align: left;
-    margin-bottom: 25px;
-}
-
-.input-field label {
-    display: block;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: #444;
-}
-
-/* Estilo para los inputs normales (Email) */
-.input-field input {
-    width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #e0ddd5;
-    font-size: 15px;
-    background: transparent;
-    transition: 0.3s;
-}
-
-.input-field input:focus {
-    outline: none;
-    border-bottom-color: #000;
-}
-
-/* --- GRUPO DE CONTRASEÑA (Input + Ojo a la derecha) --- */
-
-.input-group {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #e0ddd5; /* La línea decorativa es común aquí */
-    transition: 0.3s;
-}
-
-/* Eliminamos el borde individual para que el grupo mande */
-.input-group input {
-    border-bottom: none !important;
-    margin-bottom: 0 !important;
-    flex-grow: 1; /* El texto empuja al ojo al final */
-}
-
-/* Botón del ojo minimalista */
-.btn-eye {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0 10px;
-    font-size: 16px;
-    opacity: 0.4;
-    transition: 0.3s;
-}
-
-.btn-eye:hover {
-    opacity: 1;
-}
-
-/* Cambio de color de línea al enfocar la contraseña */
-.input-group:focus-within {
-    border-bottom-color: #000;
-}
-
-/* --- BOTONES Y FOOTER --- */
-
-.btn-black {
-    width: 100%;
-    padding: 16px;
-    background: #1a1a1a;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: 0.3s;
-}
-
-.btn-black:hover {
-    background: #000;
-}
-
-.auth-footer {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #888;
-}
-
-.auth-footer a {
-    color: #1a1a1a;
+    color: #555;
     text-decoration: none;
     font-weight: 600;
+    padding: 5px 15px;
+    transition: color 0.3s;
 }
 
-.divider {
-    height: 1px;
-    background: #eeebe3;
-    margin: 25px 0;
-}
-
-.btn-back {
-    font-size: 12px;
-    color: #aaa !important;
-}
-
-/* Datos de prueba discretos */
-.debug-box {
-    margin-top: 30px;
-    font-size: 11px;
-    color: #b5b3ad;
-    text-align: left;
-}
-
-.debug-box summary {
-    cursor: pointer;
-    list-style: none;
-    padding: 5px 0;
-}
-
-
-
-
-
-/** /////////////////////////////////////////////////////*/
-/** /////////////////////////////////////////////////////*/
-
-/*TODOD/// Estilos para las tarjetas de productos ////// */
-.grid-servicios {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-    
-}
-.grid-servicios .tarjeta img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-   
-}
-.tarjeta {
-    background-color: rgb(231, 246, 255);
-    border: 1px solid #444;
-    padding: 20px;
-    width: 250px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-.tarjeta:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-    transform: translateY(-5px);
-    scale: 1.02;
-     /* transform: matrix(1,-0.05,0,1,0,-14); */
-    transition: all 0.5s ease;
-}
-.tarjeta img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0px 10px rgb(137, 172, 194);
-     transform: matrix(1,-0.02,0,1,0,-5);
-    transition: all 0.3s ease;
-}
-
-.precio {
-    font-size: 1.5em;
+nav a:hover {
     color: #d4af37;
-    /* Dorado */
-    font-weight: bold;
 }
 
-button {
-    background-color: #d4af37;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-/* Añadir al final de style.css */
-.formulario-caja {
-    background-color: #2c2c2c;
-    width: 300px;
-    margin: 50px auto;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgb(0, 0, 0);
-    text-align: left;
-}
-
-input,
-select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0 20px 0;
-    border-radius: 5px;
-    border: none;
-}
-
-label {
-    color: #d4af37;
-    font-weight: bold;
-}
-
-/** ///////////////////////////////////////////////////////////////// */
-/*  Carrusel de imagenes */
+/* --- CARRUSEL (Efecto Lupa / Pez) --- */
 .carousel-container {
     position: relative;
     width: 100%;
-    max-width: 1400px;
-    height: 450px;
-    margin: 40px auto;
-    overflow: hidden; /* Corta lo que sobre de la pantalla */
+    height: 520px;
+    margin: 30px auto;
+    overflow: hidden;
     display: flex;
     align-items: center;
-    background-color: #000;
 }
 
 .carousel-track {
     display: flex;
-    transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95); /* Movimiento suave */
+    align-items: center;
+    transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
     will-change: transform;
 }
 
 .carousel-slide {
-    min-width: 60%; /* Cada imagen ocupa el 60% para que se vean las de los lados */
+    min-width: 60%;
     margin: 0 10px;
     transition: transform 0.8s, opacity 0.8s, filter 0.8s;
-    transform: scale(0.8); /* Las de los lados son más pequeñas (Efecto pez) */
-    opacity: 0.4;         /* Más oscuras las laterales */
-    filter: blur(2px);    /* Un poco de desenfoque lateral */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    transform: scale(0.8);
+    opacity: 0.4;
+    filter: blur(3px);
 }
 
 .carousel-slide img {
     width: 100%;
-    height: 100%;
+    height: 450px; /* Tu medida de foto */
     object-fit: cover;
-    border-radius: 15px;
-    border: 2px solid #d4af37; /* Borde dorado */
+    border-radius: 20px;
+    border: 2px solid #d4af37;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* LA CLASE ACTIVA (La que está en el medio) */
+/* Clase activa para tu Script */
 .carousel-slide.active {
-    transform: scale(1.15); /* Resalta hacia adelante (Efecto Lupa/Pez) */
+    transform: scale(1.15); /* Efecto lupa */
     opacity: 1;
     filter: blur(0);
     z-index: 10;
 }
 
+/* --- TARJETAS DE PRODUCTOS --- */
+.grid-servicios {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 40px 20px;
+}
 
+.tarjeta {
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    padding: 15px;
+    width: 260px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.tarjeta img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.precio {
+    display: block;
+    font-size: 1.5em;
+    color: #d4af37;
+    font-weight: 700;
+    margin: 12px 0;
+}
+
+button {
+    background-color: #d4af37;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
