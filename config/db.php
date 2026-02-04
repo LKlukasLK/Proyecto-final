@@ -3,7 +3,7 @@ class Database {
     public static function conectar() {
         $host = '192.168.0.106'; // Usa la IP para evitar problemas de resolución
         $port = '3309';
-        $db   = 'tiendaonline'; 
+        $db   = 'prueba1tiendaonline'; 
         $user = 'root';
         $pass = '';
         $charset = 'utf8mb4';
