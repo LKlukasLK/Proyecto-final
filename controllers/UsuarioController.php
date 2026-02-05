@@ -36,5 +36,4 @@ $gestion = new Gestion_controller($db);
 if (isset($_GET['accion'])) {
     $id = $_GET['id'] ?? null;
     if ($_GET['accion'] === 'eliminar_usuario' && $id) $gestion->eliminar_usuario($id);
-    if ($_GET['accion'] === 'eliminar_producto' && $id) $gestion->eliminar_producto($id);
 }
