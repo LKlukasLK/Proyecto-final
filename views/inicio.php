@@ -12,52 +12,72 @@
 
     <?php include 'views/layout/header.php'; ?>
 
-    <main>
-        <main style="background-color: #f4f4f4; padding: 40px 0;">
-    
-    <main style="background-color: #f4f4f4; padding: 40px 0;">
-    
-    <h2 style="text-align: center; font-size: 4rem; color: #222; margin-bottom: 20px; font-family: sans-serif; font-weight: 800;">
-        Informacion pagina
-    </h2>
-
-    <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
-
-        <div class="tarjeta" style="display: grid; grid-template-columns: 240px 1fr 240px; grid-template-rows: auto auto auto; gap: 25px; width: 100%; max-width: 1300px; background: #fff; padding: 60px; border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); align-items: center;">
-
-            <div style="grid-column: 2; justify-self: center;">
-                <img src="public/img/imagen3.jpg" alt="Superior" style="width: 400px; height: 120px; object-fit: cover; border-radius: 15px;">
-            </div>
-
-            <div style="grid-column: 1; grid-row: 1 / 4; height: 100%;">
-                <img src="public/img/imagen2.jpg" alt="Izquierda" style="width: 100%; height: 100%; min-height: 600px; object-fit: cover; border-radius: 20px;">
-            </div>
-
-            <div style="grid-column: 2; grid-row: 2; text-align: center; padding: 80px 50px; background: #fafafa; border-radius: 30px; border: 1px solid #eee; margin: 20px;">
-                
-                <h2 style="margin-bottom: 25px; font-size: 4rem; color: #111; font-weight: 700;">Información</h2>
-                
-                <p style="font-size: 1.6rem; color: #444; line-height: 1.6; font-weight: 400; margin-bottom: 40px;">
-                    Este texto es el corazón del diseño. Está rodeado por imágenes que se extienden para crear un marco perfecto. 
-                    Ahora todo es mucho más grande y legible para captar la atención de inmediato.
-                </p>
-                
-                <a href="index.php?ver=catalogo" style="display: inline-block; background: #000; color: #fff; padding: 20px 60px; font-size: 1.8rem; font-weight: bold; border-radius: 15px; text-decoration: none;">
-                    Comprar
-                </a>
-            </div>
-
-            <div style="grid-column: 3; grid-row: 1 / 4; height: 100%;">
-                <img src="public/img/imagen4.jpg" alt="Derecha" style="width: 100%; height: 100%; min-height: 600px; object-fit: cover; border-radius: 20px;">
-            </div>
-
-            <div style="grid-column: 2; grid-row: 3; justify-self: center;">
-                <img src="public/img/imagen1.jpg" alt="Inferior" style="width: 400px; height: 120px; object-fit: cover; border-radius: 15px;">
-            </div>
-
+    <main style="background-color: #fff; margin: 0; padding: 0; font-family: sans-serif;">
+<div style="position: relative; width: 100%; padding: 60px 0; overflow: hidden;">
+        
+        <div style="
+            width: 110%;             /* Un poco más ancha para cubrir los bordes al girar */
+            margin-left: -5%;        /* La centramos para que no se salga de un solo lado */
+            background-color: #000; 
+            padding: 15px 0;         /* Padding reducido para que no sea tan alta */
+            transform: rotate(-2deg); /* Inclinación suave para que no se salga tanto */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        ">
+            <h2 style="
+                font-size: 5vw;      /* Tamaño ajustado para que no sea excesivo */
+                color: #fff; 
+                margin: 0; 
+                text-transform: uppercase;
+                font-weight: 800; 
+                letter-spacing: 1px;
+                white-space: nowrap;
+            ">
+                Información página
+            </h2>
         </div>
     </div>
-    </main>
+    <div style="text-align: center; padding: 60px 20px;">
+        <p style="max-width: 800px; margin: 0 auto; font-size: 1.2rem; color: #555; line-height: 1.6;">
+            Texto información página, este texto fluye naturalmente debajo de la gran franja negra inclinada.
+        </p>
+    </div>
+
+    <div style="width: 100%; height: 50vh; overflow: hidden;">
+        <img src="public/img/imagen3.jpg" alt="Superior" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <div style="max-width: 800px; margin: 0 auto; padding: 80px 20px; text-align: center;">
+        <h2 style="font-size: 2.2rem; color: #111; margin-bottom: 20px; font-weight: 700;">
+            Información
+        </h2>
+        <p style="font-size: 1.1rem; color: #555; line-height: 1.6; margin-bottom: 35px;">
+            Este texto ahora tiene un tamaño más balanceado. Al reducir las dimensiones y quitar las cajas, 
+            el diseño se vuelve más sofisticado y fácil de leer, permitiendo que las imágenes sigan siendo 
+            el marco visual principal.
+        </p>
+        
+        <a href="index.php?ver=catalogo" style="
+            display: inline-block; 
+            background: #000; 
+            color: #fff; 
+            padding: 12px 40px; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            border-radius: 8px; 
+            text-decoration: none;
+            transition: opacity 0.3s ease;">
+            Comprar
+        </a>
+    </div>
+
+    <div style="width: 100%; height: 50vh; overflow: hidden;">
+        <img src="public/img/imagen1.jpg" alt="Inferior" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+</main>
 
     <footer>
         <p>&copy; 2026 Tienda - Sistema MVC &race;</p>

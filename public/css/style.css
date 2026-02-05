@@ -158,3 +158,173 @@
     .brand-link { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #000; }
     .brand-link img { height: 40px; }
     .brand-link h1 { font-size: 18px; font-weight: 900; margin: 0; }
+
+/* CARRITO */
+/* Contenedor Principal */
+.catalogo-container {
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.catalogo-header {
+    border-bottom: 2px solid #000;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+
+/* Tarjeta de Producto en Carrito */
+.carrito-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    transition: 0.3s;
+}
+
+.carrito-item:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.item-img-placeholder {
+    width: 70px;
+    height: 70px;
+    background: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.item-detalles h3 {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.item-ref {
+    color: #888;
+    font-size: 12px;
+    margin: 5px 0 0 0;
+}
+
+/* Precios y Botón Eliminar */
+.item-precio-wrap {
+    text-align: right;
+}
+
+.item-precio {
+    display: block;
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.btn-eliminar {
+    color: #ff4d4d;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 1px solid #ff4d4d;
+    padding: 5px 10px;
+    transition: 0.2s;
+}
+
+.btn-eliminar:hover {
+    background: #ff4d4d;
+    color: #fff;
+}
+
+/* Resumen Final */
+.carrito-resumen {
+    background: #000;
+    color: #fff;
+    padding: 30px;
+    margin-top: 30px;
+    text-align: right;
+}
+
+.resumen-total {
+    font-size: 24px;
+    font-weight: 900;
+    margin-left: 20px;
+}
+
+.btn-pagar {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 15px 40px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* --- NUEVAS REGLAS PARA ESTADO VACÍO Y BOTÓN A LA DERECHA --- */
+
+.carrito-vacio-container {
+    padding: 40px 0;
+}
+
+.carrito-vacio-container p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.contenedor-boton-volver {
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón a la derecha según tu marca */
+    margin-top: 20px;
+}
+
+.btn-volver-tienda {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #000;
+    color: #fff !important;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid #000;
+    transition: all 0.3s ease;
+}
+
+.btn-volver-tienda:hover {
+    background-color: #fff;
+    color: #000 !important;
+}
+
+/* Aviso de caducidad en el carrito */
+.aviso-caducidad {
+    background-color: #f9f9f9;
+    border-left: 4px solid #000; /* Línea negra para seguir tu estilo */
+    padding: 15px 20px;
+    margin-bottom: 25px;
+}
+
+.aviso-caducidad p {
+    margin: 0;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.aviso-caducidad strong {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}

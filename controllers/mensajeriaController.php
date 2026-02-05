@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
-require_once '../../config/db.php';
+require_once __DIR__ . '/../config/db.php';
 
 // --- FUNCIÓN PRINCIPAL DE NOTIFICACIÓN ---
 function notifyCustomers($productId, $productName, $productUrl, $productImage) {
