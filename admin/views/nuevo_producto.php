@@ -21,6 +21,7 @@
             <div style="flex: 1;">
                 <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 5px;">Categoría</label>
                 <select name="id_categoria" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 10px 0; background: transparent; outline: none; cursor: pointer;">
+                    <option value="" disabled selected>Selecciona</option>
                     <?php
                     $stmt_c = $conexion->query("SELECT * FROM categorias");
                     while($cat = $stmt_c->fetch(PDO::FETCH_ASSOC)):
@@ -44,10 +45,10 @@
         </div>
 
         <div style="margin-bottom: 35px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 10px;">Imagen (PNG, JPG)</label>
+            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 10px;">Imagen del producto</label>
             
             <div style="position: relative;">
-                <input type="file" name="imagen" id="file-upload" style="display: none;" accept=".png, .jpg, .jpeg">
+                <input type="file" name="imagen" id="file-upload" style="display: none;" accept=".png, .jpg, .jpeg" required>
                 
                 <label for="file-upload" id="drop-area" 
                     style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fdfdfd; border: 2px dashed #d1d1d1; border-radius: 15px; padding: 10px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; min-height: 70px;">
@@ -63,6 +64,7 @@
                     ✕
                 </div>
             </div>
+            <p id="error-msg" style="color: #ff4d4d; font-size: 10px; font-weight: 600; margin-top: 8px; display: none; text-align: center;">Solo se permiten archivos PNG o JPG.</p>
         </div>
 
         <button type="submit" style="width: 100%; background: #1a1a1a; color: #fff; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer;">
@@ -84,8 +86,8 @@ const fileText = document.getElementById('file-text');
 const uploadIcon = document.getElementById('upload-icon');
 const imagePreview = document.getElementById('image-preview');
 const removeBtn = document.getElementById('remove-btn');
+const errorMsg = document.getElementById('error-msg');
 
-// Prevenir comportamiento por defecto
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     dropArea.addEventListener(eventName, e => {
         e.preventDefault();
@@ -93,44 +95,28 @@ const removeBtn = document.getElementById('remove-btn');
     }, false);
 });
 
-// Estilo al arrastrar
-['dragenter', 'dragover'].forEach(eventName => {
-    dropArea.addEventListener(eventName, () => {
-        dropArea.style.borderColor = '#1a1a1a';
-        dropArea.style.background = '#f9f9f9';
-    }, false);
-});
-
-['dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, () => {
-        dropArea.style.borderColor = '#d1d1d1';
-        dropArea.style.background = '#fdfdfd';
-    }, false);
-});
-
-// Al soltar el archivo
 dropArea.addEventListener('drop', e => {
-    const files = e.dataTransfer.files;
-    validateAndPreview(files);
+    validateAndPreview(e.dataTransfer.files);
 });
 
-// Al seleccionar con botón
 fileInput.addEventListener('change', function() {
     validateAndPreview(this.files);
 });
 
 function validateAndPreview(files) {
+    errorMsg.style.display = 'none'; // Ocultar error previo
+    
     if (files.length > 0) {
         const file = files[0];
         const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
         
         if (!validTypes.includes(file.type)) {
-            alert('Solo se permiten archivos PNG o JPG.');
+            errorMsg.style.display = 'block'; // Mostrar error en rojo
             fileInput.value = "";
             return;
         }
 
-        fileInput.files = files; // Sincroniza el input
+        fileInput.files = files;
         const reader = new FileReader();
         reader.readAsDataURL(file);
         
@@ -151,5 +137,6 @@ function removeImage() {
     uploadIcon.style.display = 'block';
     fileText.style.display = 'block';
     removeBtn.style.display = 'none';
+    errorMsg.style.display = 'none';
 }
 </script>

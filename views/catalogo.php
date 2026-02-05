@@ -45,6 +45,15 @@
                         <p class="card-precio"><?php echo number_format($p['precio'], 2); ?>€</p>
                         <p class="card-descripcion"><?php echo $p['descripcion']; ?></p>
 
+                        <div class="contenedor-interes">
+                            <form action="index.php?ver=marcar_favorito" method="POST" style="margin: 0;">
+                                <input type="hidden" name="id_producto" value="<?php echo $p['id_producto']; ?>">
+                                <button type="submit" class="btn-interes">
+                                    <span class="corazon-interes">❤</span> Me interesa
+                                </button>
+                            </form>
+                        </div>
+
                         <form action="index.php?ver=añadir_carrito" method="POST">
                             <input type="hidden" name="id_producto" value="<?php echo $p['id_producto']; ?>">
                             <button type="submit" class="btn-add-cart">
