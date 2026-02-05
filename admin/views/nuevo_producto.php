@@ -1,142 +1,133 @@
+<?php
+// Controladores y DB
+require_once '../controllers/ProductoController.php';
+require_once '../config/db.php';
+
+$productoCtrl = new ProductoController();
+$db = Database::conectar();
+
+// Guardar producto y redirigir
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['accion'] === 'guardar') {
+    
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
+        $ext = strtolower(pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION));
+        
+        if (in_array($ext, ['jpg', 'jpeg', 'png'])) {
+            $nombreFoto = time() . "_" . uniqid() . "." . $ext;
+            $directorio = "../public/img/productos";
+
+            if (!is_dir($directorio)) mkdir($directorio, 0777, true);
+
+            $destino = $directorio . $nombreFoto;
+
+            // Mover foto y guardar en BD
+            if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destino)) {
+                $datos = [
+                    'nombre'       => $_POST['nombre'],
+                    'descripcion'  => $_POST['nombre'], 
+                    'precio'       => $_POST['precio'],
+                    'stock'        => $_POST['stock'],
+                    'imagen_url'   => $nombreFoto,
+                    'id_categoria' => $_POST['id_categoria'],
+                    'disenador'    => $_POST['disenador']
+                ];
+
+                if ($productoCtrl->crear($datos)) {
+                    echo "<script>window.location.href='index.php?p=gestion_productos';</script>";
+                    exit;
+                }
+            }
+        }
+    }
+}
+?>
+
 <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
     <h2 style="font-weight: 600; color: #1a1a1a;">Nuevo Artículo</h2>
-    <p style="color: #666; font-size: 14px;">Añade productos al catálogo de la boutique</p>
 </div>
 
-<div style="background: #ffffff; border-radius: 40px; padding: 50px; max-width: 450px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
-    
-    <div style="text-align: center; margin-bottom: 30px;">
-        <span style="font-size: 40px;">🛍️</span>
-    </div>
-
-    <form action="controladores/gestion_controller.php?accion=guardar_producto" method="POST" enctype="multipart/form-data">
+<div style="background: #ffffff; border-radius: 40px; padding: 40px; max-width: 450px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+    <form action="index.php?p=nuevo_producto&accion=guardar" method="POST" enctype="multipart/form-data">
         
-        <div style="margin-bottom: 25px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 5px;">Nombre</label>
-            <input type="text" name="nombre" placeholder="Ej: Vestido Seda" required 
-                   style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 10px 0; outline: none; font-size: 15px;">
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Nombre</label>
+            <input type="text" name="nombre" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0; outline: none;">
         </div>
 
-        <div style="display: flex; gap: 20px; margin-bottom: 25px;">
+        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
             <div style="flex: 1;">
-                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 5px;">Categoría</label>
-                <select name="id_categoria" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 10px 0; background: transparent; outline: none; cursor: pointer;">
-                    <option value="" disabled selected>Selecciona</option>
+                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Categoría</label>
+                <select name="id_categoria" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0; background: transparent; width: 100%;">
                     <?php
-                    $stmt_c = $conexion->query("SELECT * FROM categorias");
-                    while($cat = $stmt_c->fetch(PDO::FETCH_ASSOC)):
+                    $stmt = $db->query("SELECT * FROM Categorias");
+                    while($cat = $stmt->fetch(PDO::FETCH_ASSOC)) echo "<option value='{$cat['id_categoria']}'>{$cat['nombre']}</option>";
                     ?>
-                        <option value="<?php echo $cat['id_categoria']; ?>"><?php echo htmlspecialchars($cat['nombre']); ?></option>
-                    <?php endwhile; ?>
                 </select>
             </div>
-            
             <div style="flex: 1;">
-                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 5px;">Precio (€)</label>
-                <input type="number" name="precio" step="0.01" placeholder="0.00" required 
-                       style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 10px 0; outline: none;">
+                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Diseñador</label>
+                <input type="text" name="disenador" placeholder="Ej: Gucci" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0; outline: none;">
             </div>
         </div>
 
-        <div style="margin-bottom: 25px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 5px;">Stock Disponible</label>
-            <input type="number" name="stock" placeholder="Cantidad" required 
-                   style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 10px 0; outline: none; font-size: 15px;">
+        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+            <div style="flex: 1;">
+                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Precio (€)</label>
+                <input type="number" name="precio" step="0.01" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0;">
+            </div>
+            <div style="flex: 1;">
+                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Stock</label>
+                <input type="number" name="stock" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0;">
+            </div>
         </div>
 
-        <div style="margin-bottom: 35px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 10px;">Imagen del producto</label>
+        <div style="margin-bottom: 30px;">
+            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 8px;">Imagen del producto</label>
             
-            <div style="position: relative;">
-                <input type="file" name="imagen" id="file-upload" style="display: none;" accept=".png, .jpg, .jpeg" required>
-                
-                <label for="file-upload" id="drop-area" 
-                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fdfdfd; border: 2px dashed #d1d1d1; border-radius: 15px; padding: 10px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; min-height: 70px;">
-                    
-                    <i id="upload-icon" class="fa-solid fa-cloud-arrow-up" style="font-size: 14px; color: #aaa; margin-bottom: 4px;"></i>
-                    <span id="file-text" style="color: #999; font-size: 10px; font-weight: 500; text-align: center;">Añadir imagen</span>
-                    
-                    <img id="image-preview" src="" style="display: none; width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; z-index: 10; background: #fff;">
+            <div id="upload-container">
+                <input type="file" name="imagen" id="img-input" style="display: none;" accept=".png, .jpg, .jpeg" onchange="mostrarPreview(this)">
+                <label for="img-input" style="display: flex; align-items: center; justify-content: center; background: #fafafa; border: 1.5px dashed #ccc; border-radius: 12px; padding: 15px; cursor: pointer; min-height: 60px; gap: 10px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/109/109612.png" style="width: 18px; opacity: 0.4;">
+                    <span style="color: #999; font-size: 12px;">Seleccionar archivo</span>
                 </label>
-
-                <div id="remove-btn" onclick="removeImage()" 
-                    style="display: none; position: absolute; top: -8px; right: -8px; background: #1a1a1a; color: white; width: 20px; height: 20px; border-radius: 50%; text-align: center; line-height: 18px; font-size: 10px; cursor: pointer; z-index: 20; border: 2px solid #fff;">
-                    ✕
-                </div>
             </div>
-            <p id="error-msg" style="color: #ff4d4d; font-size: 10px; font-weight: 600; margin-top: 8px; display: none; text-align: center;">Solo se permiten archivos PNG o JPG.</p>
+
+            <div id="preview-container" style="display: none; position: relative; margin-top: 10px; text-align: center;">
+                <img id="img-preview" src="#" style="max-width: 100%; max-height: 120px; border-radius: 12px; border: 1px solid #eee;">
+                <button type="button" onclick="borrarFoto()" style="position: absolute; top: -5px; right: 5px; background: #e74c3c; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer;">✕</button>
+            </div>
         </div>
 
-        <button type="submit" style="width: 100%; background: #1a1a1a; color: #fff; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer;">
+        <button type="submit" style="width: 100%; background: #1a1a1a; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: bold; cursor: pointer;">
             Guardar Producto
         </button>
 
         <div style="text-align: center; margin-top: 25px;">
-            <a href="index.php?p=productos" style="color: #bbb; text-decoration: none; font-size: 12px; font-weight: 600;">
-                — Volver al listado
-            </a>
+            <a href="index.php?p=gestion_productos" style="color: #bbb; text-decoration: none; font-size: 11px;">— Volver al listado</a>
         </div>
     </form>
 </div>
 
 <script>
-const dropArea = document.getElementById('drop-area');
-const fileInput = document.getElementById('file-upload');
-const fileText = document.getElementById('file-text');
-const uploadIcon = document.getElementById('upload-icon');
-const imagePreview = document.getElementById('image-preview');
-const removeBtn = document.getElementById('remove-btn');
-const errorMsg = document.getElementById('error-msg');
+function mostrarPreview(input) {
+    const previewContainer = document.getElementById('preview-container');
+    const uploadContainer = document.getElementById('upload-container');
+    const previewImg = document.getElementById('img-preview');
 
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, e => {
-        e.preventDefault();
-        e.stopPropagation();
-    }, false);
-});
-
-dropArea.addEventListener('drop', e => {
-    validateAndPreview(e.dataTransfer.files);
-});
-
-fileInput.addEventListener('change', function() {
-    validateAndPreview(this.files);
-});
-
-function validateAndPreview(files) {
-    errorMsg.style.display = 'none'; // Ocultar error previo
-    
-    if (files.length > 0) {
-        const file = files[0];
-        const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-        
-        if (!validTypes.includes(file.type)) {
-            errorMsg.style.display = 'block'; // Mostrar error en rojo
-            fileInput.value = "";
-            return;
-        }
-
-        fileInput.files = files;
+    if (input.files && input.files[0]) {
         const reader = new FileReader();
-        reader.readAsDataURL(file);
-        
         reader.onload = function(e) {
-            imagePreview.src = e.target.result;
-            imagePreview.style.display = 'block';
-            uploadIcon.style.display = 'none';
-            fileText.style.display = 'none';
-            removeBtn.style.display = 'block';
+            previewImg.src = e.target.result;
+            uploadContainer.style.display = 'none';
+            previewContainer.style.display = 'block';
         }
+        reader.readAsDataURL(input.files[0]);
     }
 }
 
-function removeImage() {
-    fileInput.value = "";
-    imagePreview.src = "";
-    imagePreview.style.display = 'none';
-    uploadIcon.style.display = 'block';
-    fileText.style.display = 'block';
-    removeBtn.style.display = 'none';
-    errorMsg.style.display = 'none';
+function borrarFoto() {
+    document.getElementById('img-input').value = '';
+    document.getElementById('preview-container').style.display = 'none';
+    document.getElementById('upload-container').style.display = 'block';
 }
 </script>

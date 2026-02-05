@@ -23,6 +23,13 @@ switch ($pagina) {
         $controller->verCatalogo();
         break;
 
+    // Procesa el botón "Me interesa" (Favoritos)
+    case 'marcar_favorito':
+        require_once 'controllers/CatalogoController.php';
+        $controller = new CatalogoController();
+        $controller->marcarFavorito(); 
+        break;
+
     // Procesa el botón "Añadir a la cesta"
     case 'añadir_carrito':
         require_once 'controllers/CatalogoController.php';
@@ -38,10 +45,16 @@ switch ($pagina) {
         break;
 
     case 'carrito':
-        // Asegúrate de que CarritoController cargue la vista: views/layout/carrito.php
         require_once 'controllers/CarritoController.php';
         $controller = new CarritoController();
         $controller->verCarrito();
+        break;
+
+    // NUEVA RUTA: Prepara el pedido y redirige a la pasarela de pago
+    case 'preparar_pago':
+        require_once 'controllers/CarritoController.php';
+        $controller = new CarritoController();
+        $controller->iniciarProcesoPago(); 
         break;
 
     case 'login':
@@ -79,6 +92,12 @@ switch ($pagina) {
         require_once 'controllers/AdminController.php';
         $controller = new AdminController();
         $controller->index();
+        break;
+
+    case 'finalizar_pago':
+        require_once __DIR__ . '/controllers/PagosController.php';
+        $controller = new PagosController();
+        $controller->procesar();
         break;
 
     default:

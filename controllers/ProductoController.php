@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/db.php';
-require_once __DIR__ . '/gestion_mensajeria.php';
+require_once __DIR__ . '/mensajeriaController.php';
 
 class ProductoController {
 

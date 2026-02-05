@@ -16,10 +16,6 @@
             </p>
         </header>
 
-        <div class="aviso-caducidad">
-            <p><strong>Nota informativa:</strong> Los artículos añadidos a la cesta se eliminarán automáticamente después de 30 días para garantizar la disponibilidad de stock a otros clientes.</p>
-        </div>
-
         <?php if (!empty($_SESSION['carrito'])): ?>
             <div class="carrito-lista">
                 <?php 
@@ -48,7 +44,11 @@
                         <span class="resumen-etiqueta">TOTAL (IVA INCLUIDO)</span>
                         <span class="resumen-total"><?php echo number_format($total, 2); ?>€</span>
                     </div>
-                    <button class="btn-pagar">Tramitar Pedido</button>
+
+                    <form action="index.php?ver=preparar_pago" method="POST">
+                        <input type="hidden" name="total" value="<?php echo $total; ?>">
+                        <button type="submit" class="btn-pagar">Tramitar Pedido</button>
+                    </form>
                 </div>
             </div>
         <?php else: ?>

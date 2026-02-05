@@ -9,14 +9,14 @@
 
 </head>
 <body>
-    <header>
+    <header class="header">
         <h1>📝 Crear Cuenta</h1>
         <nav>
             <a href="index.php?ver=inicio">Volver al Inicio</a>
         </nav>
     </header>
 
-    <main>
+    <main class="main">
         <div class="formulario-caja">
             <h2>Regístrate</h2>
             

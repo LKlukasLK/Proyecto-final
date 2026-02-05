@@ -33,7 +33,7 @@
             el diseño se vuelve más sofisticado y fácil de leer, permitiendo que las imágenes sigan siendo 
             el marco visual principal.
         </p>
-        <a href="index.php?ver=catalogo" class="info-btn-black">Comprar</a>
+        <a href="index.php?ver=catalogo" class="info-page-button ">Comprar</a>
     </section>
 
     <div class="info-page-image-box">

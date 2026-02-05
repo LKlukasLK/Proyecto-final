@@ -75,26 +75,20 @@ class CatalogoController {
     }
 
     public function marcarFavorito() {
-        // Iniciamos sesión si no lo está ya para acceder a $_SESSION
-        if (session_status() === PHP_SESSION_NONE) { session_start(); }
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_producto'])) {
-            if (isset($_SESSION['id_usuario'])) {
-                $id_p = intval($_POST['id_producto']);
-                $id_u = $_SESSION['id_usuario'];
-
-                $modelo = new ProductoModel();
-                $modelo->registrarInteres($id_u, $id_p);
-                
-                // Opcional: podrías guardar un mensaje de éxito en sesión
-            } else {
-                // Si no está logueado, podrías mandarlo al login o simplemente ignorar
-                header("Location: index.php?ver=login");
-                exit();
+        // Es vital que el usuario esté logueado para tener un id_usuario
+        if (isset($_SESSION['id_usuario']) && isset($_POST['id_producto'])) {
+            $id_u = $_SESSION['id_usuario'];
+            $id_p = intval($_POST['id_producto']);
+            
+            $modelo = new ProductoModel();
+            $exito = $modelo->registrarInteres($id_u, $id_p);
+            
+            if (!$exito) {
+                // Esto te ayudará a ver si falla la base de datos
+                error_log("Fallo al insertar interés en la BD");
             }
         }
-        
-        // Redirigir de vuelta al catálogo para que el usuario no vea una página en blanco
+        // Siempre redirigir atrás para que no se quede la pantalla en blanco
         header("Location: index.php?ver=catalogo");
         exit();
     }

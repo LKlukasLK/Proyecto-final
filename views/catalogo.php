@@ -34,13 +34,25 @@
                 <?php foreach ($productos as $p): ?>
                     <div class="card-producto">
                         <div class="card-imagen-wrapper">
-                            <?php if (!empty($p['imagen_url']) && $p['imagen_url'] !== 'url_imagen_smartphone'): ?>
-                                <img src="<?php echo $p['imagen_url']; ?>" alt="<?php echo $p['nombre']; ?>">
+                            <?php
+                            // 1. Obtenemos el nombre del archivo desde la base de datos
+                            $nombre_imagen = $p['imagen_url'];
+
+                            // 2. Definimos la ruta donde están las fotos (según tu captura: public/img/)
+                            $ruta_archivo = "public/img/productos/" . $nombre_imagen;
+
+                            // 3. Comprobamos si el nombre no está vacío y si el archivo existe en la carpeta
+                            // Nota: Usamos __DIR__ para asegurar que PHP encuentre la ruta real en el servidor
+                            if (!empty($nombre_imagen) && file_exists(__DIR__ . "/../" . $ruta_archivo)): ?>
+
+                                <img src="<?php echo $ruta_archivo; ?>" alt="<?php echo $p['nombre']; ?>">
+
                             <?php else: ?>
+                                <!-- Si el nombre está vacío o el archivo no existe en la carpeta public/img/ -->
                                 <span style="font-size: 60px;">👕</span>
+
                             <?php endif; ?>
                         </div>
-
                         <h3 class="card-titulo"><?php echo $p['nombre']; ?></h3>
                         <p class="card-precio"><?php echo number_format($p['precio'], 2); ?>€</p>
                         <p class="card-descripcion"><?php echo $p['descripcion']; ?></p>

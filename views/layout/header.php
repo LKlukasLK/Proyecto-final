@@ -8,7 +8,7 @@ $carrito_total = isset($_SESSION['carrito']) ? count($_SESSION['carrito']) : 0;
     <div class="nav-container">
         <div class="nav-group left">
             <a href="index.php?ver=catalogo" class="nav-btn">TIENDA</a>
-            <button class="nav-btn" onclick="scrollearInfo()">COLECCIÓN</button>
+            <!-- <button class="nav-btn" onclick="scrollearInfo()">COLECCIÓN</button> -->
         </div>
 
         <div class="nav-group center">
