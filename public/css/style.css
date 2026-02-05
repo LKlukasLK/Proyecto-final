@@ -331,31 +331,35 @@
 
 
 
-/*seccion para inicio.php*/
-/* --- SECCIÓN EXCLUSIVA PÁGINA DE INFORMACIÓN --- */
+/* ============================================================
+   SECCIÓN EXCLUSIVA: PÁGINA DE INFORMACIÓN (MODIFICADO)
+   ============================================================ */
 
 .info-page-main {
     background-color: #fff;
     margin: 0;
     padding: 0;
     font-family: 'Helvetica', Arial, sans-serif;
-    overflow-x: hidden; /* Evita scroll horizontal por la inclinación */
-    padding-top: 80px; 
+    overflow-x: hidden;
+    /* Aumentamos el padding superior para bajar todo el bloque */
+    padding-top: 50px; 
 }
 
-/* Franja Negra Inclinada a pantalla completa */
+/* Contenedor del Banner (Cuadro inclinado) */
 .info-page-header-wrapper {
     position: relative;
     width: 100%;
-    padding: 60px 0;
+    /* Añadimos más espacio arriba (40px) para bajar el cuadro negro */
+    padding: 40px 0 60px 0;
     overflow: hidden;
 }
 
+/* La franja negra inclinada */
 .info-page-skew-bar {
     width: 120%;
     margin-left: -10%;
     background-color: #000;
-    padding: 20px 0;
+    padding: 25px 0; 
     transform: rotate(-2.5deg);
     display: flex;
     justify-content: center;
@@ -364,7 +368,7 @@
 }
 
 .info-page-skew-bar h2 {
-    font-size: 5vw;
+    font-size: 6vw;
     color: #fff !important;
     margin: 0;
     text-transform: uppercase;
@@ -373,10 +377,10 @@
     white-space: nowrap;
 }
 
-/* Bloques de Texto Libres */
+/* Texto introductorio debajo del banner */
 .info-page-intro {
     text-align: center;
-    padding: 40px 20px;
+    padding: 20px 20px 50px; 
 }
 
 .info-page-intro p {
@@ -387,6 +391,7 @@
     line-height: 1.6;
 }
 
+/* Bloque de texto central (entre imágenes) */
 .info-page-section-center {
     max-width: 800px;
     margin: 0 auto;
@@ -409,7 +414,7 @@
     margin-bottom: 40px;
 }
 
-/* Botón de Compra Personalizado */
+/* Botón de compra estilizado */
 .info-page-button {
     display: inline-block;
     background: #000;
@@ -429,7 +434,7 @@
     color: #000 !important;
 }
 
-/* Imágenes Full Width */
+/* Contenedores de imágenes a pantalla completa */
 .info-page-image-box {
     width: 100%;
     height: 55vh;
@@ -442,9 +447,117 @@
     object-fit: cover;
 }
 
-/* Media Query para móviles */
+/* --- RESPONSIVE / MÓVILES --- */
 @media (max-width: 768px) {
-    .info-page-skew-bar h2 { font-size: 10vw; }
-    .info-page-section-center h2 { font-size: 1.8rem; }
+    .info-page-skew-bar h2 {
+        font-size: 10vw;
+    }
+    .info-page-section-center h2 {
+        font-size: 1.8rem;
+    }
 }
-/*hasta aquí */
+Para que tu footer tenga ese estilo profesional inspirado en Nike (fondo casi negro, columnas organizadas y texto minimalista), he preparado el código CSS y HTML adaptado a tu proyecto.
+
+He modificado el CSS para que los enlaces cambien a blanco al pasar el cursor y las columnas se distribuyan de forma equilibrada.
+
+1. Código CSS (Añadir a tu archivo .css)
+Reemplaza la sección del footer que tengas por esta:
+
+CSS
+
+/* ============================================================
+   FOOTER ESTILO PROFESIONAL (NIKE STYLE)
+   ============================================================ */
+
+.main-footer {
+    background-color: #111111; /* Negro suave */
+    color: #ffffff;
+    padding: 60px 40px 30px;
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-column h3 {
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 12px;
+}
+
+.footer-column ul li a {
+    color: #7e7e7e; /* Gris Nike */
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: #ffffff; /* Blanco al pasar el mouse */
+}
+
+/* Línea inferior de créditos */
+.footer-bottom {
+    margin-top: 60px;
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 20px;
+}
+
+.footer-copy {
+    font-size: 11px;
+    color: #ffffff;
+    margin-right: 30px;
+}
+
+.footer-legal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-legal-links a {
+    color: #7e7e7e;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.footer-legal-links a:hover {
+    color: #ffffff;
+}
+
+/* Responsive móvil */
+@media (max-width: 768px) {
+    .footer-columns {
+        grid-template-columns: 1fr 1fr;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

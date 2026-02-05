@@ -43,9 +43,66 @@
 
     </main>
 
-    <footer>
-        <p>&copy; 2026 Tienda - Sistema MVC &race;</p>
-    </footer>
+    <<footer class="main-footer">
+    <div class="footer-columns">
+        <div class="footer-column">
+            <h3>Recursos</h3>
+            <ul>
+                <li><a href="#">Tarjetas de regalo</a></li>
+                <li><a href="#">Tarjetas de regalo corporativas</a></li>
+                <li><a href="#">Buscar una tienda</a></li>
+                <li><a href="#">Nike Journal</a></li>
+                <li><a href="#">Hazte Member</a></li>
+                <li><a href="#">Comentarios</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Ayuda</h3>
+            <ul>
+                <li><a href="#">Obtener ayuda</a></li>
+                <li><a href="#">Estado del pedido</a></li>
+                <li><a href="#">Envíos y entregas</a></li>
+                <li><a href="#">Devoluciones</a></li>
+                <li><a href="#">Opciones de pago</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Empresa</h3>
+            <ul>
+                <li><a href="#">Acerca de Nike</a></li>
+                <li><a href="#">Novedades</a></li>
+                <li><a href="#">Empleo</a></li>
+                <li><a href="#">Inversores</a></li>
+                <li><a href="#">Sostenibilidad</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Descuentos de la comunidad</h3>
+            <ul>
+                <li><a href="#">Estudiante</a></li>
+                <li><a href="#">Docente</a></li>
+                <li><a href="#">Servicios de emergencias</a></li>
+                <li><a href="#">Atención sanitaria</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Nike, Inc. Todos los derechos reservados</span>
+        <div class="footer-legal-links">
+            <a href="#">Guías</a>
+            <a href="#">Términos de uso</a>
+            <a href="#">Términos de venta</a>
+            <a href="#">Aviso legal</a>
+            <a href="#">Política de privacidad y cookies</a>
+            <a href="#">Configuración de privacidad y cookies</a>
+        </div>
+    </div>
+</footer>
 
     <script src="public/js/scrips.js"></script>
 </body>
