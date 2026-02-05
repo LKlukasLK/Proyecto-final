@@ -1,15 +1,15 @@
 <?php
-// 1. Siempre lo primero: iniciar sesión
+// 1. Siempre lo primero: iniciar sesión para que el carrito funcione
 session_start(); 
 
-// 2. Opcional: Configurar reporte de errores (útil mientras programas)
+// 2. Reporte de errores para desarrollo
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// 3. Obtener la página
+// 3. Obtener la página actual
 $pagina = $_GET['ver'] ?? 'inicio';
 
-// 4. ENRUTADOR
+// 4. ENRUTADOR PRINCIPAL
 switch ($pagina) {
     case 'inicio':
         require_once 'controllers/HomeController.php';
@@ -21,6 +21,27 @@ switch ($pagina) {
         require_once 'controllers/CatalogoController.php';
         $controller = new CatalogoController();
         $controller->verCatalogo();
+        break;
+
+    // Procesa el botón "Añadir a la cesta"
+    case 'añadir_carrito':
+        require_once 'controllers/CatalogoController.php';
+        $controller = new CatalogoController();
+        $controller->añadirAlCarrito(); 
+        break;
+
+    // Procesa el enlace "Eliminar" dentro del carrito
+    case 'eliminar_item':
+        require_once 'controllers/CatalogoController.php';
+        $controller = new CatalogoController();
+        $controller->eliminarDelCarrito();
+        break;
+
+    case 'carrito':
+        // Asegúrate de que CarritoController cargue la vista: views/layout/carrito.php
+        require_once 'controllers/CarritoController.php';
+        $controller = new CarritoController();
+        $controller->verCarrito();
         break;
 
     case 'login':
@@ -48,9 +69,8 @@ switch ($pagina) {
         break;
 
     case 'logout':
-        // Limpieza total de sesión
-        $_SESSION = array(); // Vacía el array
-        session_destroy();   // Destruye la sesión en el servidor
+        $_SESSION = array(); 
+        session_destroy();   
         header("Location: index.php?ver=inicio");
         exit();
         break;
@@ -61,14 +81,7 @@ switch ($pagina) {
         $controller->index();
         break;
 
-    case 'carrito':
-        require_once 'controllers/CarritoController.php';
-        $controller = new CarritoController();
-        $controller->verCarrito();
-        break;
-
     default:
-        // En lugar de un simple echo, podrías cargar una vista de error 404
         echo "<h1>404 - Página no encontrada</h1><a href='index.php'>Volver al inicio</a>";
         break;
 }

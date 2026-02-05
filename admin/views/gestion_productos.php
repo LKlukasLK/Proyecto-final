@@ -1,16 +1,20 @@
 <?php
 // Usamos PDO para la consulta de productos
-require_once '../../config/db.php';
-require_once '../../controllers/ProductoController.php';
+try {
+    $query = "SELECT p.*, c.nombre as categoria_nombre 
+              FROM productos p 
+              LEFT JOIN categorias c ON p.id_categoria = c.id_categoria";
 
-$controller = new ProductoController();
-
+    $stmt = $conexion->query($query);
+} catch (PDOException $e) {
+    echo "Error en la consulta: " . $e->getMessage();
+}
 ?>
 
 <section class="seccion-tabla">
     <div class="tabla-header">
         <h2>Listado de Productos</h2>
-        <a href="nuevo_producto.php" class="btn-nuevo">+ Añadir Producto </a>
+        <a href="index.php?p=nuevo_producto" class="btn-nuevo">+ Añadir Producto</a>
     </div>
 
     <table class="tabla-admin">
@@ -30,23 +34,17 @@ $controller = new ProductoController();
                     <td>#<?php echo $row['id_producto'] ?? $row['id']; ?></td>
 
                     <td>
-                        <?php 
-                        $img = $row['imagen'];
-                        // Sacamos la extensión del archivo para comprobarla
-                        $extension = strtolower(pathinfo($img, PATHINFO_EXTENSION));
-
-                        if (empty($img)): ?>
-                            <span>Sin foto</span>
-                        <?php elseif ($extension !== 'png'): ?>
-                            <span style="color: #d32f2f; font-weight: bold; font-size: 11px;">⚠️ ERROR: el archivo no es compatible (solo formato en png)</span>
+                        <?php if (!empty($row['imagen'])): ?>
+                            <img src="../public/img/<?php echo $row['imagen']; ?>" width="50" alt="prod">
                         <?php else: ?>
-                            <img src="../public/img/<?php echo $img; ?>" width="50" alt="prod">
+                            <span>Sin foto</span>
                         <?php endif; ?>
                     </td>
 
                     <td><?php echo htmlspecialchars($row['nombre']); ?></td>
                     <td><?php echo htmlspecialchars($row['categoria_nombre'] ?? 'Sin categoría'); ?></td>
                     <td><?php echo number_format($row['precio'], 2); ?>€</td>
+                    
                     <td>
                         <a href="editar_producto.php?id=<?php echo $row['id_producto'] ?? $row['id']; ?>" class="btn-edit">
                             <i class="fa-solid fa-pen"></i>

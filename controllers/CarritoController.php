@@ -3,25 +3,25 @@ require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/MensajeriaController.php';
 
 class CarritoController {
+    
+    /**
+     * Muestra la vista del carrito sin restricciones de tiempo
+     */
     public function verCarrito() {
-        // Aquí iría la lógica para obtener los productos en el carrito
-        // Por simplicidad, solo incluimos la vista directamente
+        // Se ha eliminado la limpieza automática por 30 días.
+        // Los productos permanecerán en la sesión hasta que el usuario los borre o compre.
         require_once 'views/carrito.php';
     }
 
     /**
      * Procesa la compra y envía notificación al cliente
-     * @param int $userId - ID del usuario que compra
-     * @param array $cartItems - Array con los productos del carrito
-     * @param float $totalAmount - Monto total de la compra
-     * @param float $discountAmount - (Opcional) Monto del descuento aplicado
      */
     public function procesarCompra($userId, $cartItems, $totalAmount, $discountAmount = 0) {
         try {
             $pdo = Database::conectar();
 
-            // Obtener datos del usuario
-            $stmt = $pdo->prepare("SELECT nombre, email FROM usuarios WHERE id = ?");
+            // 1. Obtener datos del usuario
+            $stmt = $pdo->prepare("SELECT nombre, email FROM usuarios WHERE id_usuario = ?");
             $stmt->execute([$userId]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -29,28 +29,36 @@ class CarritoController {
                 return ["success" => false, "message" => "Usuario no encontrado"];
             }
 
-            // Insertar la orden en la base de datos
+            // 2. Insertar la orden
             $stmt = $pdo->prepare("INSERT INTO ordenes (usuario_id, total, estado, fecha) VALUES (?, ?, 'confirmada', NOW())");
             $stmt->execute([$userId, $totalAmount]);
             $orderId = $pdo->lastInsertId();
 
-            // Insertar detalles de la orden
+            // 3. Insertar detalles de la orden
             foreach ($cartItems as $item) {
                 $stmt = $pdo->prepare("INSERT INTO orden_detalles (orden_id, producto_id, cantidad, precio) VALUES (?, ?, ?, ?)");
-                $stmt->execute([$orderId, $item['id'], $item['cantidad'], $item['precio']]);
+                $stmt->execute([$orderId, $item['id'], 1, $item['precio']]);
             }
 
-            // Enviar notificación de compra
-                
+            /**
+             * 4. Limpiar carrito de la base de datos tras la compra.
+             * Ahora este es el único momento en el que se eliminan los registros de detalles_carrito.
+             */
+            $stmt = $pdo->prepare("DELETE FROM detalles_carrito WHERE id_carrito = (SELECT id_carrito FROM carritos WHERE id_usuario = ?)");
+            $stmt->execute([$userId]);
+
+            // 5. Limpiar carrito de la sesión
+            $_SESSION['carrito'] = [];
+
+            // 6. Enviar notificación
             $resultado = notifyPurchase(
                 $userId,
                 $usuario['email'],
                 $usuario['nombre'],
                 $cartItems,
                 $totalAmount,
-                $orderId);
-
-            
+                $orderId
+            );
 
             return [
                 "success" => true,
@@ -67,4 +75,3 @@ class CarritoController {
         }
     }
 }
-?>

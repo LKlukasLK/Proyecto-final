@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda</title>
-    <!-- Vinculamos el CSS -->
     <link rel="stylesheet" href="public/css/style.css">
     <?php include 'views/layout/head.php'; ?>
 </head>
@@ -12,56 +11,99 @@
 
     <?php include 'views/layout/header.php'; ?>
 
-    <main>
-        <main style="background-color: #f4f4f4; padding: 40px 0;">
-    
-    <main style="background-color: #f4f4f4; padding: 40px 0;">
-    
-    <h2 style="text-align: center; font-size: 4rem; color: #222; margin-bottom: 20px; font-family: sans-serif; font-weight: 800;">
-        Informacion pagina
-    </h2>
+    <main class="info-page-main">
 
-    <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
-
-        <div class="tarjeta" style="display: grid; grid-template-columns: 240px 1fr 240px; grid-template-rows: auto auto auto; gap: 25px; width: 100%; max-width: 1300px; background: #fff; padding: 60px; border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); align-items: center;">
-
-            <div style="grid-column: 2; justify-self: center;">
-                <img src="public/img/imagen3.jpg" alt="Superior" style="width: 400px; height: 120px; object-fit: cover; border-radius: 15px;">
+        <div class="info-page-header-wrapper">
+            <div class="info-page-skew-bar">
+                <h2>Información página</h2>
             </div>
-
-            <div style="grid-column: 1; grid-row: 1 / 4; height: 100%;">
-                <img src="public/img/imagen2.jpg" alt="Izquierda" style="width: 100%; height: 100%; min-height: 600px; object-fit: cover; border-radius: 20px;">
-            </div>
-
-            <div style="grid-column: 2; grid-row: 2; text-align: center; padding: 80px 50px; background: #fafafa; border-radius: 30px; border: 1px solid #eee; margin: 20px;">
-                
-                <h2 style="margin-bottom: 25px; font-size: 4rem; color: #111; font-weight: 700;">Información</h2>
-                
-                <p style="font-size: 1.6rem; color: #444; line-height: 1.6; font-weight: 400; margin-bottom: 40px;">
-                    Este texto es el corazón del diseño. Está rodeado por imágenes que se extienden para crear un marco perfecto. 
-                    Ahora todo es mucho más grande y legible para captar la atención de inmediato.
-                </p>
-                
-                <a href="index.php?ver=catalogo" style="display: inline-block; background: #000; color: #fff; padding: 20px 60px; font-size: 1.8rem; font-weight: bold; border-radius: 15px; text-decoration: none;">
-                    Comprar
-                </a>
-            </div>
-
-            <div style="grid-column: 3; grid-row: 1 / 4; height: 100%;">
-                <img src="public/img/imagen4.jpg" alt="Derecha" style="width: 100%; height: 100%; min-height: 600px; object-fit: cover; border-radius: 20px;">
-            </div>
-
-            <div style="grid-column: 2; grid-row: 3; justify-self: center;">
-                <img src="public/img/imagen1.jpg" alt="Inferior" style="width: 400px; height: 120px; object-fit: cover; border-radius: 15px;">
-            </div>
-
         </div>
-    </div>
+
+        <div class="info-page-intro">
+            <p>Texto información página, este texto fluye naturalmente debajo de la gran franja negra inclinada.</p>
+        </div>
+
+        <div class="info-page-image-box">
+            <img src="public/img/imagen3.jpg" alt="Superior">
+        </div>
+
+        <div class="info-page-section-center">
+            <h2>Información</h2>
+            <p>
+                Este texto ahora tiene un tamaño más balanceado. Al reducir las dimensiones y quitar las cajas, 
+                el diseño se vuelve más sofisticado y fácil de leer, permitiendo que las imágenes sigan siendo 
+                el marco visual principal.
+            </p>
+            <a href="index.php?ver=catalogo" class="info-page-button">Comprar</a>
+        </div>
+
+        <div class="info-page-image-box">
+            <img src="public/img/imagen1.jpg" alt="Inferior">
+        </div>
+
     </main>
 
-    <footer>
-        <p>&copy; 2026 Tienda - Sistema MVC &race;</p>
-    </footer>
- <script src="public/js/scrips.js"></script>
+    <<footer class="main-footer">
+    <div class="footer-columns">
+        <div class="footer-column">
+            <h3>Recursos</h3>
+            <ul>
+                <li><a href="#">Tarjetas de regalo</a></li>
+                <li><a href="#">Tarjetas de regalo corporativas</a></li>
+                <li><a href="#">Buscar una tienda</a></li>
+                <li><a href="#">Nike Journal</a></li>
+                <li><a href="#">Hazte Member</a></li>
+                <li><a href="#">Comentarios</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Ayuda</h3>
+            <ul>
+                <li><a href="#">Obtener ayuda</a></li>
+                <li><a href="#">Estado del pedido</a></li>
+                <li><a href="#">Envíos y entregas</a></li>
+                <li><a href="#">Devoluciones</a></li>
+                <li><a href="#">Opciones de pago</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Empresa</h3>
+            <ul>
+                <li><a href="#">Acerca de Nike</a></li>
+                <li><a href="#">Novedades</a></li>
+                <li><a href="#">Empleo</a></li>
+                <li><a href="#">Inversores</a></li>
+                <li><a href="#">Sostenibilidad</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Descuentos de la comunidad</h3>
+            <ul>
+                <li><a href="#">Estudiante</a></li>
+                <li><a href="#">Docente</a></li>
+                <li><a href="#">Servicios de emergencias</a></li>
+                <li><a href="#">Atención sanitaria</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Nike, Inc. Todos los derechos reservados</span>
+        <div class="footer-legal-links">
+            <a href="#">Guías</a>
+            <a href="#">Términos de uso</a>
+            <a href="#">Términos de venta</a>
+            <a href="#">Aviso legal</a>
+            <a href="#">Política de privacidad y cookies</a>
+            <a href="#">Configuración de privacidad y cookies</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="public/js/scrips.js"></script>
 </body>
 </html>

@@ -2,9 +2,9 @@
 session_start();
 
 require_once __DIR__ . '/../config/db.php';
-$conexion = Database::conectar(); 
+$conexion = Database::conectar();
 
-require_once '../config/db.php'; 
+require_once '../config/db.php';
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     header("Location: ../index.php?ver=login");
     exit();
@@ -17,12 +17,14 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Panel Admin - Gestión Total</title>
     <link rel="stylesheet" href="../public/css/estilos_admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <header>
         <div class="box_reg">
@@ -53,11 +55,24 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
     <main class="contenedor-admin">
         <?php
         switch ($seccion) {
-            case 'productos':  include 'views/gestion_productos.php'; break;
-            case 'categorias': include 'views/gestion_mensajería.php'; break;
-            case 'usuarios':   include 'views/gestion_usuarios.php'; break;
-            case 'pedidos':    include 'views/gestion_pedidos.php'; break;
-            case 'stock':      include 'views/gestion_stock.php'; break;
+            case 'productos':
+                include 'views/gestion_productos.php';
+                break;
+            case 'categorias':
+                include 'views/gestion_mensajería.php';
+                break;
+            case 'nuevo_producto':
+                include 'views/nuevo_producto.php';
+                break;
+            case 'usuarios':
+                include 'views/gestion_usuarios.php';
+                break;
+            case 'pedidos':
+                include 'views/gestion_pedidos.php';
+                break;
+            case 'stock':
+                include 'views/gestion_stock.php';
+                break;
             default:
                 echo "  <div class='bienvenida'>
                             <i class='fa-solid fa-screwdriver-wrench' style='font-size:4rem; color:#bdc3c7'></i>
@@ -69,4 +84,5 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
         ?>
     </main>
 </body>
+
 </html>
