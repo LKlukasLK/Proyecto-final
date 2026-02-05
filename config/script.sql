@@ -27,10 +27,16 @@ CREATE TABLE Productos (
     stock INT NOT NULL CHECK (stock >= 0),
     imagen_url VARCHAR(255),
     id_categoria INT NOT NULL,
+    id_diseñador INT,
 
     FOREIGN KEY (id_categoria)
         REFERENCES Categorias(id_categoria)
         ON DELETE RESTRICT
+        ON UPDATE CASCADE,
+
+    FOREIGN KEY (id_diseñador)
+        REFERENCES Disenadores(id_disenador)
+        ON DELETE SET NULL
         ON UPDATE CASCADE
 );
 
@@ -140,6 +146,13 @@ CREATE TABLE lista_espera(
         REFERENCES Productos(id_producto)
         ON DELETE CASCADE
         
+);
+
+CREATE TABLE Disenadores (
+    id_disenador INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    biografia TEXT,
+    web_url VARCHAR(255)
 );
 
 

@@ -6,12 +6,13 @@ class ProductoController {
 
     // 1. LISTAR PRODUCTOS 
     public function listar() {
-        $db = Database::conectar();
-        $sql = "SELECT p.*, c.nombre AS categoria_nombre 
-                FROM Productos p 
-                JOIN Categorias c ON p.id_categoria = c.id_categoria";
-        return $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $db = Database::conectar();
+    $sql = "SELECT p.*, c.nombre AS categoria_nombre, d.nombre AS disenador_nombre 
+            FROM Productos p 
+            LEFT JOIN Categorias c ON p.id_categoria = c.id_categoria
+            LEFT JOIN Disenadores d ON p.id_disenador = d.id_disenador";
+    return $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+}
 
     // 2. OBTENER UN PRODUCTO POR ID
     public function obtenerPorId($id) {
