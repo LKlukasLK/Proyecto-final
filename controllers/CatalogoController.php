@@ -3,31 +3,12 @@ require_once 'models/ProductoModel.php';
 
 class CatalogoController {
     
-    // Nueva función privada para no repetir código
-    private function limpiarSesionAntigua() {
-        if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
-            $segundos_en_30_dias = 15;
-            $ahora = time();
-
-            foreach ($_SESSION['carrito'] as $indice => $item) {
-                // Si el item tiene fecha y superó los 30 días, lo borramos de la sesión
-                if (isset($item['fecha']) && ($ahora - $item['fecha'] > $segundos_en_30_dias)) {
-                    unset($_SESSION['carrito'][$indice]);
-                }
-            }
-            // Reindexamos para que los índices (0, 1, 2...) sigan en orden
-            $_SESSION['carrito'] = array_values($_SESSION['carrito']);
-        }
-    }
+    // Se ha eliminado la función limpiarSesionAntigua para que los productos no caduquen.
 
     public function verCatalogo() {
         $modelo = new ProductoModel();
         
-        // 1. Limpiamos la Base de Datos
-        $modelo->limpiarCarritoAntiguo();
-
-        // 2. Limpiamos la Sesión del navegador
-        $this->limpiarSesionAntigua();
+        // Eliminada la llamada a limpiarCarritoAntiguo para mantener la persistencia total.
 
         $q = isset($_GET['q']) ? trim($_GET['q']) : '';
 
@@ -39,9 +20,8 @@ class CatalogoController {
         require_once 'views/catalogo.php';
     }
 
-    // Si tienes una función para ver el carrito en este mismo controlador:
     public function verCarrito() {
-        $this->limpiarSesionAntigua(); // Limpiamos antes de mostrar la vista
+        // Ahora simplemente carga la vista sin realizar comprobaciones de tiempo.
         require_once 'views/carrito.php';
     }
 
@@ -56,15 +36,15 @@ class CatalogoController {
                     $_SESSION['carrito'] = [];
                 }
                 
-                // Guardamos la fecha actual con time()
+                // Añadimos el producto a la sesión (hemos quitado el campo 'fecha' porque ya no es necesario).
                 $_SESSION['carrito'][] = [
                     'id'     => $producto['id_producto'],
                     'nombre' => $producto['nombre'],
                     'precio' => $producto['precio'],
-                    'imagen' => $producto['imagen_url'] ?? null,
-                    'fecha'  => time() 
+                    'imagen' => $producto['imagen_url'] ?? null
                 ];
 
+                // Guardamos en la base de datos para usuarios registrados.
                 if (isset($_SESSION['id_usuario'])) {
                     $modelo->guardarEnDB($_SESSION['id_usuario'], $id);
                 }

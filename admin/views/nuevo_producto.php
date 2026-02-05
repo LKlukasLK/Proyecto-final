@@ -37,19 +37,32 @@
             </div>
         </div>
 
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 5px;">Stock Disponible</label>
+            <input type="number" name="stock" placeholder="Cantidad" required 
+                   style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 10px 0; outline: none; font-size: 15px;">
+        </div>
+
         <div style="margin-bottom: 35px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 10px;">Imagen del producto</label>
+            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 10px;">Imagen (PNG, JPG)</label>
             
-            <input type="file" name="imagen" id="file-upload" style="display: none;" accept="image/*">
-            
-            <label for="file-upload" id="drop-area" 
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fdfdfd; border: 2px dashed #d1d1d1; border-radius: 20px; padding: 15px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; min-height: 100px;">
+            <div style="position: relative;">
+                <input type="file" name="imagen" id="file-upload" style="display: none;" accept=".png, .jpg, .jpeg">
                 
-                <i id="upload-icon" class="fa-solid fa-cloud-arrow-up" style="font-size: 16px; color: #aaa; margin-bottom: 5px;"></i>
-                <span id="file-text" style="color: #999; font-size: 11px; font-weight: 500; text-align: center;">Añadir imagen</span>
-                
-                <img id="image-preview" src="" style="display: none; width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; z-index: 10; background: #fff;">
-            </label>
+                <label for="file-upload" id="drop-area" 
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fdfdfd; border: 2px dashed #d1d1d1; border-radius: 15px; padding: 10px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; min-height: 70px;">
+                    
+                    <i id="upload-icon" class="fa-solid fa-cloud-arrow-up" style="font-size: 14px; color: #aaa; margin-bottom: 4px;"></i>
+                    <span id="file-text" style="color: #999; font-size: 10px; font-weight: 500; text-align: center;">Añadir imagen</span>
+                    
+                    <img id="image-preview" src="" style="display: none; width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; z-index: 10; background: #fff;">
+                </label>
+
+                <div id="remove-btn" onclick="removeImage()" 
+                    style="display: none; position: absolute; top: -8px; right: -8px; background: #1a1a1a; color: white; width: 20px; height: 20px; border-radius: 50%; text-align: center; line-height: 18px; font-size: 10px; cursor: pointer; z-index: 20; border: 2px solid #fff;">
+                    ✕
+                </div>
+            </div>
         </div>
 
         <button type="submit" style="width: 100%; background: #1a1a1a; color: #fff; border: none; padding: 16px; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer;">
@@ -70,7 +83,9 @@ const fileInput = document.getElementById('file-upload');
 const fileText = document.getElementById('file-text');
 const uploadIcon = document.getElementById('upload-icon');
 const imagePreview = document.getElementById('image-preview');
+const removeBtn = document.getElementById('remove-btn');
 
+// Prevenir comportamiento por defecto
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     dropArea.addEventListener(eventName, e => {
         e.preventDefault();
@@ -78,6 +93,7 @@ const imagePreview = document.getElementById('image-preview');
     }, false);
 });
 
+// Estilo al arrastrar
 ['dragenter', 'dragover'].forEach(eventName => {
     dropArea.addEventListener(eventName, () => {
         dropArea.style.borderColor = '#1a1a1a';
@@ -92,22 +108,29 @@ const imagePreview = document.getElementById('image-preview');
     }, false);
 });
 
+// Al soltar el archivo
 dropArea.addEventListener('drop', e => {
     const files = e.dataTransfer.files;
-    if (files.length) {
-        fileInput.files = files;
-        previewFile(files[0]);
-    }
+    validateAndPreview(files);
 });
 
+// Al seleccionar con botón
 fileInput.addEventListener('change', function() {
-    if (this.files.length) {
-        previewFile(this.files[0]);
-    }
+    validateAndPreview(this.files);
 });
 
-function previewFile(file) {
-    if (file && file.type.startsWith('image/')) {
+function validateAndPreview(files) {
+    if (files.length > 0) {
+        const file = files[0];
+        const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+        
+        if (!validTypes.includes(file.type)) {
+            alert('Solo se permiten archivos PNG o JPG.');
+            fileInput.value = "";
+            return;
+        }
+
+        fileInput.files = files; // Sincroniza el input
         const reader = new FileReader();
         reader.readAsDataURL(file);
         
@@ -116,7 +139,17 @@ function previewFile(file) {
             imagePreview.style.display = 'block';
             uploadIcon.style.display = 'none';
             fileText.style.display = 'none';
+            removeBtn.style.display = 'block';
         }
     }
+}
+
+function removeImage() {
+    fileInput.value = "";
+    imagePreview.src = "";
+    imagePreview.style.display = 'none';
+    uploadIcon.style.display = 'block';
+    fileText.style.display = 'block';
+    removeBtn.style.display = 'none';
 }
 </script>

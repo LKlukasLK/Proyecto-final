@@ -5,7 +5,6 @@ class ProductoModel {
     private $db;
 
     public function __construct() {
-        // Obtenemos la conexión desde tu clase Database
         $this->db = Database::conectar();
     }
 
@@ -29,23 +28,20 @@ class ProductoModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // --- NUEVOS MÉTODOS PARA PERSISTENCIA EN BD ---
+    // --- MÉTODOS PARA PERSISTENCIA EN BD ---
 
-    /**
-     * Guarda el producto en la tabla detalles_carrito vinculada al usuario
-     */
     public function guardarEnDB($id_usuario, $id_producto) {
-        // 1. Aseguramos que el usuario tenga un carrito en la tabla 'carritos'
-        $sql_c = "INSERT IGNORE INTO carritos (id_usuario) VALUES (:u)";
+        // 1. Insertamos el carrito si no existe. No forzamos actualización de fecha.
+        $sql_c = "INSERT IGNORE INTO carritos (id_usuario, estado) VALUES (:u, 'activo')";
         $stmt_c = $this->db->prepare($sql_c);
         $stmt_c->execute(['u' => $id_usuario]);
 
-        // 2. Obtenemos el id_carrito asignado
+        // 2. Obtenemos el id_carrito
         $stmt_id = $this->db->prepare("SELECT id_carrito FROM carritos WHERE id_usuario = :u");
         $stmt_id->execute(['u' => $id_usuario]);
         $id_carrito = $stmt_id->fetchColumn();
 
-        // 3. Insertamos en 'detalles_carrito'. Si ya existe, sumamos 1 a la cantidad
+        // 3. Insertamos el producto o incrementamos cantidad
         $sql_d = "INSERT INTO detalles_carrito (id_carrito, id_producto, cantidad) 
                   VALUES (:idc, :idp, 1) 
                   ON DUPLICATE KEY UPDATE cantidad = cantidad + 1";
@@ -53,9 +49,6 @@ class ProductoModel {
         return $stmt_d->execute(['idc' => $id_carrito, 'idp' => $id_producto]);
     }
 
-    /**
-     * Elimina una unidad del producto de la base de datos
-     */
     public function eliminarDeDB($id_usuario, $id_producto) {
         $sql = "DELETE dc FROM detalles_carrito dc 
                 JOIN carritos c ON dc.id_carrito = c.id_carrito 
@@ -64,9 +57,6 @@ class ProductoModel {
         return $stmt->execute(['u' => $id_usuario, 'p' => $id_producto]);
     }
 
-    /**
-     * Recupera todos los productos guardados en la BD para cargarlos en la sesión al hacer login
-     */
     public function obtenerCarritoUsuario($id_usuario) {
         $sql = "SELECT p.*, dc.cantidad FROM productos p 
                 JOIN detalles_carrito dc ON p.id_producto = dc.id_producto 
@@ -75,19 +65,5 @@ class ProductoModel {
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['u' => $id_usuario]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // --- NUEVA LÓGICA DE CADUCIDAD (30 DÍAS) ---
-
-    /**
-     * Elimina automáticamente productos añadidos hace más de 30 días
-     */
-    public function limpiarCarritoAntiguo() {
-        // SQL que resta 30 días a la fecha actual y borra lo anterior de detalles_carrito
-        // Nota: Asegúrate de que la tabla detalles_carrito tenga una columna de fecha (ej: creado_en)
-        $sql = "DELETE FROM detalles_carrito 
-                WHERE fecha_agregado < DATE_SUB(NOW(), INTERVAL 15 SECOND)";
-        
-        return $this->db->query($sql);
     }
 }
