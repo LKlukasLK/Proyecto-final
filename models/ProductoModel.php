@@ -66,4 +66,11 @@ class ProductoModel {
         $stmt->execute(['u' => $id_usuario]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function registrarInteres($id_usuario, $id_producto) {
+        // Usamos INSERT IGNORE para que si ya existe el interés, no de error ni lo duplique
+        $sql = "INSERT IGNORE INTO intereses_productos (id_usuario, id_producto) VALUES (:u, :p)";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute(['u' => $id_usuario, 'p' => $id_producto]);
+    }
 }
