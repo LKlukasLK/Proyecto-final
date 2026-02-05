@@ -12,17 +12,6 @@ class Gestion_controller {
     private $conexion;
     public function __construct($conexion) { $this->conexion = $conexion; }
 
-    public function eliminar_producto($id) {
-        try {
-            $stmt = $this->conexion->prepare("DELETE FROM productos WHERE id_producto = :id");
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-            // RUTA CORREGIDA
-            header("Location: ../admin/admin.php?p=productos&msg=eliminado");
-            exit();
-        } catch (PDOException $e) { die("Error: " . $e->getMessage()); }
-    }
-
     public function eliminar_usuario($id) {
         try {
             if($id == $_SESSION['id_usuario']) {
