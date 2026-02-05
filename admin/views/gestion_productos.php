@@ -1,5 +1,5 @@
 <?php
-// Consulta limpia para productos y categorías
+// Usamos PDO para la consulta de productos
 try {
     $query = "SELECT p.*, c.nombre as categoria_nombre 
               FROM productos p 
