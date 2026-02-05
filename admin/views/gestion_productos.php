@@ -1,14 +1,10 @@
 <?php
 // Usamos PDO para la consulta de productos
-try {
-    $query = "SELECT p.*, c.nombre as categoria_nombre 
-              FROM productos p 
-              LEFT JOIN categorias c ON p.id_categoria = c.id_categoria";
+require_once '../../config/db.php';
+require_once '../../controllers/ProductoController.php';
 
-    $stmt = $conexion->query($query);
-} catch (PDOException $e) {
-    echo "Error en la consulta: " . $e->getMessage();
-}
+$controller = new ProductoController();
+
 ?>
 
 <section class="seccion-tabla">
