@@ -55,14 +55,14 @@ class CarritoController {
             }
 
             // 2. Insertar la orden (Estado 'pendiente' hasta confirmar pago)
-            $stmt = $pdo->prepare("INSERT INTO ordenes (usuario_id, total, estado, fecha) VALUES (?, ?, 'pendiente', NOW())");
+            $stmt = $pdo->prepare("INSERT INTO pedidos (id_pedido, id_usuario, fecha_pedido, total, estado) VALUES (?, ?, NOW(), ?, 'pendiente')");
             $stmt->execute([$userId, $totalAmount]);
             $orderId = $pdo->lastInsertId();
 
             // 3. Insertar detalles de la orden
             foreach ($cartItems as $item) {
-                $stmt = $pdo->prepare("INSERT INTO orden_detalles (orden_id, producto_id, cantidad, precio) VALUES (?, ?, ?, ?)");
-                $stmt->execute([$orderId, $item['id'], 1, $item['precio']]);
+                $stmt = $pdo->prepare("INSERT INTO detalles_pedido (id_detalle, id_pedido, id_producto, cantidad, precio_unitario) VALUES (?, ?, ?, ?, ?)");
+                $stmt->execute([$orderId, $item['id'], 1, $item['cantidad'], $item['precio']]);
             }
 
             // 4. Limpiar carritos existentes (Evita error de cardinalidad)

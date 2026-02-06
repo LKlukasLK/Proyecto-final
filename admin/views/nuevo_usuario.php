@@ -43,4 +43,3 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
         <a href="index.php?p=usuarios" class="link-back">— Volver al listado</a>
     </form>
 </div>
-<!-- \\192.168.0.106\pagweb\public\css\style.css -->
