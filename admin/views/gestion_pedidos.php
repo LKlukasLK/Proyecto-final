@@ -17,7 +17,7 @@ try {
     .badge-s { padding: 5px 12px; border-radius: 10px; font-size: 11px; font-weight: bold; }
     .pendiente { background: #fff4e5; color: #f39c12; }
     .pagado { background: #e3f9eb; color: #2ecc71; }
-    .btn-v { background: #000; color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 10px; font-size: 12px; }
+    .btn-v { background:#1ABC9C; color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 10px; font-size: 12px; }
 </style>
 
 <div class="card-p">
