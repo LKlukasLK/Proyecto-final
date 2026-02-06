@@ -82,6 +82,9 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
             case 'diseñador':
                 include 'views/gestion_disenador.php';
                 break;
+            case 'nuevo_disenador': // Añade esta regla si no está
+                include 'views/nuevo_disenador.php';
+                break;
 
             case 'usuarios':
                 include 'views/gestion_usuarios.php';
