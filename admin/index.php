@@ -1,18 +1,28 @@
 <?php
-// Iniciamos sesión y comprobamos admin
 session_start();
 
-// Conexión a la base de datos
+// Conexión a la BD
 require_once __DIR__ . '/../config/db.php';
 $conexion = Database::conectar();
 
-// Si no es admin, al login
+// Seguridad: solo admin
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     header("Location: ../index.php?ver=login");
     exit();
 }
 
-// Control de secciones y letra del perfil
+// --- Lógica para eliminar producto ---
+if (isset($_GET['p']) && $_GET['p'] === 'productos' && isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['id'])) {
+    require_once '../controllers/ProductoController.php';
+    $productoCtrl = new ProductoController();
+    
+    // Borramos y recargamos la página
+    if ($productoCtrl->eliminar($_GET['id'])) {
+        header("Location: index.php?p=productos");
+        exit();
+    }
+}
+
 $seccion = isset($_GET['p']) ? $_GET['p'] : 'inicio';
 $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
 ?>
@@ -55,14 +65,13 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
 
     <main class="contenedor-admin">
         <?php
-        // Enrutador principal del panel
+        // Enrutador de vistas
         switch ($seccion) {
             case 'productos':
                 include 'views/gestion_productos.php';
                 break;
             
             case 'editar_producto':
-                // Carga la vista de edición que creamos
                 include 'views/editar_producto.php';
                 break;
 
@@ -87,7 +96,6 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
                 break;
 
             default:
-                // Pantalla de inicio por defecto
                 echo "  <div class='bienvenida'>
                             <i class='fa-solid fa-screwdriver-wrench' style='font-size:4rem; color:#bdc3c7'></i>
                             <h2>Bienvenido, administrador</h2>
