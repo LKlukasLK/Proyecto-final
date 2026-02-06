@@ -41,7 +41,7 @@ class PagosController {
             // Configuramos Stripe con tu clave secreta del archivo .env
             Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
 
-            // Usamos tu IP local detectada
+            
             $baseUrl = "http://192.168.0.106/pagweb";
 
             $session = Session::create([

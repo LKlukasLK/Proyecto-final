@@ -35,8 +35,21 @@
                     <div class="card-producto">
                         <div class="card-imagen-wrapper">
                             <?php
-                            $nombre_imagen = $p['imagen_url'];
-                            $ruta_archivo = "public/img/productos/" . $nombre_imagen;
+                            // 1. Recuperamos el nombre. Asegúrate de que en la sesión se guardó como 'imagen_url'
+                            $nombre_imagen = $item['imagen_url'] ?? '';
+
+                            // 2. Ruta para el HTML (Navegador): "public/img/productos/foto.jpg"
+                            // Esta es la que se imprime en el src=""
+                            $ruta_web = "public/img/productos/" . $nombre_imagen;
+
+                            // 3. Ruta para PHP
+                            
+                            $ruta_fisica = __DIR__ . "/../" . $ruta_web;
+
+                            if (!empty($nombre_imagen) && file_exists($ruta_fisica)): ?>
+
+                                <!-- Aquí usamos la ruta web, sin el ../ al principio -->
+                                <img src="<?php echo $ruta_web; ?>" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
 
                             if (!empty($nombre_imagen) && file_exists(__DIR__ . "/../" . $ruta_archivo)): ?>
                                 <img src="<?php echo $ruta_archivo; ?>" alt="<?php echo $p['nombre']; ?>">
@@ -68,7 +81,7 @@
                         <form action="index.php?ver=añadir_carrito" method="POST">
                             <input type="hidden" name="id_producto" value="<?php echo $p['id_producto']; ?>">
                             <button type="submit" class="btn-add-cart">
-                                Añadir a la Cesta 🛒
+                                Añadir a la Cesta 
                             </button>
                         </form>
                     </div>

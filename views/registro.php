@@ -11,9 +11,7 @@
     <header class="header-full">
         <div class="header-content">
             <div class="login-title-row">
-                <span class="emoji">📝</span>
                 <h1>Crear Cuenta</h1>
-                <span class="emoji">✨</span>
             </div>
             <nav class="nav-simple">
                 <a href="index.php?ver=inicio">Volver al Inicio</a>
