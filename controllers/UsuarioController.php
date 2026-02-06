@@ -32,13 +32,13 @@ class UsuarioController {
             $rol    = trim($_POST['rol'] ?? '');
             $password = $_POST['password'] ?? '';
 
-            // SQL dinámico usando "contrasena" (como en tu script SQL)
+            // SQL dinámico usando "contrasena" 
             $sql = "UPDATE Usuarios SET nombre = :nombre, email = :email, rol = :rol";
             $params = [':nombre' => $nombre, ':email' => $email, ':rol' => $rol, ':id' => $id];
 
             if (!empty($password)) {
                 $hashed = password_hash($password, PASSWORD_BCRYPT);
-                $sql .= ", contrasena = :pass"; // Corregido a contrasena
+                $sql .= ", contrasena = :pass";
                 $params[':pass'] = $hashed;
             }
 
@@ -46,7 +46,7 @@ class UsuarioController {
             $stmt = $this->conexion->prepare($sql);
             $stmt->execute($params);
 
-            header("Location: ../admin/admin.php?p=usuarios&msg=usuario_modificado");
+            header("Location: ../admin/index.php?p=usuarios&msg=usuario_modificado");
             exit();
         } catch (PDOException $e) { die("Error: " . $e->getMessage()); }
     }
@@ -63,5 +63,8 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar_usuario') {
 
 // Captura modificar (POST)
 if (isset($_POST['accion']) && $_POST['accion'] === 'modificar_usuario') {
-    $gestion->modificar_usuario($_POST['id_usuario']);
+    $id = $_POST['id_usuario'] ?? null;
+    if ($id) {
+        $gestion->modificar_usuario($id);
+    }
 }
