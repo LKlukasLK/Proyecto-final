@@ -87,6 +87,10 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
                 include 'views/gestion_usuarios.php';
                 break;
 
+            case 'editar_usuario':
+                include 'views/editar_usuario.php';
+                break;
+
             case 'pedidos':
                 include 'views/gestion_pedidos.php';
                 break;
