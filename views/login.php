@@ -15,7 +15,7 @@
             <span class="emoji">🔑</span>
         </div>
         <nav class="nav-simple">
-            <a href="index.php?ver=inicio">Volver al Inicio me cago en dios</a>
+            <a href="index.php?ver=inicio">Volver al Inicio</a>
         </nav>
     </div>
 </header>
@@ -24,12 +24,12 @@
     <div class="login-card">
         <h2 class="section-title">Acceso Clientes</h2>
         
-<?php if (isset($_GET['error'])): ?>
-    <div class="alerta alerta-error">
-        <i class="fa-solid fa-circle-exclamation"></i> 
-        El correo electrónico o la contraseña no son correctos.
-    </div>
-<?php endif; ?>
+        <?php if (isset($_GET['error']) && ($_GET['error'] == '1' || $_GET['error'] == 'si')): ?>
+            <div class="alerta alerta-error">
+                <i class="fa-solid fa-circle-exclamation"></i> 
+                El correo electrónico o la contraseña no son correctos.
+            </div>
+        <?php endif; ?>
 
         <form action="index.php?ver=autenticar" method="POST" class="form-login">
             <div class="field">

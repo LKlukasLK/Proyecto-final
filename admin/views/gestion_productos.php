@@ -1,9 +1,10 @@
 <?php
-// Usamos PDO para la consulta de productos
+// Consulta de productos
 try {
     $query = "SELECT p.*, c.nombre as categoria_nombre 
               FROM productos p 
-              LEFT JOIN categorias c ON p.id_categoria = c.id_categoria";
+              LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+              ORDER BY p.id_producto DESC";
 
     $stmt = $conexion->query($query);
 } catch (PDOException $e) {
@@ -31,13 +32,20 @@ try {
         <tbody>
             <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                 <tr>
-                    <td>#<?php echo $row['id_producto'] ?? $row['id']; ?></td>
+                    <td>#<?php echo $row['id_producto']; ?></td>
 
                     <td>
-                        <?php if (!empty($row['imagen'])): ?>
-                            <img src="../public/img/<?php echo $row['imagen']; ?>" width="50" alt="prod">
-                        <?php else: ?>
+                        <?php 
+                        // Usamos imagen_url que es el nombre real en tu BD
+                        $img = $row['imagen_url'] ?? ''; 
+                        $extension = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+
+                        if (empty($img)): ?>
                             <span>Sin foto</span>
+                        <?php elseif (!in_array($extension, ['png', 'jpg', 'jpeg'])): ?>
+                            <span style="color: #d32f2f; font-weight: bold; font-size: 11px;">⚠️ Formato no válido</span>
+                        <?php else: ?>
+                            <img src="../public/img/productos/<?php echo $img; ?>" width="50" style="border-radius: 5px;" alt="prod">
                         <?php endif; ?>
                     </td>
 
@@ -46,11 +54,12 @@ try {
                     <td><?php echo number_format($row['precio'], 2); ?>€</td>
                     
                     <td>
-                        <a href="editar_producto.php?id=<?php echo $row['id_producto'] ?? $row['id']; ?>" class="btn-edit">
+                        <a href="index.php?p=editar_producto&id=<?php echo $row['id_producto']; ?>" class="btn-edit">
                             <i class="fa-solid fa-pen"></i>
                         </a>
-                        <a href="controladores/gestion_controller.php?accion=eliminar_producto&id=<?php echo $row['id_producto'] ?? $row['id']; ?>"
-                            class="btn-delete" onclick="return confirm('¿Seguro?')">
+                        
+                        <a href="controladores/gestion_controller.php?accion=eliminar_producto&id=<?php echo $row['id_producto']; ?>"
+                            class="btn-delete" onclick="return confirm('¿Seguro que quieres borrarlo?')">
                             <i class="fa-solid fa-trash"></i>
                         </a>
                     </td>

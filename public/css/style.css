@@ -806,11 +806,151 @@ body {
     border-radius: 4px !important;
     font-size: 0.9rem !important;
     text-align: left !important;
-    /* Animación para que aparezca suavemente al fallar */
+    display: block !important;
     animation: fadeInError 0.4s ease-in-out;
+}
+
+/* Si el div está vacío por error de lógica, desaparece por completo */
+.alerta-error:empty {
+    display: none !important;
 }
 
 @keyframes fadeInError {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* --- RESET GENERAL --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: #f4f4f4;
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+/* --- CABECERA NEGRA TOTAL --- */
+.header-full {
+    background-color: #111;
+    color: #fff;
+    width: 100%;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.login-title-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-title-row h1 {
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.nav-simple a {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.nav-simple a:hover { color: #fff; }
+
+/* --- CAJA CENTRADA --- */
+.main-centered {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 20px;
+}
+
+.login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* --- FORMULARIO E INPUTS --- */
+.field {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.field input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 15px;
+}
+
+.field input:focus {
+    border-color: #000;
+}
+
+/* --- BOTÓN NEGRO --- */
+.btn-black {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-black:hover {
+    background: #333;
+}
+
+/* --- ACCIONES EXTRA --- */
+.extra-actions {
+    margin-top: 25px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.extra-actions p {
+    font-size: 14px;
+    color: #666;
+}
+
+.link-register {
+    color: #000; /* Color negro como en el login */
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.link-register:hover {
+    text-decoration: underline;
 }

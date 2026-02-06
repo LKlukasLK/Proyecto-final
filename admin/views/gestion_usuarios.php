@@ -1,23 +1,43 @@
 <?php
-// Asegúrate de que la sesión esté iniciada en el archivo principal que incluye esta vista
+// Asegúrate de que la sesión esté iniciada
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     die("Acceso denegado");
 }
 
-// 1. Mostrar alertas según lo que devuelva el controlador
+// 1. Incluir el archivo de la clase
+require_once __DIR__ . '/../../config/db.php'; 
+
+// 2. EJECUTAR la conexión y guardarla en la variable $db
+try {
+    $db = Database::conectar(); 
+} catch (Exception $e) {
+    die("Error: No se pudo conectar a la base de datos: " . $e->getMessage());
+}
+
+// Verificar si $db se creó correctamente
+if (!$db) {
+    die("Error: La conexión devolvió un valor nulo.");
+}
+
+// 3. Mostrar alertas según lo que devuelva el controlador
 if (isset($_GET['msg'])) {
     $mensajes = [
         'usuario_eliminado' => 'Usuario borrado correctamente.',
         'usuario_modificado' => 'Datos actualizados con éxito.'
     ];
-    echo "<div class='alerta-exito'>{$mensajes[$_GET['msg']]}</div>";
+    $key = $_GET['msg'];
+    if (isset($mensajes[$key])) {
+        echo "<div class='alerta-exito'>{$mensajes[$key]}</div>";
+    }
 }
+
 if (isset($_GET['error'])) {
     echo "<div class='alerta-error'>Error: " . htmlspecialchars($_GET['error']) . "</div>";
 }
 
 try {
-    $stmt = $db->query("SELECT * FROM Usuarios"); // "db" o "conexion", asegúrate de usar la que tengas activa
+    // Ahora $db ya existe y es un objeto PDO
+    $stmt = $db->query("SELECT * FROM Usuarios"); 
 } catch (PDOException $e) {
     die("Error en la consulta: " . $e->getMessage());
 }

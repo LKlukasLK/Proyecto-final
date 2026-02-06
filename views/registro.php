@@ -1,42 +1,53 @@
-<!-- views/registro.php -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Registro | Mercado Ropa</title>
-    <link rel="stylesheet" href="public/css/style.css">
-        <?php include 'views/layout/head.php'; ?>
-
+    <link rel="stylesheet" href="public/css/style.css?v=2.1">
+    <?php include 'views/layout/head.php'; ?>
 </head>
-<body>
-    <header class="header">
-        <h1>📝 Crear Cuenta</h1>
-        <nav>
-            <a href="index.php?ver=inicio">Volver al Inicio</a>
-        </nav>
+<body class="login-full-layout">
+
+    <header class="header-full">
+        <div class="header-content">
+            <div class="login-title-row">
+                <span class="emoji">📝</span>
+                <h1>Crear Cuenta</h1>
+                <span class="emoji">✨</span>
+            </div>
+            <nav class="nav-simple">
+                <a href="index.php?ver=inicio">Volver al Inicio</a>
+            </nav>
+        </div>
     </header>
 
-    <main class="main">
-        <div class="formulario-caja">
-            <h2>Regístrate</h2>
+    <main class="main-centered">
+        <div class="login-card">
+            <h2 class="section-title">Regístrate</h2>
             
-            <form action="index.php?ver=procesar_registro" method="POST">
+            <form action="index.php?ver=procesar_registro" method="POST" class="form-login">
                 
-                <label>Nombre completo:</label>
-                <input type="text" name="nombre" placeholder="Tu nombre" required>
+                <div class="field">
+                    <label>Nombre completo:</label>
+                    <input type="text" name="nombre" placeholder="Tu nombre" required>
+                </div>
 
-                <label>Correo Electrónico:</label>
-                <input type="email" name="email" placeholder="jose@correo.com" required>
+                <div class="field">
+                    <label>Correo Electrónico:</label>
+                    <input type="email" name="email" placeholder="jose@correo.com" required>
+                </div>
                 
-                <label>Contraseña:</label>
-                <input type="password" name="contrasena" placeholder="******" required>
+                <div class="field">
+                    <label>Contraseña:</label>
+                    <input type="password" name="contrasena" placeholder="******" required>
+                </div>
 
-                <button type="submit">Crear Cuenta</button>
-            
+                <button type="submit" class="btn-black">Crear Cuenta</button>
             </form>
 
-            <br>
-            <p>¿Ya tienes cuenta? <a href="index.php?ver=login" style="color: #d4af37;">Inicia sesión</a></p>
+            <div class="extra-actions">
+                <p>¿Ya tienes cuenta? <a href="index.php?ver=login" class="link-register">Inicia sesión</a></p>
+            </div>
         </div>
     </main>
 </body>
