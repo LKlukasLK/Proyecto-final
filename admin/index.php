@@ -37,7 +37,7 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
 <head>
     <meta charset="UTF-8">
     <title>Panel Admin - Gestión Total</title>
-    <link rel="stylesheet" href="../public/css/estilos_admin.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../public/css/estilos_admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 

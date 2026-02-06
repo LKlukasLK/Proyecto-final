@@ -274,9 +274,7 @@ h1 span {
 
 /* --- ESTILOS PARA EL FORMULARIO DE DISEÑADORES --- */
 
-.card-admin-disenador {
-    background: white;
-    border-radius: 40px;
+
 
 .titulo-seccion-admin {
     text-align: center;
@@ -364,5 +362,4 @@ h1 span {
     color: #bbb;
     text-decoration: none;
     font-size: 11px;
-}
 }
