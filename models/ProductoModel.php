@@ -67,10 +67,14 @@ class ProductoModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function registrarInteres($id_usuario, $id_producto) {
-        // Usamos INSERT IGNORE para que si ya existe el interés, no de error ni lo duplique
-        $sql = "INSERT IGNORE INTO intereses_productos (id_usuario, id_producto) VALUES (:u, :p)";
+    public function registrarEnListaEspera($id_producto, $email) {
+        // Definimos la fecha actual y el estado inicial
+        $fecha = date('Y-m-d H:i:s');
+        $estado = 'pendiente'; 
+
+        $sql = "INSERT INTO lista_espera (id_producto, email, fecha_suscripcion, estado) 
+                VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute(['u' => $id_usuario, 'p' => $id_producto]);
+        return $stmt->execute([$id_producto, $email, $fecha, $estado]);
     }
 }

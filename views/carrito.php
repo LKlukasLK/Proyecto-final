@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Tu Cesta | Mercado Ropa</title>
     <link rel="stylesheet" href="public/CSS/style.css">
+    <script>
+        // Log session data to the console
+        const carrito = <?php echo json_encode($_SESSION['carrito'] ?? []); ?>;
+        console.log('Carrito:', carrito);
+    </script>
 </head>
+
 <body>
     <?php include 'views/layout/header.php'; ?>
 
@@ -18,23 +25,23 @@
 
         <?php if (!empty($_SESSION['carrito'])): ?>
             <div class="carrito-lista">
-                <?php 
+                <?php
                 $total = 0;
-                foreach ($_SESSION['carrito'] as $indice => $item): 
-                    $total += $item['precio']; 
-                ?>
+                foreach ($_SESSION['carrito'] as $indice => $item):
+                    $total += $item['precio'];
+                    ?>
                     <div class="carrito-item">
                         <div class="item-info">
-                            <div class="item-img-placeholder"> 
+                            <div class="item-img-placeholder">
                                 <?php
-                                $nombre_imagen = $item['imagen_url'] ?? ''; // Simplified with ??
-                                $ruta_archivo = "../public/img/productos/{$nombre_imagen}"; // Adjusted path
-                                if (!empty($nombre_imagen) && file_exists($ruta_archivo)): ?>
-                                    <img src="<?php echo $ruta_archivo; ?>" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
+                                $nombre_imagen = $item['imagen'] ?? $item['imagen_url'] ?? '';
+                                $ruta_web = "public/img/productos/" . $nombre_imagen;
+                                $ruta_fisica = __DIR__ . "/../" . $ruta_web;
 
+                                if (!empty($nombre_imagen) && file_exists($ruta_fisica)): ?>
+                                    <img src="<?php echo $ruta_web; ?>" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
                                 <?php else: ?>
                                     <span style="font-size: 60px;">👕</span>
-
                                 <?php endif; ?>
                             </div>
                             <div class="item-detalles">
@@ -72,4 +79,5 @@
         <?php endif; ?>
     </main>
 </body>
+
 </html>

@@ -18,53 +18,56 @@ if (isset($_GET['msg'])) {
         'usuario_creado' => 'Nuevo usuario registrado.'
     ];
     $texto = $mensajes[$_GET['msg']] ?? 'Operación realizada.';
-    echo "<div class='alerta-exito' style='background: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border-radius: 12px; font-weight: 600;'>{$texto}</div>";
+    echo "<div class='alerta alerta-exito'>{$texto}</div>";
 }
 ?>
 
 <div class="tabla-header">
-    <h2 style="font-weight: 600;"><i class="fa-solid fa-users"></i> Gestión de Usuarios</h2>
+    <h2><i class="fa-solid fa-users"></i> Listado de Usuarios</h2>
     <a href="index.php?p=nuevo_usuario" class="btn-nuevo">
         <i class="fa-solid fa-plus"></i> Añadir Usuario
     </a>
 </div>
 
-<table class="tabla-admin">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th style="text-align: center;">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php 
-        $stmt = $conexion->query("SELECT * FROM Usuarios");
-        while($f = $stmt->fetch(PDO::FETCH_ASSOC)): 
-        ?>
-        <tr>
-            <td style="font-weight: 600; color: #888;">#<?php echo $f['id_usuario']; ?></td>
-            <td><?php echo htmlspecialchars($f['nombre']); ?></td>
-            <td><?php echo htmlspecialchars($f['email']); ?></td>
-            <td>
-                <span style="text-transform: capitalize; font-weight: 600; color: <?php echo ($f['rol'] === 'admin') ? '#1abc9c' : '#3498db'; ?>">
-                    <?php echo $f['rol']; ?>
-                </span>
-            </td>
-            <td style="text-align: center;">
-                <a href="index.php?p=editar_usuario&id=<?php echo $f['id_usuario']; ?>" class="btn-edit" title="Editar">
-                    <i class="fa-solid fa-user-gear"></i>
-                </a>
-                
-                <a href="../controllers/UsuarioController.php?accion=eliminar_usuario&id=<?php echo $f['id_usuario']; ?>" 
-                   class="btn-delete" title="Borrar"
-                   onclick="return confirm('¿Borrar a <?php echo $f['nombre']; ?>?')">
-                    <i class="fa-solid fa-trash"></i>
-                </a>
-            </td>
-        </tr>
-        <?php endwhile; ?>
-    </tbody>
-</table>
+<div class="contenedor-admin">
+    <table class="tabla-admin">
+        <thead>
+            <tr>
+                <th style="width: 80px;">ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            // Consulta de usuarios
+            $stmt = $conexion->query("SELECT * FROM Usuarios");
+            while($f = $stmt->fetch(PDO::FETCH_ASSOC)): 
+            ?>
+            <tr>
+                <td class="col-id">#<?php echo $f['id_usuario']; ?></td>
+                <td><?php echo htmlspecialchars($f['nombre']); ?></td>
+                <td><?php echo htmlspecialchars($f['email']); ?></td>
+                <td>
+                    <span class="badge-rol <?php echo ($f['rol'] === 'admin') ? 'rol-admin' : 'rol-cliente'; ?>">
+                        <?php echo $f['rol']; ?>
+                    </span>
+                </td>
+                <td class="text-center">
+                    <a href="index.php?p=editar_usuario&id=<?php echo $f['id_usuario']; ?>" class="btn-edit" title="Editar">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </a>
+                    
+                    <a href="../controllers/UsuarioController.php?accion=eliminar_usuario&id=<?php echo $f['id_usuario']; ?>" 
+                       class="btn-delete" title="Borrar"
+                       onclick="return confirm('¿Borrar a <?php echo $f['nombre']; ?>?')">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+</div>

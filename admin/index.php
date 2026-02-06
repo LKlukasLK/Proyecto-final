@@ -16,16 +16,11 @@ if (isset($_GET['p']) && $_GET['p'] === 'productos' && isset($_GET['accion']) &&
     require_once '../controllers/ProductoController.php';
     $productoCtrl = new ProductoController();
     
+    // Borramos y recargamos la página
     if ($productoCtrl->eliminar($_GET['id'])) {
         header("Location: index.php?p=productos");
         exit();
     }
-}
-
-// --- Lógica para acciones de usuarios (Eliminar) ---
-if (isset($_GET['p']) && $_GET['p'] === 'usuarios' && isset($_GET['accion']) && isset($_GET['id'])) {
-    require_once '../controllers/UsuarioController.php';
-    // El controlador ya maneja la redirección interna
 }
 
 $seccion = isset($_GET['p']) ? $_GET['p'] : 'inicio';
@@ -85,6 +80,9 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
                 break;
 
             case 'diseñador':
+                include 'views/gestion_disenador.php';
+                break;
+                    // ESTA LÍNEA ES VITAL:
             case 'gestion_disenador': 
                 include 'views/gestion_disenador.php';
                 break;
@@ -101,12 +99,12 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
                 include 'views/editar_usuario.php';
                 break;
 
-            case 'nuevo_usuario': // CARGA LA VISTA DE NUEVO USUARIO
-                include 'views/nuevo_usuario.php';
-                break;
-
             case 'pedidos':
                 include 'views/gestion_pedidos.php';
+                break;
+            
+            case 'detalle_pedido':
+                include 'views/ver_detalle_pedido.php';
                 break;
 
             case 'stock':
@@ -124,4 +122,5 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
         ?>
     </main>
 </body>
+
 </html>

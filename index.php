@@ -100,6 +100,13 @@ switch ($pagina) {
         $controller->procesar();
         break;
 
+    case 'disenadores':
+        // Aquí puedes usar el mismo controlador de catálogo pero con un método diferente
+        require_once 'controllers/CatalogoController.php';
+        $controller = new CatalogoController();
+        $controller->verDisenadores(); // Debes crear este método en tu controlador
+        break;
+        
     default:
         echo "<h1>404 - Página no encontrada</h1><a href='index.php'>Volver al inicio</a>";
         break;

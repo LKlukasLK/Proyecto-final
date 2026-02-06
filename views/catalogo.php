@@ -33,28 +33,18 @@
             <?php if (!empty($productos)): ?>
                 <?php foreach ($productos as $p): ?>
                     <div class="card-producto">
-                        <div class="item-img-placeholder">
+                        <div class="card-imagen-wrapper">
                             <?php
-                            // 1. Recuperamos el nombre. Asegúrate de que en la sesión se guardó como 'imagen_url'
-                            $nombre_imagen = $item['imagen_url'] ?? '';
+                            $nombre_imagen = $p['imagen_url'];
+                            $ruta_archivo = "public/img/productos/" . $nombre_imagen;
 
-                            // 2. Ruta para el HTML (Navegador): "public/img/productos/foto.jpg"
-                            // Esta es la que se imprime en el src=""
-                            $ruta_web = "public/img/productos/" . $nombre_imagen;
-
-                            // 3. Ruta para PHP (Comprobación): "/var/www/.../views/../public/img/productos/foto.jpg"
-                            // Usamos __DIR__ para ubicarnos donde está este archivo (carpeta views) y salir fuera
-                            $ruta_fisica = __DIR__ . "/../" . $ruta_web;
-
-                            if (!empty($nombre_imagen) && file_exists($ruta_fisica)): ?>
-
-                                <!-- Aquí usamos la ruta web, sin el ../ al principio -->
-                                <img src="<?php echo $ruta_web; ?>" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
-
+                            if (!empty($nombre_imagen) && file_exists(__DIR__ . "/../" . $ruta_archivo)): ?>
+                                <img src="<?php echo $ruta_archivo; ?>" alt="<?php echo $p['nombre']; ?>">
                             <?php else: ?>
                                 <span style="font-size: 60px;">👕</span>
                             <?php endif; ?>
                         </div>
+                        
                         <h3 class="card-titulo"><?php echo $p['nombre']; ?></h3>
                         <p class="card-precio"><?php echo number_format($p['precio'], 2); ?>€</p>
                         <p class="card-descripcion"><?php echo $p['descripcion']; ?></p>
@@ -63,7 +53,7 @@
                             <form action="index.php?ver=marcar_favorito" method="POST" style="margin: 0;">
                                 <input type="hidden" name="id_producto" value="<?php echo $p['id_producto']; ?>">
                                 <button type="submit" class="btn-interes">
-                                    <span class="corazon-interes">❤</span> Me interesa
+                                    <span class="corazon-interes">📩</span> Avísame cuando haya stock
                                 </button>
                             </form>
                         </div>
@@ -84,6 +74,10 @@
             <?php endif; ?>
         </div>
     </main>
-</body>
 
+    <a href="index.php?ver=inicio" class="btn-pagina-inicio">
+        VOLVER AL INICIO
+    </a>
+
+</body>
 </html>

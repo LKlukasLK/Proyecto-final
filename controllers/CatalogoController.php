@@ -3,13 +3,8 @@ require_once 'models/ProductoModel.php';
 
 class CatalogoController {
     
-    // Se ha eliminado la función limpiarSesionAntigua para que los productos no caduquen.
-
     public function verCatalogo() {
         $modelo = new ProductoModel();
-        
-        // Eliminada la llamada a limpiarCarritoAntiguo para mantener la persistencia total.
-
         $q = isset($_GET['q']) ? trim($_GET['q']) : '';
 
         if ($q !== '') {
@@ -20,8 +15,15 @@ class CatalogoController {
         require_once 'views/catalogo.php';
     }
 
+    public function verDisenadores() {
+        $modelo = new ProductoModel();
+        $productos = $modelo->obtenerTodos(); 
+
+        // Prueba con esta ruta si la anterior falla
+        require_once 'views/disenadores.php'; 
+    }
+
     public function verCarrito() {
-        // Ahora simplemente carga la vista sin realizar comprobaciones de tiempo.
         require_once 'views/carrito.php';
     }
 
@@ -36,7 +38,6 @@ class CatalogoController {
                     $_SESSION['carrito'] = [];
                 }
                 
-                // Añadimos el producto a la sesión (hemos quitado el campo 'fecha' porque ya no es necesario).
                 $_SESSION['carrito'][] = [
                     'id'     => $producto['id_producto'],
                     'nombre' => $producto['nombre'],
@@ -44,7 +45,6 @@ class CatalogoController {
                     'imagen' => $producto['imagen_url'] ?? null
                 ];
 
-                // Guardamos en la base de datos para usuarios registrados.
                 if (isset($_SESSION['id_usuario'])) {
                     $modelo->guardarEnDB($_SESSION['id_usuario'], $id);
                 }
@@ -74,21 +74,20 @@ class CatalogoController {
         exit();
     }
 
-    public function marcarFavorito() {
-        // Es vital que el usuario esté logueado para tener un id_usuario
-        if (isset($_SESSION['id_usuario']) && isset($_POST['id_producto'])) {
-            $id_u = $_SESSION['id_usuario'];
+    public function marcarInteres() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_producto'])) {
             $id_p = intval($_POST['id_producto']);
-            
+            // Sacamos el email de la sesión del usuario
+            $email = $_SESSION['email_usuario'] ?? 'anonimo@correo.com'; 
+
             $modelo = new ProductoModel();
-            $exito = $modelo->registrarInteres($id_u, $id_p);
-            
+            $exito = $modelo->registrarEnListaEspera($id_p, $email);
+
             if (!$exito) {
-                // Esto te ayudará a ver si falla la base de datos
-                error_log("Fallo al insertar interés en la BD");
+                error_log("Error al registrar en lista_espera");
             }
         }
-        // Siempre redirigir atrás para que no se quede la pantalla en blanco
+        // Redirigimos al catálogo
         header("Location: index.php?ver=catalogo");
         exit();
     }

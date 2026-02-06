@@ -261,6 +261,12 @@
     align-items: center;
     font-size: 30px;
 }
+.item-img-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 .item-detalles h3 {
     font-size: 16px;
@@ -955,7 +961,18 @@ body {
     text-decoration: underline;
 }
 
-/*archivo css para disenador*/
-
+/* Volver al inicio desde tienda y disenadores */
+.btn-pagina-inicio {
+    position: fixed;   /* Esto lo clava a la pantalla del navegador */
+    bottom: 20px;      /* Distancia desde el borde inferior */
+    right: 20px;       /* Distancia desde el borde derecho */
+    background-color: #000; /* Fondo negro */
+    color: #fff;       /* Texto blanco */
+    padding: 15px 25px;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 9999;     /* Asegura que esté por encima de todo */
+    text-transform: uppercase;
+}
 
 /*hasta aqui*/

@@ -55,23 +55,18 @@ class CarritoController {
             }
 
             // 2. Insertar la orden (Estado 'pendiente' hasta confirmar pago)
-            $stmt = $pdo->prepare("INSERT INTO ordenes (usuario_id, total, estado, fecha) VALUES (?, ?, 'pendiente', NOW())");
-            $stmt->execute([$userId, $totalAmount]);
+            $stmt = $pdo->prepare("INSERT INTO pedidos (id_usuario, fecha_pedido, total, estado) VALUES (?, ?, ?, 'pendiente')");
+            $stmt->execute([$userId, date('Y-m-d H:i:s'), $totalAmount]);
             $orderId = $pdo->lastInsertId();
 
             // 3. Insertar detalles de la orden
             foreach ($cartItems as $item) {
-                $stmt = $pdo->prepare("INSERT INTO orden_detalles (orden_id, producto_id, cantidad, precio) VALUES (?, ?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario) VALUES (?, ?, ?, ?)");
                 $stmt->execute([$orderId, $item['id'], 1, $item['precio']]);
             }
 
-            // 4. Limpiar carritos existentes (Evita error de cardinalidad)
-            // Se usa IN para prevenir el error 'Subquery returns more than 1 row'
-            $stmt = $pdo->prepare("DELETE FROM detalles_carrito WHERE id_carrito IN (SELECT id_carrito FROM carritos WHERE id_usuario = ?)");
-            $stmt->execute([$userId]);
-
-            // 5. Limpiar cabecera de carrito
-            $stmt = $pdo->prepare("DELETE FROM carritos WHERE id_usuario = ?");
+            // 4. Actualizar estado del carrito a 'convertido'
+            $stmt = $pdo->prepare("UPDATE carritos SET estado = 'convertido' WHERE id_usuario = ? AND estado = 'activo'");
             $stmt->execute([$userId]);
 
             // 6. Limpiar carrito de la sesión
