@@ -20,7 +20,7 @@ class UsuarioController {
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             
-            header("Location: ../admin/admin.php?p=usuarios&msg=usuario_eliminado");
+            header("Location: ../admin/index.php?p=usuarios&msg=usuario_eliminado");
             exit();
         } catch (PDOException $e) { die("Error: " . $e->getMessage()); }
     }
