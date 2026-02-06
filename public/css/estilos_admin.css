@@ -16,7 +16,7 @@ header {
 .box_reg {
     max-width: 1300px;
     margin: 0 auto;
-    position: relative; /* Necesario para posicionar el avatar */
+    position: relative; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,8 +37,7 @@ h1 span {
     color: #1abc9c;
 }
 
-/* --- ESTILO DEL AVATAR / CERRAR SESIÓN (DERECHA) --- */
-
+/* --- ESTILO DEL AVATAR / CERRAR SESIÓN --- */
 .user-menu {
     position: absolute;
     right: 20px;
@@ -73,12 +72,11 @@ h1 span {
 }
 
 .profile-circle:hover {
-    background-color: #e74c3c; /* Cambia a rojo al querer salir */
+    background-color: #e74c3c;
     transform: scale(1.1);
     border-color: white;
 }
 
-/* Tooltip (pequeño cartel al pasar el ratón) */
 .logout-tooltip {
     visibility: hidden;
     width: 100px;
@@ -102,8 +100,7 @@ h1 span {
     opacity: 1;
 }
 
-/* --- MENÚ DESPLEGABLE CENTRADO --- */
-
+/* --- MENÚ DESPLEGABLE --- */
 .Desplegable {
     position: relative;
     display: inline-block;
@@ -136,7 +133,7 @@ h1 span {
     z-index: 10;
     list-style: none;
     padding: 0;
-    margin: 0px 0 0 0;
+    margin: 0;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -153,34 +150,28 @@ h1 span {
 .dropdown-content li a:hover {
     background-color: #f1f1f1;
     color: #1abc9c;
-    padding-left: 20px; /* Pequeño efecto de movimiento */
+    padding-left: 20px;
 }
 
 .Desplegable:hover .dropdown-content {
     display: block;
 }
 
-/* Contenedor principal */
+/* --- CONTENEDOR PRINCIPAL Y TABLAS (REPARADO) --- */
 .contenedor-admin {
     max-width: 1200px;
     margin: 40px auto;
     padding: 20px;
     background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.247);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.bienvenida {
-    text-align: center;
-    padding: 50px;
-    color: #7f8c8d;
-}
-
-/* Tabla Estilizada */
 .tabla-admin {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    table-layout: fixed; /* Fuerza a respetar los anchos definidos abajo */
 }
 
 .tabla-admin th {
@@ -195,40 +186,183 @@ h1 span {
     padding: 12px 15px;
     border-bottom: 1px solid #eee;
     vertical-align: middle;
+    word-wrap: break-word; /* Evita que el texto largo desborde */
 }
+
+/* Definición rídiga de anchos de columna para evitar deformaciones */
+.tabla-admin th:nth-child(1) { width: 50px; }  /* ID */
+.tabla-admin th:nth-child(2) { width: 90px; }  /* Imagen */
+.tabla-admin th:nth-child(3) { width: auto; }  /* Nombre */
+.tabla-admin th:nth-child(4) { width: 140px; } /* Categoría */
+.tabla-admin th:nth-child(5) { width: 100px; } /* Precio */
+.tabla-admin th:nth-child(6) { width: 110px; } /* Acciones */
 
 .tabla-admin tr:hover {
     background-color: #fcfcfc;
 }
 
-/* Botones de acción */
-.tabla-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.btn-edit { color: #3498db; margin-right: 10px; font-size: 1.1rem; }
+.btn-delete { color: #e74c3c; font-size: 1.1rem; }
+
+/* --- UTILIDADES DE TABLA --- */
+.img-tabla {
+    width: 60px !important;
+    height: 60px !important;
+    object-fit: cover; /* Corta la imagen para que siempre sea cuadrada */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: block;
+    margin: 0 auto;
+}
+
+/* --- FORMULARIOS GENÉRICOS --- */
+.form-header-container {
+    text-align: center;
+    margin-top: 40px;
     margin-bottom: 20px;
 }
 
-.btn-nuevo {
-    background-color: #1abc9c;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
+.form-card {
+    background: #fff;
+    border-radius: 40px;
+    padding: 40px;
+    max-width: 450px;
+    margin: 0 auto;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.label-style {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.input-underline {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    outline: none;
+    font-size: 14px;
+}
+
+.btn-submit-black {
+    width: 100%;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.btn-edit {
-    color: #3498db;
-    margin-right: 10px;
-    font-size: 1.1rem;
+.link-back {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #bbb;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
 }
 
-.btn-delete {
-    color: #e74c3c;
-    font-size: 1.1rem;
+
+
+/* --- ESTILOS PARA EL FORMULARIO DE DISEÑADORES --- */
+
+.card-admin-disenador {
+    background: white;
+    border-radius: 40px;
+
+.titulo-seccion-admin {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 
-.btn-edit:hover, .btn-delete:hover {
-    opacity: 0.7;
+.titulo-seccion-admin h2 {
+    font-weight: 600;
+    color: #1a1a1a;
+    font-family: sans-serif;
+}
+
+.card-admin-disenador {
+    background: #ffffff;
+    border-radius: 40px; /* Bordes redondeados de 40px según tu imagen */
+    padding: 40px;
+    max-width: 450px;
+    margin: 0 auto;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.form-group-admin {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group-admin label {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    color: #444;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.input-admin-minimal {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+    outline: none;
+    font-size: 15px;
+    background: transparent;
+}
+
+.input-admin-minimal:focus {
+    border-bottom: 1px solid #000;
+}
+
+.textarea-admin-minimal {
+    width: 100%;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 12px;
+    outline: none;
+    font-family: sans-serif;
+    font-size: 14px;
+    resize: none;
+    background: #fafafa;
+}
+
+.btn-admin-guardar {
+    width: 100%;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s ease;
+}
+
+.btn-admin-guardar:hover {
+    background: #333;
+}
+
+.link-admin-volver {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #bbb;
+    text-decoration: none;
+    font-size: 11px;
+}
 }

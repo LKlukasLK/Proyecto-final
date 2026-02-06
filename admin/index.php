@@ -16,11 +16,16 @@ if (isset($_GET['p']) && $_GET['p'] === 'productos' && isset($_GET['accion']) &&
     require_once '../controllers/ProductoController.php';
     $productoCtrl = new ProductoController();
     
-    // Borramos y recargamos la página
     if ($productoCtrl->eliminar($_GET['id'])) {
         header("Location: index.php?p=productos");
         exit();
     }
+}
+
+// --- Lógica para acciones de usuarios (Eliminar) ---
+if (isset($_GET['p']) && $_GET['p'] === 'usuarios' && isset($_GET['accion']) && isset($_GET['id'])) {
+    require_once '../controllers/UsuarioController.php';
+    // El controlador ya maneja la redirección interna
 }
 
 $seccion = isset($_GET['p']) ? $_GET['p'] : 'inicio';
@@ -32,7 +37,7 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
 <head>
     <meta charset="UTF-8">
     <title>Panel Admin - Gestión Total</title>
-    <link rel="stylesheet" href="../public/css/estilos_admin.css">
+    <link rel="stylesheet" href="../public/css/estilos_admin.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -80,9 +85,11 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
                 break;
 
             case 'diseñador':
+            case 'gestion_disenador': 
                 include 'views/gestion_disenador.php';
                 break;
-            case 'nuevo_disenador': // Añade esta regla si no está
+
+            case 'nuevo_disenador':
                 include 'views/nuevo_disenador.php';
                 break;
 
@@ -92,6 +99,10 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
 
             case 'editar_usuario':
                 include 'views/editar_usuario.php';
+                break;
+
+            case 'nuevo_usuario': // CARGA LA VISTA DE NUEVO USUARIO
+                include 'views/nuevo_usuario.php';
                 break;
 
             case 'pedidos':
@@ -113,5 +124,4 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
         ?>
     </main>
 </body>
-
 </html>

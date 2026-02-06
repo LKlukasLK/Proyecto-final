@@ -1,65 +1,56 @@
 <?php
-// 1. Conexión y obtención de datos
-require_once __DIR__ . '/../../config/db.php'; 
-$db = Database::conectar();
+// Seguridad y carga de datos
+$id_usuario = $_GET['id'] ?? null;
 
-$id = $_GET['id'] ?? null;
-
-if (!$id) {
-    echo "<div class='alerta-error'>ID de usuario no proporcionado.</div>";
+if (!$id_usuario) {
+    echo "<script>window.location.href='index.php?p=usuarios';</script>";
     exit;
 }
 
-$stmt = $db->prepare("SELECT * FROM Usuarios WHERE id_usuario = ?");
-$stmt->execute([$id]);
-$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+// Consulta usando la conexión del index
+$stmt = $conexion->prepare("SELECT * FROM Usuarios WHERE id_usuario = ?");
+$stmt->execute([$id_usuario]);
+$u = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$usuario) {
-    echo "<div class='alerta-error'>Usuario no encontrado.</div>";
-    exit;
-}
+if (!$u) { die("Usuario no encontrado."); }
 ?>
 
-<div class="main-centered">
-    <div class="login-card">
-        <h2 class="section-title">Editar Usuario</h2>
-        <p style="font-size: 12px; color: #888; margin-bottom: 20px; text-transform: uppercase;">
-            ID de Registro: #<?php echo $usuario['id_usuario']; ?>
-        </p>
+<div class="form-header-container">
+    <h2>Editar Usuario</h2>
+    <p class="form-subtitle">Modificando perfil de: #<?= $u['id_usuario'] ?></p>
+</div>
 
-        <form action="../controllers/UsuarioController.php" method="POST">
-            
-            <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario']; ?>">
-            <input type="hidden" name="accion" value="modificar_usuario">
+<div class="form-card">
+    <form action="../controllers/UsuarioController.php" method="POST">
+        <input type="hidden" name="accion" value="modificar_usuario">
+        <input type="hidden" name="id_usuario" value="<?= $u['id_usuario'] ?>">
+        
+        <div class="form-group">
+            <label class="label-style">Nombre Completo</label>
+            <input type="text" name="nombre" value="<?= htmlspecialchars($u['nombre']) ?>" required class="input-underline">
+        </div>
 
-            <div class="field">
-                <label>Nombre Completo</label>
-                <input type="text" name="nombre" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" required>
+        <div class="form-row">
+            <div style="flex: 1.5;">
+                <label class="label-style">Email</label>
+                <input type="email" name="email" value="<?= htmlspecialchars($u['email']) ?>" required class="input-underline">
             </div>
-
-            <div class="field">
-                <label>Correo Electrónico</label>
-                <input type="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
-            </div>
-
-            <div class="field">
-                <label>Rol del Sistema</label>
-                <select name="rol" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; background: white;">
-                    <option value="cliente" <?php echo ($usuario['rol'] == 'cliente') ? 'selected' : ''; ?>>CLIENTE</option>
-                    <option value="admin" <?php echo ($usuario['rol'] == 'admin') ? 'selected' : ''; ?>>ADMINISTRADOR</option>
+            <div style="flex: 1;">
+                <label class="label-style">Rol</label>
+                <select name="rol" required class="input-underline" style="cursor: pointer;">
+                    <option value="cliente" <?= $u['rol'] == 'cliente' ? 'selected' : '' ?>>Cliente</option>
+                    <option value="admin" <?= $u['rol'] == 'admin' ? 'selected' : '' ?>>Admin</option>
                 </select>
             </div>
+        </div>
 
-            <div class="field">
-                <label>Nueva Contraseña</label>
-                <input type="password" name="password" placeholder="Dejar en blanco para no cambiar">
-            </div>
+        <div class="form-group" style="margin-bottom: 30px;">
+            <label class="label-style">Nueva Contraseña</label>
+            <input type="password" name="password" placeholder="Dejar en blanco para no cambiar" class="input-underline">
+        </div>
 
-            <button type="submit" class="btn-black">Guardar Cambios</button>
-            
-            <div class="extra-actions">
-                <a href="index.php?p=usuarios" class="link-register">← Volver al listado</a>
-            </div>
-        </form>
-    </div>
+        <button type="submit" class="btn-submit-black">Guardar Cambios</button>
+
+        <a href="index.php?p=usuarios" class="link-back">— Volver al listado</a>
+    </form>
 </div>

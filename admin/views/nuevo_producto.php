@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['ac
         
         if (in_array($ext, ['jpg', 'jpeg', 'png'])) {
             $nombreFoto = time() . "_" . uniqid() . "." . $ext;
-            $directorio = "../public/img/productos";
+            $directorio = "../public/img/productos/";
 
             if (!is_dir($directorio)) mkdir($directorio, 0777, true);
 
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['ac
                 ];
 
                 if ($productoCtrl->crear($datos)) {
-                    echo "<script>window.location.href='index.php?p=gestion_productos';</script>";
+                    header("Location: index.php?p=productos&msg=usuario_creado");
                     exit;
                 }
             }
@@ -42,53 +42,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['ac
 }
 ?>
 
-<div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-    <h2 style="font-weight: 600; color: #1a1a1a;">Nuevo Artículo</h2>
+<div class="form-header-container">
+    <h2>Nuevo Artículo</h2>
+    <p class="form-subtitle">Completa la ficha del nuevo producto</p>
 </div>
 
-<div style="background: #ffffff; border-radius: 40px; padding: 40px; max-width: 450px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+<div class="form-card">
     <form action="index.php?p=nuevo_producto&accion=guardar" method="POST" enctype="multipart/form-data">
         
-        <div style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Nombre</label>
-            <input type="text" name="nombre" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0; outline: none;">
+        <div class="form-group">
+            <label class="label-style">Nombre del Producto</label>
+            <input type="text" name="nombre" required class="input-underline" placeholder="Ej: Camiseta Oversize">
         </div>
 
-        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+        <div class="form-row">
             <div style="flex: 1;">
-                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Categoría</label>
-                <select name="id_categoria" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0; background: transparent; width: 100%;">
+                <label class="label-style">Categoría</label>
+                <select name="id_categoria" required class="input-underline" style="cursor: pointer;">
                     <?php
                     $stmt = $db->query("SELECT * FROM Categorias");
-                    while($cat = $stmt->fetch(PDO::FETCH_ASSOC)) echo "<option value='{$cat['id_categoria']}'>{$cat['nombre']}</option>";
+                    while($cat = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='{$cat['id_categoria']}'>{$cat['nombre']}</option>";
+                    }
                     ?>
                 </select>
             </div>
             <div style="flex: 1;">
-                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Diseñador</label>
-                <input type="text" name="disenador" placeholder="Ej: Gucci" style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0; outline: none;">
+                <label class="label-style">Diseñador</label>
+                <input type="text" name="disenador" placeholder="Ej: Gucci" class="input-underline">
             </div>
         </div>
 
-        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+        <div class="form-row">
             <div style="flex: 1;">
-                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Precio (€)</label>
-                <input type="number" name="precio" step="0.01" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0;">
+                <label class="label-style">Precio (€)</label>
+                <input type="number" name="precio" step="0.01" required class="input-underline" placeholder="0.00">
             </div>
             <div style="flex: 1;">
-                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase;">Stock</label>
-                <input type="number" name="stock" required style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0;">
+                <label class="label-style">Stock Inicial</label>
+                <input type="number" name="stock" required class="input-underline" placeholder="0">
             </div>
         </div>
 
-        <div style="margin-bottom: 30px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 8px;">Imagen del producto</label>
+        <div class="form-group" style="margin-bottom: 30px;">
+            <label class="label-style">Imagen del producto</label>
             
             <div id="upload-container">
                 <input type="file" name="imagen" id="img-input" style="display: none;" accept=".png, .jpg, .jpeg" onchange="mostrarPreview(this)">
                 <label for="img-input" style="display: flex; align-items: center; justify-content: center; background: #fafafa; border: 1.5px dashed #ccc; border-radius: 12px; padding: 15px; cursor: pointer; min-height: 60px; gap: 10px;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/109/109612.png" style="width: 18px; opacity: 0.4;">
-                    <span style="color: #999; font-size: 12px;">Seleccionar archivo</span>
+                    <i class="fa-solid fa-cloud-arrow-up" style="color: #999;"></i>
+                    <span style="color: #999; font-size: 12px; font-weight: 600;">Seleccionar archivo</span>
                 </label>
             </div>
 
@@ -98,13 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['ac
             </div>
         </div>
 
-        <button type="submit" style="width: 100%; background: #1a1a1a; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: bold; cursor: pointer;">
-            Guardar Producto
+        <button type="submit" class="btn-submit-black">
+            Publicar Producto
         </button>
 
-        <div style="text-align: center; margin-top: 25px;">
-            <a href="index.php?p=gestion_productos" style="color: #bbb; text-decoration: none; font-size: 11px;">— Volver al listado</a>
-        </div>
+        <a href="index.php?p=productos" class="link-back">— Volver al listado</a>
     </form>
 </div>
 

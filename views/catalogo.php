@@ -33,24 +33,26 @@
             <?php if (!empty($productos)): ?>
                 <?php foreach ($productos as $p): ?>
                     <div class="card-producto">
-                        <div class="card-imagen-wrapper">
+                        <div class="item-img-placeholder">
                             <?php
-                            // 1. Obtenemos el nombre del archivo desde la base de datos
-                            $nombre_imagen = $p['imagen_url'];
+                            // 1. Recuperamos el nombre. Asegúrate de que en la sesión se guardó como 'imagen_url'
+                            $nombre_imagen = $item['imagen_url'] ?? '';
 
-                            // 2. Definimos la ruta donde están las fotos (según tu captura: public/img/)
-                            $ruta_archivo = "public/img/productos/" . $nombre_imagen;
+                            // 2. Ruta para el HTML (Navegador): "public/img/productos/foto.jpg"
+                            // Esta es la que se imprime en el src=""
+                            $ruta_web = "public/img/productos/" . $nombre_imagen;
 
-                            // 3. Comprobamos si el nombre no está vacío y si el archivo existe en la carpeta
-                            // Nota: Usamos __DIR__ para asegurar que PHP encuentre la ruta real en el servidor
-                            if (!empty($nombre_imagen) && file_exists(__DIR__ . "/../" . $ruta_archivo)): ?>
+                            // 3. Ruta para PHP (Comprobación): "/var/www/.../views/../public/img/productos/foto.jpg"
+                            // Usamos __DIR__ para ubicarnos donde está este archivo (carpeta views) y salir fuera
+                            $ruta_fisica = __DIR__ . "/../" . $ruta_web;
 
-                                <img src="<?php echo $ruta_archivo; ?>" alt="<?php echo $p['nombre']; ?>">
+                            if (!empty($nombre_imagen) && file_exists($ruta_fisica)): ?>
+
+                                <!-- Aquí usamos la ruta web, sin el ../ al principio -->
+                                <img src="<?php echo $ruta_web; ?>" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
 
                             <?php else: ?>
-                                <!-- Si el nombre está vacío o el archivo no existe en la carpeta public/img/ -->
                                 <span style="font-size: 60px;">👕</span>
-
                             <?php endif; ?>
                         </div>
                         <h3 class="card-titulo"><?php echo $p['nombre']; ?></h3>

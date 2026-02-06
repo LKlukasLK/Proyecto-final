@@ -20,6 +20,7 @@ $categorias = $stmtCat->fetchAll(PDO::FETCH_ASSOC);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['accion'] === 'guardar') {
     $nombreFoto = $producto['imagen_url'];
 
+    // Lógica para nueva imagen
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
         $nombreFoto = time() . "_" . $_FILES['imagen']['name'];
         move_uploaded_file($_FILES['imagen']['tmp_name'], "../public/img/productos/" . $nombreFoto);
@@ -35,39 +36,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['ac
     ];
 
     if ($productoCtrl->actualizar($id, $datos)) {
-        echo "<script>window.location.href='index.php?p=productos';</script>";
+        header("Location: index.php?p=productos&msg=usuario_modificado");
         exit;
     }
 }
 ?>
 
-<div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-    <h2 style="font-weight: 600;">Editar Artículo</h2>
-    <p style="color: #666; font-size: 13px;">Modificando producto ID: #<?= $id ?></p>
+<div class="form-header-container">
+    <h2>Editar Artículo</h2>
+    <p class="form-subtitle">ID del Producto: #<?= $id ?></p>
 </div>
 
-<div style="background: #fff; border-radius: 40px; padding: 40px; max-width: 450px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+<div class="form-card">
     <form action="index.php?p=editar_producto&id=<?= $id ?>&accion=guardar" method="POST" enctype="multipart/form-data">
         
-        <div style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase;">Nombre</label>
-            <input type="text" name="nombre" value="<?= htmlspecialchars($producto['nombre']) ?>" required style="width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0; outline: none;">
+        <div class="form-group">
+            <label class="label-style">Nombre del Producto</label>
+            <input type="text" name="nombre" value="<?= htmlspecialchars($producto['nombre']) ?>" required class="input-underline">
         </div>
 
-        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+        <div class="form-row">
             <div style="flex: 1;">
-                <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase;">Precio (€)</label>
-                <input type="number" step="0.01" name="precio" value="<?= $producto['precio'] ?>" required style="width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0;">
+                <label class="label-style">Precio (€)</label>
+                <input type="number" step="0.01" name="precio" value="<?= $producto['precio'] ?>" required class="input-underline">
             </div>
             <div style="flex: 1;">
-                <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase;">Stock</label>
-                <input type="number" name="stock" value="<?= $producto['stock'] ?>" required style="width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0;">
+                <label class="label-style">Stock Actual</label>
+                <input type="number" name="stock" value="<?= $producto['stock'] ?>" required class="input-underline">
             </div>
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase;">Categoría</label>
-            <select name="id_categoria" required style="width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0; background: none; outline: none; cursor: pointer;">
+        <div class="form-group">
+            <label class="label-style">Categoría</label>
+            <select name="id_categoria" required class="input-underline" style="cursor: pointer;">
                 <?php foreach ($categorias as $cat): ?>
                     <option value="<?= $cat['id_categoria'] ?>" <?= ($cat['id_categoria'] == $producto['id_categoria']) ? 'selected' : '' ?>>
                         <?= htmlspecialchars($cat['nombre']) ?>
@@ -76,33 +77,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['ac
             </select>
         </div>
 
-        <div style="margin-bottom: 30px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px;">Imagen del producto</label>
+        <div class="form-group" style="margin-bottom: 30px;">
+            <label class="label-style">Imagen del producto</label>
             
-            <div style="text-align: center; background: #fafafa; padding: 25px; border-radius: 20px; border: 1px solid #f0f0f0;">
+            <div style="text-align: center; background: #fafafa; padding: 20px; border-radius: 20px; border: 1px solid #f0f0f0;">
                 
-                <div style="position: relative; width: 140px; height: 140px; margin: 0 auto 15px auto;">
+                <div style="position: relative; width: 120px; height: 120px; margin: 0 auto 15px auto;">
                     <img id="preview" src="../public/img/productos/<?= $producto['imagen_url'] ?>" 
                          data-original="../public/img/productos/<?= $producto['imagen_url'] ?>"
-                         style="width: 100%; height: 100%; object-fit: contain; display: block;">
+                         class="img-tabla" style="width: 100%; height: 100%; object-fit: cover;">
                     
-                    <button type="button" id="btn-remove" title="Quitar selección"
-                            style="position: absolute; top: -5px; right: -5px; background: #d32f2f; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; display: none; font-size: 12px; font-weight: bold; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">✕</button>
+                    <button type="button" id="btn-remove" title="Cancelar cambio"
+                            style="position: absolute; top: -5px; right: -5px; background: #e74c3c; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; display: none; font-size: 10px;">✕</button>
                 </div>
 
-                <input type="file" name="imagen" id="input-img" accept="image/png, image/jpeg, image/jpg" style="font-size: 11px; color: #888; width: 100%;">
+                <input type="file" name="imagen" id="input-img" accept="image/png, image/jpeg, image/jpg" style="font-size: 11px; width: 100%;">
                 
-                <p id="error-img" style="color: #d32f2f; font-size: 11px; font-weight: bold; margin-top: 12px; display: none;">⚠️ Formato no válido. Solo se permite PNG, JPG o JPEG.</p>
+                <p id="error-img" class="alerta-error" style="display: none; padding: 5px; font-size: 10px; margin-top: 10px;">⚠️ Formato no válido</p>
             </div>
         </div>
 
-        <button type="submit" id="btn-submit" style="width: 100%; background: #1a1a1a; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: bold; cursor: pointer;">
+        <button type="submit" id="btn-submit" class="btn-submit-black">
             Guardar Cambios
         </button>
 
-        <div style="text-align: center; margin-top: 25px;">
-            <a href="index.php?p=productos" style="color: #bbb; text-decoration: none; font-size: 11px; font-weight: 600;">— VOLVER AL LISTADO</a>
-        </div>
+        <a href="index.php?p=productos" class="link-back">— Volver al listado</a>
     </form>
 </div>
 
@@ -120,7 +119,7 @@ inputImg.addEventListener('change', function() {
         const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
         if (!validTypes.includes(file.type)) {
-            errorMsg.style.display = 'block'; // Mostrar error en rojo
+            errorMsg.style.display = 'block';
             this.value = ''; 
             preview.src = originalSrc;
             btnRemove.style.display = 'none';
@@ -129,7 +128,6 @@ inputImg.addEventListener('change', function() {
             return;
         }
 
-        // Si es correcto
         errorMsg.style.display = 'none';
         btnSubmit.disabled = false;
         btnSubmit.style.opacity = '1';

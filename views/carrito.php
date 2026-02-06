@@ -25,7 +25,18 @@
                 ?>
                     <div class="carrito-item">
                         <div class="item-info">
-                            <div class="item-img-placeholder">👕</div>
+                            <div class="item-img-placeholder"> 
+                                <?php
+                                $nombre_imagen = $item['imagen_url'] ?? ''; // Simplified with ??
+                                $ruta_archivo = "../public/img/productos/{$nombre_imagen}"; // Adjusted path
+                                if (!empty($nombre_imagen) && file_exists($ruta_archivo)): ?>
+                                    <img src="<?php echo $ruta_archivo; ?>" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
+
+                                <?php else: ?>
+                                    <span style="font-size: 60px;">👕</span>
+
+                                <?php endif; ?>
+                            </div>
                             <div class="item-detalles">
                                 <h3><?php echo htmlspecialchars($item['nombre']); ?></h3>
                                 <p class="item-ref">REF: <?php echo $item['id']; ?></p>
