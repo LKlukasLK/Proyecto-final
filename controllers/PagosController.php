@@ -29,8 +29,8 @@ class PagosController {
         try {
             $pdo = Database::conectar();
             
-            // Verificamos en la tabla 'ordenes' de tu base de datos 'prueba1tiendaonline'
-            $stmt = $pdo->prepare("SELECT * FROM ordenes WHERE id = ?");
+            // Verificamos en la tabla 'pedidos' de tu base de datos 'prueba1tiendaonline'
+            $stmt = $pdo->prepare("SELECT * FROM pedidos WHERE id = ?");
             $stmt->execute([$id_pedido]);
             $pedido = $stmt->fetch(PDO::FETCH_ASSOC);
 
