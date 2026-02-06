@@ -31,7 +31,7 @@ if (isset($_GET['error'])) {
 }
 
 try {
-    // Ahora $db sí existe y funciona
+    
     $stmt = $db->query("SELECT * FROM Usuarios"); 
 } catch (PDOException $e) {
     die("Error en la consulta: " . $e->getMessage());

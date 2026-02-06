@@ -250,3 +250,10 @@ SELECT
 FROM Pedidos p
 JOIN Usuarios u ON p.id_usuario = u.id_usuario
 WHERE p.estado = 'pagado';
+
+ALTER TABLE ordenes DROP FOREIGN KEY ordenes_ibfk_1;
+
+ALTER TABLE ordenes 
+ADD CONSTRAINT ordenes_ibfk_1 
+FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario) 
+ON DELETE CASCADE;
