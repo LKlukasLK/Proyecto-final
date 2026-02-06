@@ -54,7 +54,7 @@
         </thead>
         <tbody>
             <?php
-            // Consulta para sacar el stock real (ajusta nombres de tablas si hace falta)
+            // Consulta para sacar el stock real
             $sql_stock = "SELECT s.*, p.nombre FROM stock s JOIN productos p ON s.id_producto = p.id_producto";
             $stmt_s = $conexion->query($sql_stock);
             
