@@ -53,7 +53,7 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
                     <button class="dropbtn">Gestionar Tablas ▾</button>
                     <ul class="dropdown-content">
                         <li><a href="index.php?p=productos">Productos</a></li>
-                        <li><a href="index.php?p=mensajeria">Mensajería</a></li>
+                        <li><a href="index.php?p=diseñador">Diseñador</a></li>
                         <li><a href="index.php?p=usuarios">Usuarios</a></li>
                         <li><a href="index.php?p=pedidos">Pedidos</a></li>
                         <li><a href="index.php?p=stock">Stock y Tallas</a></li>
@@ -79,8 +79,8 @@ $inicial = strtoupper(substr($_SESSION['nombre'], 0, 1));
                 include 'views/nuevo_producto.php';
                 break;
 
-            case 'mensajeria':
-                include 'views/gestion_mensajería.php';
+            case 'diseñador':
+                include 'views/gestion_disenador.php';
                 break;
 
             case 'usuarios':

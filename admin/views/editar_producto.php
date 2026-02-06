@@ -1,25 +1,25 @@
 <?php
-// Usamos tu controlador y cargamos la BD
+// Cargamos controlador y datos
 require_once '../controllers/ProductoController.php';
 $productoCtrl = new ProductoController();
 
 $id = $_GET['id'] ?? null;
 
-// Si no hay ID, volvemos a la tabla
 if (!$id) {
     echo "<script>window.location.href='index.php?p=productos';</script>";
     exit;
 }
 
-// Sacamos los datos actuales
+// Datos del producto y categorías
 $producto = $productoCtrl->obtenerPorId($id);
+$queryCat = "SELECT * FROM categorias ORDER BY nombre ASC";
+$stmtCat = $conexion->query($queryCat);
+$categorias = $stmtCat->fetchAll(PDO::FETCH_ASSOC);
 
-// Procesar actualización
+// Guardar cambios
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['accion'] === 'guardar') {
-    
-    $nombreFoto = $producto['imagen_url']; // Foto actual por defecto
+    $nombreFoto = $producto['imagen_url'];
 
-    // Si se sube una nueva
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
         $nombreFoto = time() . "_" . $_FILES['imagen']['name'];
         move_uploaded_file($_FILES['imagen']['tmp_name'], "../public/img/productos/" . $nombreFoto);
@@ -66,26 +66,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['ac
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase;">ID Categoría</label>
-            <input type="number" name="id_categoria" value="<?= $producto['id_categoria'] ?>" required style="width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0;">
+            <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase;">Categoría</label>
+            <select name="id_categoria" required style="width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0; background: none; outline: none; cursor: pointer;">
+                <?php foreach ($categorias as $cat): ?>
+                    <option value="<?= $cat['id_categoria'] ?>" <?= ($cat['id_categoria'] == $producto['id_categoria']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($cat['nombre']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
 
         <div style="margin-bottom: 30px;">
-            <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;">Imagen del producto</label>
-            <div style="text-align: center; background: #fafafa; padding: 20px; border-radius: 12px; border: 1px solid #eee; position: relative;">
+            <label style="display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px;">Imagen del producto</label>
+            
+            <div style="text-align: center; background: #fafafa; padding: 25px; border-radius: 20px; border: 1px solid #f0f0f0;">
                 
-                <div style="position: relative; display: inline-block;">
+                <div style="position: relative; width: 140px; height: 140px; margin: 0 auto 15px auto;">
                     <img id="preview" src="../public/img/productos/<?= $producto['imagen_url'] ?>" 
                          data-original="../public/img/productos/<?= $producto['imagen_url'] ?>"
-                         style="max-height: 120px; border-radius: 8px; margin-bottom: 10px; display: block;">
+                         style="width: 100%; height: 100%; object-fit: contain; display: block;">
                     
-                    <button type="button" id="btn-remove" title="Quitar imagen seleccionada"
-                            style="position: absolute; top: -10px; right: -10px; background: #d32f2f; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; display: none; font-size: 12px; font-weight: bold;">✕</button>
+                    <button type="button" id="btn-remove" title="Quitar selección"
+                            style="position: absolute; top: -5px; right: -5px; background: #d32f2f; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; display: none; font-size: 12px; font-weight: bold; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">✕</button>
                 </div>
 
-                <input type="file" name="imagen" id="input-img" accept="image/*" style="font-size: 11px; display: block; margin: 10px auto 0 auto;">
+                <input type="file" name="imagen" id="input-img" accept="image/png, image/jpeg, image/jpg" style="font-size: 11px; color: #888; width: 100%;">
                 
-                <p id="error-img" style="color: #d32f2f; font-size: 11px; font-weight: bold; margin-top: 10px; display: none;">⚠️ Formato no válido. Usa PNG, JPG o JPEG.</p>
+                <p id="error-img" style="color: #d32f2f; font-size: 11px; font-weight: bold; margin-top: 12px; display: none;">⚠️ Formato no válido. Solo se permite PNG, JPG o JPEG.</p>
             </div>
         </div>
 
@@ -100,25 +107,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['ac
 </div>
 
 <script>
-// Lógica para previsualizar y validar imagen
 const inputImg = document.getElementById('input-img');
 const preview = document.getElementById('preview');
-const errorMsg = document.getElementById('error-img');
 const btnRemove = document.getElementById('btn-remove');
+const errorMsg = document.getElementById('error-img');
 const btnSubmit = document.getElementById('btn-submit');
 const originalSrc = preview.getAttribute('data-original');
 
 inputImg.addEventListener('change', function() {
     const file = this.files[0];
-    
     if (file) {
-        const fileType = file.type;
-        const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-        // Validar formato
-        if (!validTypes.includes(fileType)) {
-            errorMsg.style.display = 'block';
-            this.value = ''; // Limpiar input
+        if (!validTypes.includes(file.type)) {
+            errorMsg.style.display = 'block'; // Mostrar error en rojo
+            this.value = ''; 
             preview.src = originalSrc;
             btnRemove.style.display = 'none';
             btnSubmit.disabled = true;
@@ -126,7 +129,7 @@ inputImg.addEventListener('change', function() {
             return;
         }
 
-        // Si es válido, mostrar preview
+        // Si es correcto
         errorMsg.style.display = 'none';
         btnSubmit.disabled = false;
         btnSubmit.style.opacity = '1';
@@ -140,10 +143,9 @@ inputImg.addEventListener('change', function() {
     }
 });
 
-// Botón para borrar la selección actual
 btnRemove.addEventListener('click', function() {
-    inputImg.value = ''; // Reset input
-    preview.src = originalSrc; // Volver a la original
+    inputImg.value = '';
+    preview.src = originalSrc;
     this.style.display = 'none';
     errorMsg.style.display = 'none';
     btnSubmit.disabled = false;
