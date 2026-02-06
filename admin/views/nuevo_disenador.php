@@ -1,9 +1,5 @@
 <?php
-// 1. Conexión (Asegúrate de que la ruta a db.php es correcta)
-require_once '../config/db.php';
-$db = Database::conectar();
-
-// 2. Lógica de guardado
+// Usamos la conexión que ya viene abierta desde index.php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['accion'] === 'guardar') {
     $nombre = $_POST['nombre'] ?? '';
     $biografia = $_POST['biografia'] ?? '';
@@ -11,118 +7,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['accion']) && $_GET['ac
 
     try {
         $sql = "INSERT INTO Disenadores (nombre, biografia, web_url) VALUES (:nom, :bio, :url)";
-        $stmt = $db->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $stmt->execute([
             ':nom' => $nombre,
             ':bio' => $biografia,
             ':url' => $web_url
         ]);
+
         echo "<script>window.location.href='index.php?p=gestion_disenador';</script>";
         exit;
     } catch (PDOException $e) {
-        $error = $e->getMessage();
+        echo "<div style='color:red; text-align:center;'>Error: " . $e->getMessage() . "</div>";
     }
 }
 ?>
 
-<style>
-    .admin-wrapper {
-        background-color: #f4f4f4;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 50px;
-    }
-    .form-card {
-        background: #ffffff;
-        width: 100%;
-        max-width: 500px;
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-    .form-card h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #1a1a1a;
-        font-size: 1.8rem;
-    }
-    .input-group {
-        margin-bottom: 20px;
-    }
-    .input-group label {
-        display: block;
-        font-weight: 700;
-        font-size: 12px;
-        text-transform: uppercase;
-        color: #666;
-        margin-bottom: 8px;
-    }
-    .input-group input, .input-group textarea {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 15px;
-        outline: none;
-        transition: border-color 0.3s;
-    }
-    .input-group input:focus {
-        border-color: #000;
-    }
-    .btn-save {
-        width: 100%;
-        background: #000;
-        color: #fff;
-        border: none;
-        padding: 15px;
-        border-radius: 10px;
-        font-weight: 700;
-        cursor: pointer;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    .btn-save:hover { background: #333; }
-    .btn-back {
-        display: block;
-        text-align: center;
-        margin-top: 20px;
-        color: #999;
-        text-decoration: none;
-        font-size: 13px;
-    }
-</style>
+<div style="background-color: #f8f9fa; min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+    
+    <h2 style="font-family: sans-serif; font-weight: 600; margin-bottom: 25px; color: #1a1a1a;">Nuevo Diseñador</h2>
 
-<div class="admin-wrapper">
-    <div class="form-card">
-        <h2>Nuevo Diseñador</h2>
-
-        <?php if(isset($error)): ?>
-            <div style="background:#fee2e2; color:#b91c1c; padding:10px; border-radius:5px; margin-bottom:20px;">
-                Error: <?php echo $error; ?>
-            </div>
-        <?php endif; ?>
-
+    <div style="background: #ffffff; border-radius: 35px; padding: 50px; width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        
         <form action="index.php?p=nuevo_disenador&accion=guardar" method="POST">
-            <div class="input-group">
-                <label>Nombre Completo</label>
-                <input type="text" name="nombre" required placeholder="Nombre del diseñador">
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 10px;">Nombre</label>
+                <input type="text" name="nombre" required placeholder="Ej: Gianni Versace" 
+                       style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 10px 0; outline: none; font-size: 15px;">
             </div>
 
-            <div class="input-group">
-                <label>Sitio Web Oficial</label>
-                <input type="url" name="web_url" placeholder="https://ejemplo.com">
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 10px;">URL Sitio Web</label>
+                <input type="url" name="web_url" placeholder="https://www.ejemplo.com" 
+                       style="width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 10px 0; outline: none; font-size: 15px;">
             </div>
 
-            <div class="input-group">
-                <label>Biografía / Historia</label>
-                <textarea name="biografia" rows="5" placeholder="Cuéntanos sobre el diseñador..."></textarea>
+            <div style="margin-bottom: 35px;">
+                <label style="display: block; font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; margin-bottom: 10px;">Biografía / Historia</label>
+                <textarea name="biografia" rows="3" placeholder="Breve descripción..." 
+                          style="width: 100%; border: 1px solid #f0f0f0; border-radius: 12px; padding: 12px; outline: none; font-family: sans-serif; font-size: 14px; resize: none;"></textarea>
             </div>
 
-            <button type="submit" class="btn-save">Guardar Diseñador</button>
-            <a href="index.php?p=gestion_disenador" class="btn-back">← Volver al listado</a>
+            <button type="submit" style="width: 100%; background: #1a1a1a; color: #fff; border: none; padding: 16px; border-radius: 15px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;">
+                Guardar Diseñador
+            </button>
+
+            <a href="index.php?p=gestion_disenador" style="display: block; text-align: center; margin-top: 25px; color: #bbb; text-decoration: none; font-size: 12px;">
+                — Volver al listado
+            </a>
         </form>
     </div>
 </div>
