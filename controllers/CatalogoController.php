@@ -17,10 +17,10 @@ class CatalogoController {
 
     public function verDisenadores() {
         $modelo = new ProductoModel();
-        $productos = $modelo->obtenerTodos(); 
-
-        // Prueba con esta ruta si la anterior falla
-        require_once 'views/disenadores.php'; 
+        // Traemos los datos de la tabla 'disenadores'
+        $productos = $modelo->obtenerDisenadores(); 
+        
+        require_once 'views/disenadores.php';
     }
 
     public function verCarrito() {
@@ -74,21 +74,16 @@ class CatalogoController {
         exit();
     }
 
-    public function marcarInteres() {
+    public function marcarFavorito() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_producto'])) {
             $id_p = intval($_POST['id_producto']);
-            // Sacamos el email de la sesión del usuario
-            $email = $_SESSION['email_usuario'] ?? 'anonimo@correo.com'; 
+            
+            $email = $_SESSION['email'] ?? 'usuario_interesado@tienda.com'; 
 
             $modelo = new ProductoModel();
-            $exito = $modelo->registrarEnListaEspera($id_p, $email);
-
-            if (!$exito) {
-                error_log("Error al registrar en lista_espera");
-            }
+            $modelo->unirseAListaEspera($id_p, $email);
         }
-        // Redirigimos al catálogo
-        header("Location: index.php?ver=catalogo");
+        header("Location: " . $_SERVER['HTTP_REFERER']);
         exit();
     }
 }

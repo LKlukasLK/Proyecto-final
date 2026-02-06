@@ -67,14 +67,30 @@ class ProductoModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function registrarEnListaEspera($id_producto, $email) {
-        // Definimos la fecha actual y el estado inicial
-        $fecha = date('Y-m-d H:i:s');
-        $estado = 'pendiente'; 
+    public function unirseAListaEspera($id_p, $email) {
+        // 1. Consultamos el stock actual del producto
+        $sqlStock = "SELECT stock FROM productos WHERE id_producto = ?";
+        $stmtStock = $this->db->prepare($sqlStock);
+        $stmtStock->execute([$id_p]);
+        $producto = $stmtStock->fetch(PDO::FETCH_ASSOC);
 
+        // 2. Definimos el estado basado en el stock
+        // Si no hay stock (0 o menos), el estado es 'pendiente' (activo para aviso)
+        // Si hay stock, lo marcamos como 'completado' o 'innecesario'
+        $estado = ($producto['stock'] <= 0) ? 'pendiente' : 'con_stock';
+        
+        $fecha = date('Y-m-d H:i:s');
+        
         $sql = "INSERT INTO lista_espera (id_producto, email, fecha_suscripcion, estado) 
                 VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([$id_producto, $email, $fecha, $estado]);
+        return $stmt->execute([$id_p, $email, $fecha, $estado]);
+    }
+
+    public function obtenerDisenadores() {
+        $sql = "SELECT * FROM disenadores";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -52,9 +52,16 @@
                         <div class="contenedor-interes">
                             <form action="index.php?ver=marcar_favorito" method="POST" style="margin: 0;">
                                 <input type="hidden" name="id_producto" value="<?php echo $p['id_producto']; ?>">
-                                <button type="submit" class="btn-interes">
-                                    <span class="corazon-interes">📩</span> Avísame cuando haya stock
-                                </button>
+                                
+                                <?php if ($p['stock'] <= 0): ?>
+                                    <button type="submit" class="btn-interes" style="background-color: #ffc107;">
+                                        📩 Lista de espera
+                                    </button>
+                                <?php else: ?>
+                                    <button type="submit" class="btn-interes">
+                                        ❤ Me interesa
+                                    </button>
+                                <?php endif; ?>
                             </form>
                         </div>
 
