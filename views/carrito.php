@@ -52,7 +52,7 @@
 
                 <div class="carrito-resumen">
                     <div class="resumen-fila">
-                        <span class="resumen-etiqueta">TOTAL (IVA INCLUIDO)</span>
+                        <span class="resumen-etiqueta">TOTAL</span>
                         <span class="resumen-total"><?php echo number_format($total, 2); ?>€</span>
                     </div>
 

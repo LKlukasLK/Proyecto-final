@@ -42,8 +42,8 @@
                             // Esta es la que se imprime en el src=""
                             $ruta_web = "public/img/productos/" . $nombre_imagen;
 
-                            // 3. Ruta para PHP (Comprobación): "/var/www/.../views/../public/img/productos/foto.jpg"
-                            // Usamos __DIR__ para ubicarnos donde está este archivo (carpeta views) y salir fuera
+                            // 3. Ruta para PHP
+                            
                             $ruta_fisica = __DIR__ . "/../" . $ruta_web;
 
                             if (!empty($nombre_imagen) && file_exists($ruta_fisica)): ?>
@@ -71,7 +71,7 @@
                         <form action="index.php?ver=añadir_carrito" method="POST">
                             <input type="hidden" name="id_producto" value="<?php echo $p['id_producto']; ?>">
                             <button type="submit" class="btn-add-cart">
-                                Añadir a la Cesta 🛒
+                                Añadir a la Cesta 
                             </button>
                         </form>
                     </div>
