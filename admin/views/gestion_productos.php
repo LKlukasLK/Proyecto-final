@@ -36,7 +36,7 @@ try {
 
                     <td>
                         <?php 
-                        // Usamos imagen_url que es el nombre real en tu BD
+                        // Imagen url de la base de datos
                         $img = $row['imagen_url'] ?? ''; 
                         $extension = strtolower(pathinfo($img, PATHINFO_EXTENSION));
 
@@ -58,8 +58,8 @@ try {
                             <i class="fa-solid fa-pen"></i>
                         </a>
                         
-                        <a href="controladores/gestion_controller.php?accion=eliminar_producto&id=<?php echo $row['id_producto']; ?>"
-                            class="btn-delete" onclick="return confirm('¿Seguro que quieres borrarlo?')">
+                        <a href="index.php?p=productos&accion=eliminar&id=<?php echo $row['id_producto']; ?>"
+                            class="btn-delete" onclick="return confirm('¿Seguro que quieres borrarlo por completo? Esta acción no se puede deshacer.')">
                             <i class="fa-solid fa-trash"></i>
                         </a>
                     </td>
