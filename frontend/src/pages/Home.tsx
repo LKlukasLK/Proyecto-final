@@ -14,20 +14,20 @@ const Home = () => {
       </div>
 
       <div className="info-page-image-box">
-        <img src="/img/imagen3.jpg" alt="Superior" />
+        <img src="/imagen3.jpg" alt="Superior" />
       </div>
 
       <section className="info-page-content-center">
         <h2 className="ultra-title">Innovación y Estilo</h2>
         <p className="premium-text">
-          Descubre nuestra nueva colección de temporada. Materiales premium y 
+          Descubre nuestra nueva colección de temporada. Materiales premium y
           confección de alta calidad para destacar en cada momento.
         </p>
         <Link to="/catalogo" className="info-page-button">Comprar Ahora</Link>
       </section>
 
       <div className="info-page-image-box">
-        <img src="/img/imagen1.jpg" alt="Inferior" />
+        <img src="/imagen1.jpg" alt="Inferior" />
       </div>
     </main>
   );

@@ -26,6 +26,9 @@ const Navbar = () => {
         <div className="nav-group right">
           {user ? (
             <>
+              {user.rol === 'admin' && (
+                <Link to="/admin" className="nav-btn" style={{ color: '#e74c3c' }}>⭐ PANEL ADMIN</Link>
+              )}
               <span className="nav-btn" style={{cursor:'default'}}>👤 {user.nombre}</span>
               <button onClick={() => { logout(); navigate('/'); }} className="nav-btn logout-btn">🚪 SALIR</button>
             </>

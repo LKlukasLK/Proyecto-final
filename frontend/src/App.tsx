@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import Registro from './pages/Registro';
 import Carrito from './pages/Carrito';
 import Disenadores from './pages/Disenadores';
+import AdminPanel from './pages/AdminPanel';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -21,6 +23,11 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
             <Route path="/carrito" element={<Carrito />} />
+            <Route path="/admin" element={
+              <ProtectedRoute roleRequired="admin">
+                <AdminPanel />
+              </ProtectedRoute>
+            } />
           </Routes>
         </main>
         <Footer />

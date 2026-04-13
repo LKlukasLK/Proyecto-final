@@ -35,3 +35,15 @@ export const authMiddleware = (
     res.status(401).json({ error: 'Token inválido o expirado' });
   }
 };
+
+export const adminMiddleware = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): void => {
+  if (req.user?.rol !== 'admin') {
+    res.status(403).json({ error: 'Prohibido: Se requieren permisos de administrador' });
+    return;
+  }
+  next();
+};

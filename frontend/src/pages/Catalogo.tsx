@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import apiClient from '../api/client';
-import { Producto } from '../types';
+import type { Producto } from '../types';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';

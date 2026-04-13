@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import apiClient from '../api/client';
-import { Disenador } from '../types';
+import type { Disenador } from '../types';
 
 const Disenadores = () => {
   const [disenadores, setDisenadores] = useState<Disenador[]>([]);
