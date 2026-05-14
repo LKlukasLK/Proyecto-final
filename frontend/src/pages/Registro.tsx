@@ -20,48 +20,51 @@ const Registro = () => {
   };
 
   return (
-    <div className="main-centered">
-      <div className="login-card">
-        <h2 className="section-title">CREAR TU CUENTA</h2>
+    <div className="flex justify-center items-start px-5 py-[50px]">
+      <div className="bg-white w-full max-w-[450px] p-10 rounded-lg shadow-lg text-center">
+        <h2 className="text-2xl mb-[30px] font-extrabold uppercase">CREAR TU CUENTA</h2>
         
-        {error && <div className="alerta" style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
+        {error && <div className="text-red-500 mb-3.75">{error}</div>}
 
         <form onSubmit={handleSubmit}>
-          <div className="field">
-            <label>NOMBRE COMPLETO</label>
+          <div className="text-left mb-5">
+            <label className="block text-xs font-bold uppercase mb-2">NOMBRE COMPLETO</label>
             <input 
               type="text" 
               required 
               value={nombre}
               onChange={e => setNombre(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded outline-none focus:border-black text-[15px]"
             />
           </div>
 
-          <div className="field">
-            <label>DIRECCIÓN DE CORREO</label>
+          <div className="text-left mb-5">
+            <label className="block text-xs font-bold uppercase mb-2">DIRECCIÓN DE CORREO</label>
             <input 
               type="email" 
               required 
               value={email}
               onChange={e => setEmail(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded outline-none focus:border-black text-[15px]"
             />
           </div>
           
-          <div className="field">
-            <label>CONTRASEÑA</label>
+          <div className="text-left mb-5">
+            <label className="block text-xs font-bold uppercase mb-2">CONTRASEÑA</label>
             <input 
               type="password" 
               required 
               value={contrasena}
               onChange={e => setContrasena(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded outline-none focus:border-black text-[15px]"
             />
           </div>
 
-          <button type="submit" className="btn-black">UNIRSE AHORA</button>
+          <button type="submit" className="w-full bg-black text-white py-3.75 border-none rounded font-bold uppercase cursor-pointer mt-2.5 transition-colors hover:bg-gray-800">UNIRSE AHORA</button>
         </form>
 
-        <div className="extra-actions">
-          <Link to="/login" className="link-register">¿Ya eres member? Inicia sesión</Link>
+        <div className="mt-5 pt-5 border-t border-gray-200">
+          <Link to="/login" className="text-black font-bold no-underline hover:underline">¿Ya eres member? Inicia sesión</Link>
         </div>
       </div>
     </div>

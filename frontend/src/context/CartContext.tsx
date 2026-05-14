@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import { ItemCarrito } from '../types';
+import type { ItemCarrito } from '../types';
 import apiClient from '../api/client';
 import { AuthContext } from './AuthContext';
 

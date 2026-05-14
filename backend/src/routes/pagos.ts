@@ -17,6 +17,10 @@ router.post('/preparar', async (req: AuthRequest, res: Response): Promise<void> 
   }
 
   try {
+    if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY === 'sk_test_...') {
+      throw new Error('Stripe secret key no configurada en el backend');
+    }
+
     // 1. Crear pedido en BD con estado pendiente
     const [result] = await pool.query<any>(
       `INSERT INTO pedidos (id_usuario, fecha_pedido, total, estado)
@@ -41,7 +45,7 @@ router.post('/preparar', async (req: AuthRequest, res: Response): Promise<void> 
     );
 
     // 4. Crear sesión de Stripe
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
       apiVersion: '2023-10-16' as any,
     });
 
@@ -49,21 +53,23 @@ router.post('/preparar', async (req: AuthRequest, res: Response): Promise<void> 
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'eur',
-            product_data: {
-              name: `Mercado Ropa – Pedido #${orderId}`,
-            },
-            unit_amount: Math.round(total * 100),
+      line_items: items.map((item: any) => ({
+        price_data: {
+          currency: 'eur',
+          product_data: {
+            name: item.nombre,
           },
-          quantity: 1,
+          unit_amount: Math.round(item.precio * 100),
         },
-      ],
+        quantity: item.cantidad,
+      })),
       mode: 'payment',
+      metadata: {
+        orderId: orderId.toString(),
+        userId: idUsuario.toString(),
+      },
       success_url: `${baseUrl}/pago-exitoso?id=${orderId}`,
-      cancel_url:  `${baseUrl}/carrito`,
+      cancel_url: `${baseUrl}/carrito`,
     });
 
     res.json({ url: session.url, orderId });

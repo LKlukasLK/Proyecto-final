@@ -8,6 +8,7 @@ import authRouter from './routes/auth';
 import carritoRouter from './routes/carrito';
 import disenadoresRouter from './routes/disenadores';
 import pagosRouter from './routes/pagos';
+import adminRouter from './routes/admin';
 
 dotenv.config();
 
@@ -22,7 +23,7 @@ app.use(cors({
 app.use(express.json());
 
 // ── Archivos estáticos (imágenes de productos) ───────────────
-const imgPath = path.join(__dirname, '../../public/img');
+const imgPath = path.join(__dirname, '../public/img');
 app.use('/img', express.static(imgPath));
 
 // ── Rutas API ──────────────────────────────────────────────
@@ -31,6 +32,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/carrito', carritoRouter);
 app.use('/api/disenadores', disenadoresRouter);
 app.use('/api/pagos', pagosRouter);
+app.use('/api/admin', adminRouter);
 
 // ── Health check ───────────────────────────────────────────
 app.get('/api/health', (_req, res) => {
