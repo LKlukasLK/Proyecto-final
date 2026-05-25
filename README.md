@@ -1,6 +1,6 @@
 # Mercado Ropa
 
-Proyecto full-stack para una tienda de moda online llamada Mercado Ropa.
+Proyecto full-stack para una tienda de moda online llamada Manalma.
 
 ## Descripción
 
